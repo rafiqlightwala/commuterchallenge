@@ -1,0 +1,1 @@
+Readme content for app (frontend) goes here
