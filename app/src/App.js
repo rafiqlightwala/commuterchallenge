@@ -81,7 +81,7 @@ const CommuterChallenge = () => {
     <div className="container">
       <h1>Commuter Challenge</h1>
       <p>
-        Join us in the commuter challenge by providing event details and
+        Join us at the commuter challenge by providing event details and
         selecting your country, province, city, and adding participants
         representing their companies!
       </p>
