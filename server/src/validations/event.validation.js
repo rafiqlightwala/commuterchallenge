@@ -4,8 +4,8 @@ const { dateString } = require('./custom.validation');
 const createEvent = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    to: Joi.string().custom(dateString).required(),
-    from: Joi.string().custom(dateString).required(),
+    startDate: Joi.string().custom(dateString).required(),
+    endDate: Joi.string().custom(dateString).required(),
   }),
 };
 
