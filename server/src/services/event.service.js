@@ -1,17 +1,31 @@
 const httpStatus = require('http-status');
-const { Event } = require('../models');
-//const ApiError = require('../utils/ApiError');
+const { Event, City } = require('../models');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a user
  * @param {Object} eventBody
  * @returns {Promise<Event>}
  */
+
 const createEvent = async (eventBody) => {
-  // if (await Event.isEmailTaken(userBody.email)) {
-  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  // }
-  return Event.create(eventBody);
+  // Convert city names to IDs
+  const cityNames = eventBody.cities;
+  const uniqueCityNames = [...new Set(cityNames)]; // Remove duplicates
+
+  // Find cities with case-insensitive search
+  const cityDocuments = await Promise.all(uniqueCityNames.map(async (name) => {
+    return City.findOne({ name: new RegExp('^' + name + '$', 'i') });
+  }));
+
+  // Filter out null values and get IDs
+  const validCityDocuments = cityDocuments.filter(doc => doc != null);
+  if (validCityDocuments.length !== uniqueCityNames.length) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'One or more city names are invalid');
+  }
+
+  const cityIds = validCityDocuments.map(city => city._id);
+  return Event.create({ ...eventBody, cities: cityIds });
 };
 
 // /**

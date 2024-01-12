@@ -24,6 +24,11 @@ const eventSchema = mongoose.Schema(
         }
       },
     },
+    cities: [{
+      type: mongoose.Schema.Types.ObjectId, // Reference to city IDs
+      ref: 'City', // Assuming 'City' is the name of your city model
+      required: true,
+    }],
     eventDays: {
       type: Number,
     }

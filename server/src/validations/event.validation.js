@@ -6,6 +6,7 @@ const createEvent = {
     name: Joi.string().required(),
     startDate: Joi.string().custom(dateString).required(),
     endDate: Joi.string().custom(dateString).required(),
+    cities: Joi.array().items(Joi.string().required()).required() 
   }),
 };
 
