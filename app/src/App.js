@@ -9,6 +9,13 @@ function App() {
   const [eventData, setEventData] = useState(null);
   const [eventErrorData, setEventErrorData] = useState(null);
 
+  const canadaProvinces = ["Ontario", "Quebec", "Alberta", "British Columbia"]; // Add more provinces
+  const canadaCities = {
+    Ontario: ["Toronto", "Ottawa", "Hamilton"],
+    Alberta: ["Calgary", "Edmonton", "Red Deer"],
+    Quebec: ["Montreal", "Quebec City", "Sherbrooke"],
+    "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
+  }; // Add more cities for each province
 
   const addEvent = async (eventName, startingDate, endingDate) => {
 
@@ -35,14 +42,21 @@ function App() {
         //throw new Error(`Request failed with status ${response.status}`);
       } else {
         setEventData(returnedData);
-        setEventName(""); // Reset eventName to an empty string
-        setStartDate(""); // Reset startDate to an empty string
-        setEndDate("");
       }
+
+      setEventName(""); // Reset eventName to an empty string
+      setStartDate(""); // Reset startDate to an empty string
+      setEndDate("");
+      setSelectedCountry(""); // Reset selectedCountry to an empty string
+      setSelectedProvince(""); // Reset selectedProvince to an empty string
+      setSelectedCity(""); // Reset selectedCity to an empty string
 
       //console.log(returnedData);
   };
   
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
   const handleCreateEventClick = () => {
     setShowForm(true);
@@ -52,7 +66,6 @@ function App() {
     e.preventDefault();
     // Perform event submission logic here (you can add more validation if needed)
     // For this example, we'll just set the event as created
-    addEvent(eventName, startDate, endDate)
   };
 
   return (
@@ -91,6 +104,56 @@ function App() {
             />
           </label>
           <br />
+          <label>
+            Country:
+            <select
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              required
+            >
+              <option value="">Select Country</option>
+              <option value="Canada">Canada</option>
+              {/* Add more countries if needed */}
+            </select>
+          </label>
+          <br />
+          {selectedCountry === "Canada" && (
+            <>
+              <label>
+                Province:
+                <select
+                  value={selectedProvince}
+                  onChange={(e) => setSelectedProvince(e.target.value)}
+                  required
+                >
+                  <option value="">Select Province</option>
+                  {canadaProvinces.map((province, index) => (
+                    <option key={index} value={province}>
+                      {province}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <br />
+              <label>
+                City:
+                <select
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  required
+                >
+                  <option value="">Select City</option>
+                  {selectedProvince &&
+                    canadaCities[selectedProvince].map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                </select>
+              </label>
+              <br />
+            </>
+          )}
           <button type="submit">Submit</button>
         </form>
       )}
