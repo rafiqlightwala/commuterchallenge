@@ -20,7 +20,7 @@ const eventSchema = mongoose.Schema(
       required: true,
       validate(value) {
         if (this.startDate && value < this.startDate) {
-          throw new Error('End date must be on or after start date');
+          throw new ValidationError('End date must be on or after start date');
         }
       },
     },

@@ -62,8 +62,18 @@ function App() {
     setShowForm(true);
   };
 
+
+  const clearUserMessages = () => {
+    setEventData(null);
+    setEventErrorData(null);
+  };
+  
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    clearUserMessages();
+    addEvent(eventName, startDate, endDate)
     // Perform event submission logic here (you can add more validation if needed)
     // For this example, we'll just set the event as created
   };
