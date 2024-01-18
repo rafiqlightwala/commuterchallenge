@@ -17,43 +17,48 @@ function App() {
     "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
   }; // Add more cities for each province
 
-  const addEvent = async (eventName, startingDate, endingDate) => {
+  const addEvent = async (
+    eventName,
+    startingDate,
+    endingDate,
+    selectedCities
+  ) => {
+    const response = await fetch("http://localhost:4000/v1/events", {
+      method: "POST",
+      body: JSON.stringify({
+        name: eventName,
+        startDate: startingDate,
+        endDate: endingDate,
+        cities: selectedCities,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      const response = await fetch('http://localhost:4000/v1/events', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: eventName,
-          startDate: startingDate,
-          endDate: endingDate,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-      });
-  
-      //console.log('Response status code:', response.status); 
-      const returnedData = await response.json();
+    // console.log("Response status code:", response.status);
+    const returnedData = await response.json();
 
-      if (response.status !== 201) {
-        // Handle non-201 status
-        setEventErrorData(returnedData);
-        console.log(returnedData.message)
-        // Optionally, you can throw an error or return early
-        //throw new Error(`Request failed with status ${response.status}`);
-      } else {
-        setEventData(returnedData);
-      }
+    if (response.status !== 201) {
+      // Handle non-201 status
+      setEventErrorData(returnedData);
+      console.log(returnedData.message);
+      // Optionally, you can throw an error or return early
+      //throw new Error(`Request failed with status ${response.status}`);
+    } else {
+      setEventData(returnedData);
+    }
 
-      setEventName(""); // Reset eventName to an empty string
-      setStartDate(""); // Reset startDate to an empty string
-      setEndDate("");
-      setSelectedCountry(""); // Reset selectedCountry to an empty string
-      setSelectedProvince(""); // Reset selectedProvince to an empty string
-      setSelectedCity(""); // Reset selectedCity to an empty string
+    setEventName(""); // Reset eventName to an empty string
+    setStartDate(""); // Reset startDate to an empty string
+    setEndDate("");
+    setSelectedCountry(""); // Reset selectedCountry to an empty string
+    setSelectedProvince(""); // Reset selectedProvince to an empty string
+    setSelectedCity(""); // Reset selectedCity to an empty string
 
-      //console.log(returnedData);
+    //console.log(returnedData);
   };
-  
+
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -62,18 +67,16 @@ function App() {
     setShowForm(true);
   };
 
-
   const clearUserMessages = () => {
     setEventData(null);
     setEventErrorData(null);
   };
-  
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     clearUserMessages();
-    addEvent(eventName, startDate, endDate)
+    const selectedCities = [selectedCity];
+    addEvent(eventName, startDate, endDate, selectedCities);
     // Perform event submission logic here (you can add more validation if needed)
     // For this example, we'll just set the event as created
   };
@@ -168,10 +171,10 @@ function App() {
         </form>
       )}
 
-      {eventData && <p> Your event with {eventData.eventDays} days has been created</p>}
+      {eventData && (
+        <p> Your event with {eventData.eventDays} days has been created</p>
+      )}
       {eventErrorData && <p>{eventErrorData.message}</p>}
-        
-
     </div>
   );
 }
