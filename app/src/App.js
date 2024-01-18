@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -9,13 +9,48 @@ function App() {
   const [eventData, setEventData] = useState(null);
   const [eventErrorData, setEventErrorData] = useState(null);
 
-  const canadaProvinces = ["Ontario", "Quebec", "Alberta", "British Columbia"]; // Add more provinces
-  const canadaCities = {
-    Ontario: ["Toronto", "Ottawa", "Hamilton"],
-    Alberta: ["Calgary", "Edmonton", "Red Deer"],
-    Quebec: ["Montreal", "Quebec City", "Sherbrooke"],
-    "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
-  }; // Add more cities for each province
+  //To show
+  const [countriesArray, setCountriesArray] = useState([]);
+  const [provincesArray, setProvincesArray] = useState({});
+  const [citiesArray, setCitiesArray] = useState({});
+
+  //Selected
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  // const countriesArray = ["Canada"]
+  // const provincesArray = {
+  //   Canada: ["Ontario", "Quebec", "Alberta", "British Columbia"]
+  //   "United States": ["Florida", "Georgia"]
+  // } // Add more provinces
+  // const citiesArray = {
+  //   Ontario: ["Toronto", "Ottawa", "Hamilton"],
+  //   Alberta: ["Calgary", "Edmonton", "Red Deer"],
+  //   Quebec: ["Montreal", "Quebec City", "Sherbrooke"],
+  //   "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
+  // }; // Add more cities for each province
+
+  const getLocations = async () => {
+    const response = await fetch("http://localhost:4000/v1/utility/locations", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // console.log("Response status code:", response.status);
+    const returnedData = await response.json();
+
+    console.log(returnedData)
+    const { countriesArr, provincesArr, citiesArr } = transformLocationData(returnedData);
+
+    // Update the state variables
+    setCountriesArray(countriesArr);
+    setProvincesArray(provincesArr);
+    setCitiesArray(citiesArr);
+
+  };
 
   const addEvent = async (
     eventName,
@@ -59,9 +94,45 @@ function App() {
     //console.log(returnedData);
   };
 
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const transformLocationData = (locationData) => {
+    const countriesArr = [];
+    const provincesArr = {};
+    const citiesArr = {};
+  
+    locationData.countries.forEach(country => {
+      // Add country name to countriesArray
+      countriesArr.push(country.name);
+  
+      // Initialize provincesArray entry for this country
+      provincesArr[country.name] = [];
+  
+      // Iterate over provinces of the country
+      country.provinces.forEach(province => {
+        // Add province name to provincesArray under the country
+        provincesArr[country.name].push(province.name);
+  
+        // Initialize citiesArray entry for this province
+        citiesArr[province.name] = [];
+  
+        // Iterate over cities of the province
+        province.cities.forEach(city => {
+          console.log(city)
+          // Add city name to citiesArray under the province
+          citiesArr[province.name].push(city);
+        });
+      });
+    });
+  
+    return {
+      countriesArr,
+      provincesArr,
+      citiesArr
+    };
+  };
+
+  useEffect(() => {
+    getLocations(); // Step 2: Call getLocations on component mount
+  }, []);
 
   const handleCreateEventClick = () => {
     setShowForm(true);
@@ -125,12 +196,16 @@ function App() {
               required
             >
               <option value="">Select Country</option>
-              <option value="Canada">Canada</option>
+              {countriesArray && countriesArray.map((country, index) => (
+                      <option key={index} value={country}>
+                        {country}
+                      </option>
+                    ))}
               {/* Add more countries if needed */}
             </select>
           </label>
           <br />
-          {selectedCountry === "Canada" && (
+          {selectedCountry !== "" && (
             <>
               <label>
                 Province:
@@ -140,11 +215,12 @@ function App() {
                   required
                 >
                   <option value="">Select Province</option>
-                  {canadaProvinces.map((province, index) => (
-                    <option key={index} value={province}>
-                      {province}
-                    </option>
-                  ))}
+                  {selectedCountry &&
+                    provincesArray[selectedCountry].map((province, index) => (
+                      <option key={index} value={province}>
+                        {province}
+                      </option>
+                    ))}
                 </select>
               </label>
               <br />
@@ -157,7 +233,7 @@ function App() {
                 >
                   <option value="">Select City</option>
                   {selectedProvince &&
-                    canadaCities[selectedProvince].map((city, index) => (
+                    citiesArray[selectedProvince].map((city, index) => (
                       <option key={index} value={city}>
                         {city}
                       </option>
