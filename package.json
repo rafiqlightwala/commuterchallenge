@@ -2,7 +2,7 @@
   "name": "Commuter Challenge App and Server",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"cd app && npm start\" \"cd server && npm start\"",
+    "start": "concurrently \"cd server && npm start\" \"cd app && npm start\"",
     "start-app": "cd app && npm start",
     "start-server": "cd server && npm start"
   },
