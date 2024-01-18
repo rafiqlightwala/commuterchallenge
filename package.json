@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently \"cd server && npm start\" \"cd app && npm start\"",
+    "install-all": "concurrently \"cd server && npm install\" \"cd app && npm install\"",
     "start-app": "cd app && npm start",
     "start-server": "cd server && npm start"
   },
