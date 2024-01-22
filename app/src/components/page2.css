@@ -1,0 +1,10 @@
+
+.Page2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    font-family: Arial bold;
+    background-color:pink;
+  }
