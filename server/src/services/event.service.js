@@ -22,12 +22,18 @@ const createEvent = async (eventBody) => {
   }
   const cityIds = validCityDocuments.map(city => city._id);
 
+  const escapeRegExp = (string) => {
+    // Escaping special characters for use in a regular expression
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');  // $& means the whole matched string
+  };
   // Handle commuter mode names
   const commuterModeNames = eventBody.commuterModes || [];
+  console.log(commuterModeNames)
   const uniqueCommuterModeNames = [...new Set(commuterModeNames)];
 
   const commuterModeDocuments = await Promise.all(uniqueCommuterModeNames.map(async (name) => {
-    return CommuterMode.findOne({ name: new RegExp('^' + name + '$', 'i') });
+    const escapedName = escapeRegExp(name); // Escape special characters for regex
+    return CommuterMode.findOne({ name: new RegExp('^' + escapedName + '$', 'i') });
   }));
 
   const validCommuterModeDocuments = commuterModeDocuments.filter(doc => doc != null);
