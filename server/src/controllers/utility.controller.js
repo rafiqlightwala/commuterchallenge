@@ -8,6 +8,12 @@ const getLocations = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(locations);
 });
 
+const getCommuterModes = catchAsync(async (req, res) => {
+  const commuterModes = await utilityService.getCommuterModes();
+  res.status(httpStatus.OK).send(commuterModes);
+});
+
 module.exports = {
   getLocations,
+  getCommuterModes
 };
