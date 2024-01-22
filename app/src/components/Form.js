@@ -13,12 +13,13 @@ function Form() {
   const [countriesArray, setCountriesArray] = useState([]);
   const [provincesArray, setProvincesArray] = useState({});
   const [citiesArray, setCitiesArray] = useState({});
+  const [commuterModesArray, setCommuterModesArray] = useState([])
 
   //Selected
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [selectedMode, setSelectedMode] = useState("");
+  const [selectedCommuterMode, setSelectedCommuterModes] = useState("");
 
   // const countriesArray = ["Canada"]
   // const provincesArray = {
@@ -32,24 +33,24 @@ function Form() {
   //   "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
   // }; // Add more cities for each province
 
-  const modesOptions = [
-    "Drive Alone",
-    "Work from home",
-    "Walk or Run",
-    "Carpool (2 people)",
-    "Carpool (3 or more people)",
-    "Transit Bus or Train",
-    "Scooter",
-    "Motorcycle",
-    "Car Share",
-    "Electric Vehicle",
-    "Ski",
-    "Skate",
-    "Snowshoe",
-    "Bike",
-    "Dog sled",
-    "Other",
-  ];
+  // const modesOptions = [
+  //   "Drive Alone",
+  //   "Work from home",
+  //   "Walk or Run",
+  //   "Carpool (2 people)",
+  //   "Carpool (3 or more people)",
+  //   "Transit Bus or Train",
+  //   "Scooter",
+  //   "Motorcycle",
+  //   "Car Share",
+  //   "Electric Vehicle",
+  //   "Ski",
+  //   "Skate",
+  //   "Snowshoe",
+  //   "Bike",
+  //   "Dog sled",
+  //   "Other",
+  // ];
 
   const getLocations = async () => {
     const response = await fetch("http://localhost:4000/v1/utility/locations", {
@@ -62,7 +63,7 @@ function Form() {
     // console.log("Response status code:", response.status);
     const returnedData = await response.json();
 
-    console.log(returnedData);
+    //console.log(returnedData);
     const { countriesArr, provincesArr, citiesArr } =
       transformLocationData(returnedData);
 
@@ -72,12 +73,28 @@ function Form() {
     setCitiesArray(citiesArr);
   };
 
+  const getCommuterModes = async () => {
+    const response = await fetch("http://localhost:4000/v1/utility/commutermodes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // console.log("Response status code:", response.status);
+    const returnedData = await response.json();
+
+    //console.log(returnedData);
+    // Update the state variables
+    setCommuterModesArray(returnedData.commuterModes);
+  };
+
   const addEvent = async (
     eventName,
     startingDate,
     endingDate,
     selectedCities,
-    selectedMode
+    selectedCommuterModes
   ) => {
     const response = await fetch("http://localhost:4000/v1/events", {
       method: "POST",
@@ -86,7 +103,7 @@ function Form() {
         startDate: startingDate,
         endDate: endingDate,
         cities: selectedCities,
-        mode: selectedMode,
+        commuterModes: selectedCommuterModes,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +129,7 @@ function Form() {
     setSelectedCountry(""); // Reset selectedCountry to an empty string
     setSelectedProvince(""); // Reset selectedProvince to an empty string
     setSelectedCity(""); // Reset selectedCity to an empty string
-    setSelectedMode("");
+    setSelectedCommuterModes("");
 
     //console.log(returnedData);
   };
@@ -154,7 +171,8 @@ function Form() {
   };
 
   useEffect(() => {
-    getLocations(); // Step 2: Call getLocations on component mount
+    getLocations();
+    getCommuterModes();
   }, []);
 
   const handleCreateEventClick = () => {
@@ -170,7 +188,8 @@ function Form() {
     e.preventDefault();
     clearUserMessages();
     const selectedCities = [selectedCity];
-    addEvent(eventName, startDate, endDate, selectedCities, selectedMode);
+    const selectedCommuterModesFinal = [selectedCommuterMode]
+    addEvent(eventName, startDate, endDate, selectedCities, selectedCommuterModesFinal);
     // Perform event submission logic here (you can add more validation if needed)
     // For this example, we'll just set the event as created
   };
@@ -270,12 +289,12 @@ function Form() {
               <label>
                 Mode:
                 <select
-                  value={selectedMode}
-                  onChange={(e) => setSelectedMode(e.target.value)}
+                  value={selectedCommuterMode}
+                  onChange={(e) => setSelectedCommuterModes(e.target.value)}
                   required
                 >
-                  <option value="">Select Mode</option>
-                  {modesOptions.map((mode, index) => (
+                  <option value="">Select Modes</option>
+                  {commuterModesArray.map((mode, index) => (
                     <option key={index} value={mode}>
                       {mode}
                     </option>
