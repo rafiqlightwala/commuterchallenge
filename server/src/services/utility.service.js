@@ -1,6 +1,7 @@
 const Country = require('../models/country.model');
 const Province = require('../models/province.model');
 const City = require('../models/city.model');
+const CommuterMode = require('../models/commuterMode.model');
 
 const getLocations = async () => {
   const countries = await Country.find();
@@ -20,6 +21,14 @@ const getLocations = async () => {
   return { countries: formattedCountries }; // Wrap the result in an object with a "countries" key
 };
 
+const getCommuterModes = async () => {
+  const commuterModeDocuments = await CommuterMode.find({}, 'name'); // Retrieve all commuter modes with only the 'name' field
+  const commuterModes = commuterModeDocuments.map(mode => mode.name); // Extract the name from each document
+
+  return { commuterModes }; // Wrap the result in an object with a "commuterModes" key
+};
+
 module.exports = {
   getLocations,
+  getCommuterModes
 };

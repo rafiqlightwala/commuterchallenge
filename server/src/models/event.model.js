@@ -25,9 +25,13 @@ const eventSchema = mongoose.Schema(
       },
     },
     cities: [{
-      type: mongoose.Schema.Types.ObjectId, // Reference to city IDs
-      ref: 'City', // Assuming 'City' is the name of your city model
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'City', 
       required: true,
+    }],
+    commuterModes: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'CommuterMode',  
     }],
     eventDays: {
       type: Number,

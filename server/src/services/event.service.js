@@ -1,32 +1,49 @@
 const httpStatus = require('http-status');
-const { Event, City } = require('../models');
+const { Event, City, CommuterMode } = require('../models'); // Ensure CommuterMode is imported
 const ApiError = require('../utils/ApiError');
 
 /**
- * Create a user
+ * Create an event
  * @param {Object} eventBody
  * @returns {Promise<Event>}
  */
-
 const createEvent = async (eventBody) => {
-  // Convert city names to IDs
-  const cityNames = eventBody.cities;
-  const uniqueCityNames = [...new Set(cityNames)]; // Remove duplicates
+  // Handle city names
+  const cityNames = eventBody.cities || [];
+  const uniqueCityNames = [...new Set(cityNames)];
 
-  // Find cities with case-insensitive search
   const cityDocuments = await Promise.all(uniqueCityNames.map(async (name) => {
     return City.findOne({ name: new RegExp('^' + name + '$', 'i') });
   }));
 
-  // Filter out null values and get IDs
   const validCityDocuments = cityDocuments.filter(doc => doc != null);
   if (validCityDocuments.length !== uniqueCityNames.length) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'One or more city names are invalid');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'One or more City names are invalid');
   }
-
   const cityIds = validCityDocuments.map(city => city._id);
-  return Event.create({ ...eventBody, cities: cityIds });
+
+  // Handle commuter mode names
+  const commuterModeNames = eventBody.commuterModes || [];
+  const uniqueCommuterModeNames = [...new Set(commuterModeNames)];
+
+  const commuterModeDocuments = await Promise.all(uniqueCommuterModeNames.map(async (name) => {
+    return CommuterMode.findOne({ name: new RegExp('^' + name + '$', 'i') });
+  }));
+
+  const validCommuterModeDocuments = commuterModeDocuments.filter(doc => doc != null);
+  if (validCommuterModeDocuments.length !== uniqueCommuterModeNames.length) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'One or more Commuter Modes are invalid');
+  }
+  const commuterModeIds = validCommuterModeDocuments.map(mode => mode._id);
+
+  // Create the event with city and commuter mode IDs
+  return Event.create({ ...eventBody, cities: cityIds, commuterModes: commuterModeIds });
 };
+
+module.exports = {
+  createEvent,
+};
+
 
 // /**
 //  * Query for users
@@ -92,7 +109,3 @@ const createEvent = async (eventBody) => {
 //   await user.remove();
 //   return user;
 // };
-
-module.exports = {
-  createEvent,
-};

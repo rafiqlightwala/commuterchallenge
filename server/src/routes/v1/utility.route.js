@@ -6,6 +6,10 @@ router
   .route('/locations')
   .get(utilityController.getLocations);
 
+router
+  .route('/commutermodes')
+  .get(utilityController.getCommuterModes);
+
 // Add more routes as needed for provinces and cities
 
 module.exports = router;
