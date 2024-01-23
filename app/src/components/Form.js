@@ -13,7 +13,7 @@ function Form() {
   const [countriesArray, setCountriesArray] = useState([]);
   const [provincesArray, setProvincesArray] = useState({});
   const [citiesArray, setCitiesArray] = useState({});
-  const [commuterModesArray, setCommuterModesArray] = useState([])
+  const [commuterModesArray, setCommuterModesArray] = useState([]);
 
   //Selected
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -74,12 +74,15 @@ function Form() {
   };
 
   const getCommuterModes = async () => {
-    const response = await fetch("http://localhost:4000/v1/utility/commutermodes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://localhost:4000/v1/utility/commutermodes",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     // console.log("Response status code:", response.status);
     const returnedData = await response.json();
@@ -188,8 +191,14 @@ function Form() {
     e.preventDefault();
     clearUserMessages();
     const selectedCities = [selectedCity];
-    const selectedCommuterModesFinal = [selectedCommuterMode]
-    addEvent(eventName, startDate, endDate, selectedCities, selectedCommuterModesFinal);
+    const selectedCommuterModesFinal = [selectedCommuterMode];
+    addEvent(
+      eventName,
+      startDate,
+      endDate,
+      selectedCities,
+      selectedCommuterModesFinal
+    );
     // Perform event submission logic here (you can add more validation if needed)
     // For this example, we'll just set the event as created
   };
