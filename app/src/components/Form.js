@@ -181,7 +181,7 @@ function Form() {
     <div className="Form">
       {!showForm ? (
         <button className="CreateEventButton" onClick={handleCreateEventClick}>
-          Create an Event
+          Create Your Event
         </button>
       ) : (
         <form onSubmit={handleSubmit}>

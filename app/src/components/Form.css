@@ -1,6 +1,6 @@
 /* Form.css */
 
-.FormContainer {
+.Form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +12,7 @@
   max-width: 400px;
   margin: 0 auto;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 label {
