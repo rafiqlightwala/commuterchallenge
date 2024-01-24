@@ -3,12 +3,11 @@
 .Form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 3px solid #747578;
   border-radius: 10px;
-  background-color: #f0f0f0;
+  background-color: #e9ebf1;
   max-width: 400px;
   margin: 0 auto;
   margin-top: 50px;
@@ -24,26 +23,22 @@ input[type="date"] {
   padding: 8px;
   margin-bottom: 15px;
   width: 100%; /* Make the input fields expand to the container width */
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid #ccc;
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
-  font-size: 30px;
+  font-size: 15px;
   cursor: pointer;
   background-color: #8ed400;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  margin-top: 20px;
+  border-radius: 10px;
 }
 
 button[type="submit"]:hover {
-  background-color: #5c9b00; /* Darker green color on hover */
+  background-color: #ff7a00; /* Darker green color on hover */
 }
-
-
 
 .CreateEventButton {
   padding: 10px 15px; /* Adjust padding to make the button smaller */
@@ -52,41 +47,42 @@ button[type="submit"]:hover {
   background-color: #8ed400;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 40px; /* Add margin to create space between the button and other components */
+  font-weight: bold;
 }
 
 .CreateEventButton:hover {
-  background-color: #5c9b00; /* Darker green color on hover */
+  background-color: #ff7a00; /* Darker green color on hover */
 }
 
 /* Styling for dropdowns (you can customize as needed) */
 .DropdownContainer {
   position: relative;
-  width: 100%;
-  margin-bottom: 15px;
+  width: auto;
+  margin-bottom: 20px;
+  display: inline-block; /* Display inline or inline-block to position horizontally */
+  margin-right: 15px; /* Add margin for spacing between dropdowns */
+  padding: 5px;
 }
 
 .DropdownHeader {
   padding: 8px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none;
   cursor: pointer;
   background-color: #8ed400; /* Green background color */
   color: #fff; /* White text color */
 }
 
 .DropdownHeader:hover {
-  background-color: #5c9b00; /* Darker green color on hover */
+  background-color: #ff7a00; /* Darker green color on hover */
 }
 
 .DropdownContent {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+  position: static;
+  width: auto;
   max-height: 150px;
   overflow-y: auto;
   border-radius: 5px;
@@ -99,6 +95,11 @@ button[type="submit"]:hover {
 .DropdownContent label {
   display: block;
   padding: 8px;
+  font-size: 30px;
+}
+
+.DropdownContent label:hover {
+  background-color: #ddd; /* Lighter background color on hover */
 }
 
 /* Optional: Add styling for the checkbox itself */

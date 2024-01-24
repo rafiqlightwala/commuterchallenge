@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css"; // Import the CSS file
+import Englishf from './english-flag.png'; 
 
 const NavBar = () => {
   const sections = [
@@ -18,7 +19,7 @@ const NavBar = () => {
           <li key={index}>{section}</li>
         ))}
         <li className="flag">
-          <img src="/english-flag.png" alt="English Flag" />
+          <img src={Englishf} alt="English Flag" />
           <span>English</span>
         </li>
         <li className="flag">
