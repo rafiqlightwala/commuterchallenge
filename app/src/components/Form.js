@@ -9,48 +9,23 @@ function Form() {
   const [eventData, setEventData] = useState(null);
   const [eventErrorData, setEventErrorData] = useState(null);
 
-  //To show
+  // To show
   const [countriesArray, setCountriesArray] = useState([]);
   const [provincesArray, setProvincesArray] = useState({});
   const [citiesArray, setCitiesArray] = useState({});
   const [commuterModesArray, setCommuterModesArray] = useState([]);
 
-  //Selected
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedCommuterMode, setSelectedCommuterModes] = useState("");
+  // Selected
+  const [selectedCountry, setSelectedCountry] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState([]);
+  const [selectedCity, setSelectedCity] = useState([]);
+  const [selectedCommuterModes, setSelectedCommuterModes] = useState([]);
 
-  // const countriesArray = ["Canada"]
-  // const provincesArray = {
-  //   Canada: ["Ontario", "Quebec", "Alberta", "British Columbia"]
-  //   "United States": ["Florida", "Georgia"]
-  // } // Add more provinces
-  // const citiesArray = {
-  //   Ontario: ["Toronto", "Ottawa", "Hamilton"],
-  //   Alberta: ["Calgary", "Edmonton", "Red Deer"],
-  //   Quebec: ["Montreal", "Quebec City", "Sherbrooke"],
-  //   "British Columbia": ["Vancouver", "Victoria", "Kelowna"],
-  // }; // Add more cities for each province
-
-  // const modesOptions = [
-  //   "Drive Alone",
-  //   "Work from home",
-  //   "Walk or Run",
-  //   "Carpool (2 people)",
-  //   "Carpool (3 or more people)",
-  //   "Transit Bus or Train",
-  //   "Scooter",
-  //   "Motorcycle",
-  //   "Car Share",
-  //   "Electric Vehicle",
-  //   "Ski",
-  //   "Skate",
-  //   "Snowshoe",
-  //   "Bike",
-  //   "Dog sled",
-  //   "Other",
-  // ];
+  // Dropdown open/close state
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [isProvinceDropdownOpen, setIsProvinceDropdownOpen] = useState(false);
+  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
+  const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false);
 
   const getLocations = async () => {
     const response = await fetch("http://localhost:4000/v1/utility/locations", {
@@ -60,10 +35,8 @@ function Form() {
       },
     });
 
-    // console.log("Response status code:", response.status);
     const returnedData = await response.json();
 
-    //console.log(returnedData);
     const { countriesArr, provincesArr, citiesArr } =
       transformLocationData(returnedData);
 
@@ -84,10 +57,8 @@ function Form() {
       }
     );
 
-    // console.log("Response status code:", response.status);
     const returnedData = await response.json();
 
-    //console.log(returnedData);
     // Update the state variables
     setCommuterModesArray(returnedData.commuterModes);
   };
@@ -113,28 +84,29 @@ function Form() {
       },
     });
 
-    // console.log("Response status code:", response.status);
     const returnedData = await response.json();
 
     if (response.status !== 201) {
       // Handle non-201 status
       setEventErrorData(returnedData);
       console.log(returnedData.message);
-      // Optionally, you can throw an error or return early
-      //throw new Error(`Request failed with status ${response.status}`);
     } else {
       setEventData(returnedData);
     }
 
-    setEventName(""); // Reset eventName to an empty string
-    setStartDate(""); // Reset startDate to an empty string
+    // Reset form fields
+    setEventName("");
+    setStartDate("");
     setEndDate("");
-    setSelectedCountry(""); // Reset selectedCountry to an empty string
-    setSelectedProvince(""); // Reset selectedProvince to an empty string
-    setSelectedCity(""); // Reset selectedCity to an empty string
-    setSelectedCommuterModes("");
-
-    //console.log(returnedData);
+    setSelectedCountry([]);
+    setSelectedProvince([]);
+    setSelectedCity([]);
+    setSelectedCommuterModes([]);
+    // Close dropdowns
+    setIsCountryDropdownOpen(false);
+    setIsProvinceDropdownOpen(false);
+    setIsCityDropdownOpen(false);
+    setIsModeDropdownOpen(false);
   };
 
   const transformLocationData = (locationData) => {
@@ -143,24 +115,14 @@ function Form() {
     const citiesArr = {};
 
     locationData.countries.forEach((country) => {
-      // Add country name to countriesArray
       countriesArr.push(country.name);
-
-      // Initialize provincesArray entry for this country
       provincesArr[country.name] = [];
 
-      // Iterate over provinces of the country
       country.provinces.forEach((province) => {
-        // Add province name to provincesArray under the country
         provincesArr[country.name].push(province.name);
-
-        // Initialize citiesArray entry for this province
         citiesArr[province.name] = [];
 
-        // Iterate over cities of the province
         province.cities.forEach((city) => {
-          console.log(city);
-          // Add city name to citiesArray under the province
           citiesArr[province.name].push(city);
         });
       });
@@ -187,24 +149,36 @@ function Form() {
     setEventErrorData(null);
   };
 
+  const handleCheckboxChange = (value, stateSetter) => {
+    stateSetter((prevValues) =>
+      prevValues.includes(value)
+        ? prevValues.filter((prevValue) => prevValue !== value)
+        : [...prevValues, value]
+    );
+  };
+
+  const handleDropdownToggle = (dropdownState, setDropdownState) => {
+    setDropdownState((prevState) => !prevState);
+  };
+
+  const handleDropdownClose = (setDropdownState) => {
+    setDropdownState(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     clearUserMessages();
-    const selectedCities = [selectedCity];
-    const selectedCommuterModesFinal = [selectedCommuterMode];
     addEvent(
       eventName,
       startDate,
       endDate,
-      selectedCities,
-      selectedCommuterModesFinal
+      selectedCity,
+      selectedCommuterModes
     );
-    // Perform event submission logic here (you can add more validation if needed)
-    // For this example, we'll just set the event as created
   };
 
   return (
-    <div className="App">
+    <div className="Form">
       {!showForm ? (
         <button className="CreateEventButton" onClick={handleCreateEventClick}>
           Create an Event
@@ -243,82 +217,190 @@ function Form() {
           <br />
           <label>
             Country:
-            <select
-              value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
-              required
-            >
-              <option value="">Select Country</option>
-              {countriesArray &&
-                countriesArray.map((country, index) => (
-                  <option key={index} value={country}>
-                    {country}
-                  </option>
-                ))}
-              {/* Add more countries if needed */}
-            </select>
+            <div className="DropdownContainer">
+              <div
+                className="DropdownHeader"
+                onClick={() =>
+                  handleDropdownToggle(
+                    isCountryDropdownOpen,
+                    setIsCountryDropdownOpen
+                  )
+                }
+              >
+                {selectedCountry.length > 0
+                  ? `Selected (${selectedCountry.length})`
+                  : "Select Country"}
+              </div>
+              {isCountryDropdownOpen && (
+                <div className="DropdownContent">
+                  {countriesArray.map((country, index) => (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        value={country}
+                        checked={selectedCountry.includes(country)}
+                        onChange={() =>
+                          handleCheckboxChange(
+                            country,
+                            setSelectedCountry,
+                            () => handleDropdownClose(setIsCountryDropdownOpen)
+                          )
+                        }
+                      />
+                      <label>{country}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </label>
           <br />
-          {selectedCountry !== "" && (
+          {selectedCountry.length > 0 && (
             <>
               <label>
                 Province:
-                <select
-                  value={selectedProvince}
-                  onChange={(e) => setSelectedProvince(e.target.value)}
-                  required
-                >
-                  <option value="">Select Province</option>
-                  {selectedCountry &&
-                    provincesArray[selectedCountry].map((province, index) => (
-                      <option key={index} value={province}>
-                        {province}
-                      </option>
-                    ))}
-                </select>
+                <div className="DropdownContainer">
+                  <div
+                    className="DropdownHeader"
+                    onClick={() =>
+                      handleDropdownToggle(
+                        isProvinceDropdownOpen,
+                        setIsProvinceDropdownOpen
+                      )
+                    }
+                  >
+                    {selectedProvince.length > 0
+                      ? `Selected (${selectedProvince.length})`
+                      : "Select Province"}
+                  </div>
+                  {isProvinceDropdownOpen && (
+                    <div className="DropdownContent">
+                      {selectedCountry.map((country, index) => (
+                        <div key={index}>
+                          {provincesArray[country] &&
+                            provincesArray[country].map((province, idx) => (
+                              <div key={idx}>
+                                <input
+                                  type="checkbox"
+                                  value={province}
+                                  checked={selectedProvince.includes(province)}
+                                  onChange={() =>
+                                    handleCheckboxChange(
+                                      province,
+                                      setSelectedProvince,
+                                      () =>
+                                        handleDropdownClose(
+                                          setIsProvinceDropdownOpen
+                                        )
+                                    )
+                                  }
+                                />
+                                <label>{province}</label>
+                              </div>
+                            ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </label>
               <br />
               <label>
                 City:
-                <select
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  required
-                >
-                  <option value="">Select City</option>
-                  {selectedProvince &&
-                    citiesArray[selectedProvince].map((city, index) => (
-                      <option key={index} value={city}>
-                        {city}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <br />
-              <label>
-                Mode:
-                <select
-                  value={selectedCommuterMode}
-                  onChange={(e) => setSelectedCommuterModes(e.target.value)}
-                  required
-                >
-                  <option value="">Select Modes</option>
-                  {commuterModesArray.map((mode, index) => (
-                    <option key={index} value={mode}>
-                      {mode}
-                    </option>
-                  ))}
-                </select>
+                <div className="DropdownContainer">
+                  <div
+                    className="DropdownHeader"
+                    onClick={() =>
+                      handleDropdownToggle(
+                        isCityDropdownOpen,
+                        setIsCityDropdownOpen
+                      )
+                    }
+                  >
+                    {selectedCity.length > 0
+                      ? `Selected (${selectedCity.length})`
+                      : "Select City"}
+                  </div>
+                  {isCityDropdownOpen && (
+                    <div className="DropdownContent">
+                      {selectedProvince.map((province, index) => (
+                        <div key={index}>
+                          {citiesArray[province] &&
+                            citiesArray[province].map((city, idx) => (
+                              <div key={idx}>
+                                <input
+                                  type="checkbox"
+                                  value={city}
+                                  checked={selectedCity.includes(city)}
+                                  onChange={() =>
+                                    handleCheckboxChange(
+                                      city,
+                                      setSelectedCity,
+                                      () =>
+                                        handleDropdownClose(
+                                          setIsCityDropdownOpen
+                                        )
+                                    )
+                                  }
+                                />
+                                <label>{city}</label>
+                              </div>
+                            ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </label>
               <br />
             </>
           )}
+          <label>
+            Mode:
+            <div className="DropdownContainer">
+              <div
+                className="DropdownHeader"
+                onClick={() =>
+                  handleDropdownToggle(
+                    isModeDropdownOpen,
+                    setIsModeDropdownOpen
+                  )
+                }
+              >
+                {selectedCommuterModes.length > 0
+                  ? `Selected (${selectedCommuterModes.length})`
+                  : "Select Mode"}
+              </div>
+              {isModeDropdownOpen && (
+                <div className="DropdownContent">
+                  {commuterModesArray.map((mode, index) => (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        value={mode}
+                        checked={selectedCommuterModes.includes(mode)}
+                        onChange={() =>
+                          handleCheckboxChange(
+                            mode,
+                            setSelectedCommuterModes,
+                            () => handleDropdownClose(setIsModeDropdownOpen)
+                          )
+                        }
+                      />
+                      <label>{mode}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </label>
+          <br />
           <button type="submit">Submit</button>
         </form>
       )}
 
       {eventData && (
-        <p> Your event with {eventData.eventDays} days has been created</p>
+        <p>Your event with {eventData.eventDays} days has been created</p>
       )}
       {eventErrorData && <p>{eventErrorData.message}</p>}
     </div>
