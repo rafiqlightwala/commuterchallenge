@@ -1,4 +1,5 @@
-// script.js
+import { getCommuterModes } from './api.js';
+
 document.addEventListener("DOMContentLoaded", function () {
   // NavBar Component
   const navbarSections = [
@@ -187,4 +188,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
   additionalSection.appendChild(additionalSectionTitleDiv);
   additionalSection.appendChild(additionalSectionContentDiv);
+
+  fetchCommuterModes();
+
 });
+
+
+async function fetchCommuterModes() {
+  try {
+      const commuterModesArray = await getCommuterModes();
+      console.log(commuterModesArray);
+      // Now you can call setCommuterModesArray or any other logic you need
+      // setCommuterModesArray(commuterModesArray);
+  } catch (error) {
+      console.error('Error fetching commuter modes:', error);
+  }
+}
