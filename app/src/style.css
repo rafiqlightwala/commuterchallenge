@@ -1,347 +1,296 @@
 body, html {
-    margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    background-color: #ffffff;
-    text-align: center;
-  }
-  
-  @keyframes slideIn {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(360%);
-    }
-  }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
-    margin-left: 35px;
-  }
-  
-  .logo-container img {
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-top: 15px;
-    height: auto;
-    max-width: 100%;
-    animation: slideIn 15s linear infinite; /* Adjust the duration and easing as needed */
-  }
-  
-  .date-and-languages {
-    text-align: right;
-    margin-top: 30px;
-    margin-right: 35px;
-    cursor: pointer;
-  }
-  
-  .dates {
-    font-size: 30px;
-    color: #ff7900;
-  }
-  
-  .languages span {
-    margin-right: 10px;
-  }
-  
-  .languages img {
-    margin-right: 5px;
-  }
-  
-  .languages {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    margin-top: 30px;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-    background-color: #747578;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    width: 100%;
-  }
-  
-  ul {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  li {
-    margin-right: 50px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  li.flag {
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    margin-left: 20px;
-  }
-  
-  li.flag img {
-    height: 35px;
-    width: 35px;
-    margin-right: 5px;
-  }
-  
-  li.logo-container {
-    margin-right: auto;
-  }
-  
-  li:hover {
-    color: #8ED400;
-  }
-  
-  .photo-slider {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .photo-slider img {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-  }
-  
-  .overlay-text {
-    position: absolute;
-    text-align: center;
-    z-index: 2;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #ffffff;
-    font-size: 80px;
-    font-weight: bold;
-    white-space: nowrap;
-    background-color: rgba(0, 0, 0, 0.6);
-    width: 100%;
-    height: 49%;
-    margin: 0 auto;
-  }
-  
-  .overlay-text-date {
-    position: absolute;
-    text-align: center;
-    z-index: 2;
-    top: 58%;
-    left: 71%;
-    transform: translate(-50%, -50%);
-    color: #ff7900;
-    font-size: 80px;
-    font-weight: bold;
-    white-space: nowrap;
-  }
-  
-  .overlay-text-date button {
-    position: absolute;
-    text-align: center;
-    z-index: 2;
-    top: 85%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-    color: #ff7900;
-    font-size: 30px;
-    font-weight: bold;
-    background-color: #ffffff;
-    border: none;
-    cursor: pointer;
-    border-radius: 100px;
-    width: 280px;
-    height: 50px;
-  }
-  
-  .overlay-text-date button:hover {
-    background-color: #8ED400;
-    color: #ffffff;
-  }
-  
-  .events-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 25px;
-  }
-  
-  .events-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 10px;
-  }
-  
-  .event {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .event img {
-    height: auto;
-  }
-  
-  .event-info {
-    margin-top: 10px;
-  }
-  
-  .action-button-event {
-    background-color: transparent;
-    color: #ff7900;
-    border: 4px solid #ff7900;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 22px;
-    border-radius: 25px;
-    width: 225px; /* Set a fixed width or adjust as needed */
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .action-button-event:hover {
-    background-color: #8ED400;
-    color: #ffffff;
-    border: none;
-  }
-  
-  
-  .event p {
-    margin: 0;
-    font-size: 25px;
-    color: #747578;
-  }
-  
-  .events-title {
-    text-align: left; /* Align the title to the left */
-    margin-left: 35px; /* Adjust the left margin as needed */
-  }
-  
-  .events-title h2 {
-    font-size: 30px;
-    color: #747578;
-    border-bottom: 3px solid #747578; /* Add a 2px solid line at the bottom with the specified color */
-    padding-bottom: 12px; /* Add some padding for spacing */
-    margin-left: 25px; /* Adjust the left margin as needed */
-    width: 95%;
-  }
-  
-  .commuter-challenge-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-  }
-  
-  .commuter-challenge-title {
-    text-align: left;
-    margin-left: 35px;
-  }
-  
-  .commuter-challenge-title h2 {
-    font-size: 30px;
-    color: #747578;
-    border-bottom: 3px solid #747578;
-    padding-bottom: 12px;
-    margin-left: 35px;
-    width: 95%;
-  }
-  
-  .commuter-challenge-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 10px;
-  }
-  
-  .commuter-challenge-button {
-    margin-top: 20px;
-    background-color: #ff7900;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 22px;
-    border-radius: 25px;
-    height: 100px;
-    width: 185px;
-    margin-bottom: 50px;
-  }
-  
-  .commuter-challenge-button:hover {
-    background-color: #8ED400;
-  }
-  
-  .additional-section-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-  }
-  
-  .additional-section-title {
-    text-align: center;
-    margin-left: 35px;
-  }
-  
-  .additional-section-title h2 {
-    font-size: 30px;
-    color: #747578;
-    border-bottom: 3px solid #747578;
-    padding-bottom: 12px;
-    margin-left: 35px;
-    width: 95%;
-  }
-  
-  .additional-section-left img {
-    width: 40%; /* Adjust the width as needed */
-    height: auto;
-    margin-right: 30px;
-    margin-top: 20px;
-  }
-  
-  .additional-section-right {
-    max-width: 800px;
-    flex-grow: 1; /* Allow the right section to grow and take available space */
-  }
-  
-  .section-body {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  
-  
-  .action-button-additional {
-    background-color: #ff7900;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 22px;
-    border-radius: 25px;
-    width: 75%;
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .action-button-additional:hover {
-    background-color: #8ED400;
-    color: #ffffff;
-    border: none;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: Tahoma, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Header and Navigation Bar */
+header {
+  background-color: #747578; /* Navbar background color */
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.logo-container img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+nav li {
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+nav li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav li a:hover {
+  color: #ff7900;
+}
+
+/* Photo Slider */
+.photo-slider {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-slider img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Events Section */
+#eventsSection {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.events-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.event img {
+  max-width: 300px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.event .event-name, .event .event-dates {
+  font-size: 18px;
+  color: #747578;
+  margin 5px 0;
+  min-height: 40px;
+}
+
+/* Event Buttons */
+.action-button-event {
+  background-color: transparent;
+  color: #ff7900;
+  border: 4px solid #ff7900;
+  cursor: pointer;
+  padding: 10px 10px;
+  font-size: 20px;
+  border-radius: 25px;
+  width: 180px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.action-button-event:hover {
+  color: #8ED400;
+  border: 4px solid #8ED400;
+}
+
+/* Registration Section */
+#commuterChallenge {
+  background-color: #8ED400;
+  text-align: center;
+  padding: 20px;
+}
+
+.commuter-challenge-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.challenge-button {
+  background-color: transparent;
+  color: #ff7900;
+  border: 4px solid #ff7900;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 22px;
+  border-radius: 25px;
+  width: 225px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.challenge-button:hover {
+  background-color: #8ED400;
+  color: #ffffff;
+  border: none;
+}
+
+/* Commuter Challenge Canada Section */
+#commuterChallengeCanada {
+  background-color: #747578;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.challenge-canada-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.challenge-photo img {
+  width: 100%;
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+.challenge-info {
+  max-width: 300px;
+}
+
+.challenge-dropdown {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+/* Contact Form */
+#contact {
+  background-color: #ff7a00;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  height: 100px;
+}
+
+/* Footer */
+footer {
+  background-color: black;
+  color: white;
+  text-align:
+}
+
+.challenge-text {
+  color: white; /* White color for the challenge text */
+  font-size: 40px; /* Adjust font size as needed */
+}
+
+.date-text {
+  color: #8ED400; /* Orange color for the date text */
+  font-size: 40px; /* Adjust font size as needed */
+}
+
+.photo-slider {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-slider .slide {
+  position: relative;
+  width: 100%; /* Ensures the slide takes the full width of the container */
+  height: 650px;
+}
+
+.photo-slider img {
+  width: 100%; /* Ensures the image stretches to the full width of the slide */
+  height: auto; /* Maintains the aspect ratio of the image */
+  object-fit: cover; /* Ensures the image covers the slide area */
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #8ED400; /* Adjust text color as needed */
+  text-align: center;
+  font-size: 25px;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background 
+  border-radius: 10px; /* Optional: adds rounded corners */
+  z-index: 2; /* Ensures the overlay is above the image */
+  width: 100%; /* Adjust the width as needed */
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  font-weight: bold;
+}
+
+.slide-date {
+  font-size: 13px;
+  margin-bottom: 0;
+  font-weight: bold;
+  text-align: right;
+}
+
+.slide-button {
+  background-color: transparent;
+  color: #ffffff;
+  border: 4px solid #8ED400;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 25px;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 0;
+  font-weight: bold;
+}
+
+.slide-button:hover {
+  background-color: transparent;
+  color: #ffffff;
+  border: 4px solid #ff7900;
+}
