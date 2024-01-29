@@ -92,48 +92,47 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupSelectAllFunctionality("selectAllProvinces", "provinceDropdown"); // Setup select all functionality
   }
 
-// Function to filter cities based on selected provinces
-function filterCitiesBySelectedProvinces() {
-  const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
-  const cityDropdown = document.getElementById("cityDropdown");
-  const anyProvinceSelected = selectedProvinces.length > 0;
+  // Function to filter cities based on selected provinces
+  function filterCitiesBySelectedProvinces() {
+    const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
+    const cityDropdown = document.getElementById("cityDropdown");
+    const anyProvinceSelected = selectedProvinces.length > 0;
 
-  cityDropdown.innerHTML = ""; // Clear the cities dropdown only once here
-  if (anyProvinceSelected) {
+    cityDropdown.innerHTML = ""; // Clear the cities dropdown only once here
+    if (anyProvinceSelected) {
       // Add 'Select All' option if any province is selected, only once here
       addSelectAllOption(cityDropdown, "selectAllCities", "Select All Cities");
 
       selectedProvinces.forEach((province) => {
-          populateCities(province); // Call this to populate cities when a province is selected
+        populateCities(province); // Call this to populate cities when a province is selected
       });
 
       setupSelectAllFunctionality("selectAllCities", "cityDropdown"); // Setup select all functionality for cities
-  } else {
+    } else {
       //cityDropdown.style.display = "none"; // Hide the dropdown if no province is selected
+    }
   }
-}
 
-// Populate cities
-function populateCities(province) {
-  const cityDropdown = document.getElementById("cityDropdown");
+  // Populate cities
+  function populateCities(province) {
+    const cityDropdown = document.getElementById("cityDropdown");
 
-  if (citiesArr[province]) {
+    if (citiesArr[province]) {
       // Ensure the province has cities
       citiesArr[province].forEach((city) => {
-          const div = document.createElement("div");
-          div.classList.add("City");
-          const checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.value = city;
-          const label = document.createElement("label");
-          label.textContent = city;
-          div.appendChild(checkbox);
-          div.appendChild(label);
-          cityDropdown.appendChild(div);
+        const div = document.createElement("div");
+        div.classList.add("City");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = city;
+        const label = document.createElement("label");
+        label.textContent = city;
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        cityDropdown.appendChild(div);
       });
+    }
   }
-}
-
 
   // Function to add Select All option
   function addSelectAllOption(dropdown, selectAllId, labelContent) {
@@ -207,9 +206,6 @@ function populateCities(province) {
     );
   }
 
-  setupSelectAllFunctionality("selectAllProvinces", "provinceDropdown");
-  setupSelectAllFunctionality("selectAllCities", "cityDropdown");
-
   function getSelectedCheckboxValues(dropdownContentId) {
     const checkboxes = document.querySelectorAll(
       `#${dropdownContentId} input[type="checkbox"]:checked`
@@ -243,12 +239,15 @@ function populateCities(province) {
   endDateInput.addEventListener("change", checkDateValidity);
 
   // Handling form submission
-  eventForm.addEventListener("submit", function (event) {
+  eventForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const eventName = eventNameInput.value;
     const startDate = startDateInput.value;
     const endDate = endDateInput.value;
+    const selectedCities = getSelectedCheckboxValues("cityDropdown");
+    const selectedModes = getSelectedCheckboxValues("modeDropdown");
+    
 
     if (!validateDates(startDate, endDate)) {
       dateErrorMessage.textContent =
@@ -256,14 +255,23 @@ function populateCities(province) {
       return;
     }
 
-    const selectedCountries = getSelectedCheckboxValues("countryDropdown");
-    const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
-    const selectedCities = getSelectedCheckboxValues("cityDropdown");
-    console.log(selectedCities);
-    // Additional form data processing can be added here
+    const returnedData = await addEvent(
+      eventName,
+      startDate,
+      endDate,
+      selectedCities,
+      selectedModes
+    );
 
-    confirmationMessage.textContent = `Your event '${eventName}' scheduled from ${startDate} to ${endDate} has been registered.`;
-    confirmationMessage.style.color = "black";
+    if (returnedData.error) {
+      //Additional form data processing can be added here
+      confirmationMessage.textContent = returnedData.message;
+      confirmationMessage.style.color = "red";
+    } else {
+      //Additional form data processing can be added here
+      confirmationMessage.textContent = `Your event '${eventName}' scheduled from ${startDate} to ${endDate} has been registered.`;
+      confirmationMessage.style.color = "green";
+    }
 
     clearForm();
   });
@@ -297,28 +305,3 @@ function populateCities(province) {
     });
   }
 });
-
-// Function to handle adding an event
-async function submitEvent(
-  eventName,
-  startingDate,
-  endingDate,
-  selectedCities,
-  selectedCommuterModes
-) {
-  try {
-    const eventData = await addEvent(
-      eventName,
-      startingDate,
-      endingDate,
-      selectedCities,
-      selectedCommuterModes
-    );
-    console.log(eventData);
-    // Handle the response
-    // setEventData(eventData);
-    // handle any additional logic or state updates
-  } catch (error) {
-    console.error("Error submitting event:", error);
-  }
-}

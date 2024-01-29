@@ -28,9 +28,10 @@ export async function addEvent(
   
       if (response.status !== 201) {
         // Handle non-201 status
-        console.log(returnedData.message);
-        return { error: returnedData };
+        returnedData.error = true
+        return returnedData;
       } else {
+        returnedData.error = false
         return returnedData;
       }
     } catch (error) {
