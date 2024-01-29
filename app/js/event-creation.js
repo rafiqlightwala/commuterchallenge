@@ -14,27 +14,33 @@ document.addEventListener("DOMContentLoaded", function () {
     createEventButton.style.display = "none";
   });
 
+  const countries = [
+    "Canada",
+    "United States"
+  ]
   // Country, provinces, and cities data
   const canadaProvinces = [
     "Alberta",
-    "British Columbia",
     "Manitoba",
     //... other provinces
   ];
   const CanadaCities = {
     Alberta: ["Calgary", "Edmonton"],
+    Manitoba: ["Winnipeg", "Brandon"]
     //... other cities for each province
   };
 
   // Populate countries
   function populateCountries() {
     const countryDropdown = document.getElementById("countryDropdown");
-    const countries = ["Canada"]; // Add more countries if needed
     countries.forEach((country) => {
       const div = document.createElement("div");
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.value = country;
+      checkbox.addEventListener("change", function() {
+        toggleProvincesDisplay(this.value, this.checked);
+      });
       const label = document.createElement("label");
       label.textContent = country;
       div.appendChild(checkbox);
@@ -42,10 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
       countryDropdown.appendChild(div);
     });
   }
+  
+  function toggleProvincesDisplay(country, isVisible) {
+    const provinceDropdown = document.getElementById("provinceDropdown");
+    if (country === "Canada") {
+      provinceDropdown.style.display = isVisible ? "block" : "none";
+    }
+    // Add similar conditions if you have other countries with provinces.
+  }
+  
 
   // Populate provinces
   function populateProvinces() {
     const provinceDropdown = document.getElementById("provinceDropdown");
+    provinceDropdown.style.display = "none"; 
     addSelectAllOption(
       provinceDropdown,
       "selectAllProvinces",
@@ -57,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.value = province;
+      checkbox.addEventListener("change", filterCitiesBySelectedProvinces); // Added event listener
       const label = document.createElement("label");
       label.textContent = province;
       div.appendChild(checkbox);
@@ -102,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
   populateCountries();
   populateProvinces();
   populateCities();
+  filterCitiesBySelectedProvinces();
 
   // Function to setup select all functionality
   function setupSelectAllFunctionality(selectAllId, dropdownId) {
@@ -140,13 +158,25 @@ document.addEventListener("DOMContentLoaded", function () {
   setupSelectAllFunctionality("selectAllCities", "cityDropdown");
 
   // Function to filter cities based on selected provinces
-  function filterCitiesBySelectedProvinces() {
-    const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
-    document.querySelectorAll(".City").forEach((cityElement) => {
-      const cityProvince = cityElement.classList.contains(selectedProvinces);
-      cityElement.style.display = cityProvince ? "block" : "none";
+function filterCitiesBySelectedProvinces() {
+  const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
+  const cityDropdown = document.getElementById("cityDropdown");
+  const anyProvinceSelected = selectedProvinces.length > 0;
+  
+  // Show or hide the city dropdown based on whether any province is selected
+  cityDropdown.style.display = anyProvinceSelected ? "block" : "none";
+
+  document.querySelectorAll(".City").forEach((cityElement) => {
+    let isCityDisplayed = false;
+    selectedProvinces.forEach((province) => {
+      if (cityElement.classList.contains(province)) {
+        isCityDisplayed = true;
+      }
     });
-  }
+    cityElement.style.display = isCityDisplayed ? "block" : "none";
+  });
+}
+  
 
   function getSelectedCheckboxValues(dropdownContentId) {
     const checkboxes = document.querySelectorAll(
@@ -194,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedCountries = getSelectedCheckboxValues("countryDropdown");
     const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
+    console.log(selectedCities)
     // Additional form data processing can be added here
 
     confirmationMessage.textContent = `Your event '${eventName}' scheduled from ${startDate} to ${endDate} has been registered.`;
