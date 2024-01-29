@@ -19,20 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
     "Alberta",
     "British Columbia",
     "Manitoba",
-    "New Brunswick",
-    "Newfoundland and Labrador",
-    "Northwest Territories",
-    "Nova Scotia",
-    "Nunavut",
-    "Ontario",
-    "Prince Edward Island",
-    "Quebec",
-    "Saskatchewan",
-    "Yukon",
+    //... other provinces
   ];
   const CanadaCities = {
-    Alberta: ["Calgary", "Edmonton", "Red Deer"],
-    // ... add other provinces and cities here ...
+    Alberta: ["Calgary", "Edmonton"],
+    //... other cities for each province
   };
 
   // Populate countries
@@ -112,89 +103,57 @@ document.addEventListener("DOMContentLoaded", function () {
   populateProvinces();
   populateCities();
 
-  // Attach event listeners to the select all checkboxes
-  setupSelectAllFunctionality("selectAllProvinces", "provinceDropdown");
-  setupSelectAllFunctionality("selectAllCities", "cityDropdown");
-
   // Function to setup select all functionality
   function setupSelectAllFunctionality(selectAllId, dropdownId) {
     const selectAllCheckbox = document.getElementById(selectAllId);
-    selectAllCheckbox.addEventListener("change", function (event) {
-      if (event.target === selectAllCheckbox) {
-        const checkboxes = document.querySelectorAll(
-          `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
-        );
-        checkboxes.forEach(
-          (checkbox) => (checkbox.checked = selectAllCheckbox.checked)
-        );
-        if (dropdownId === "provinceDropdown") {
-          filterCitiesBySelectedProvinces();
-        }
+    selectAllCheckbox.addEventListener("click", function (event) {
+      if (event.target !== this) return;
+
+      const checkboxes = document.querySelectorAll(
+        `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
+      );
+      checkboxes.forEach((checkbox) => (checkbox.checked = this.checked));
+
+      if (dropdownId === "provinceDropdown") {
+        filterCitiesBySelectedProvinces();
       }
     });
 
     const checkboxes = document.querySelectorAll(
       `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
     );
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", function () {
-        selectAllCheckbox.checked = areAllCheckboxesChecked(checkboxes);
-        if (dropdownId === "provinceDropdown") {
-          filterCitiesBySelectedProvinces();
-        }
-      });
-    });
+    checkboxes.forEach((checkbox) =>
+      checkbox.addEventListener("change", updateSelectAllCheckbox)
+    );
+
+    function updateSelectAllCheckbox() {
+      const allCheckboxes = document.querySelectorAll(
+        `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
+      );
+      const allChecked = Array.from(allCheckboxes).every((cb) => cb.checked);
+      const selectAll = document.getElementById(selectAllId);
+      selectAll.checked = allChecked;
+    }
   }
 
-  function areAllCheckboxesChecked(checkboxes) {
-    return Array.from(checkboxes).every((cb) => cb.checked);
-  }
+  setupSelectAllFunctionality("selectAllProvinces", "provinceDropdown");
+  setupSelectAllFunctionality("selectAllCities", "cityDropdown");
 
   // Function to filter cities based on selected provinces
   function filterCitiesBySelectedProvinces() {
     const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
     document.querySelectorAll(".City").forEach((cityElement) => {
-      const cityProvince = cityElement.className.split(" ")[1];
-      cityElement.style.display = selectedProvinces.includes(cityProvince)
-        ? "block"
-        : "none";
+      const cityProvince = cityElement.classList.contains(selectedProvinces);
+      cityElement.style.display = cityProvince ? "block" : "none";
     });
   }
 
-  function attachProvinceCheckboxListeners() {
-    document
-      .querySelectorAll(
-        '#provinceDropdown input[type="checkbox"]:not(#selectAllProvinces)'
-      )
-      .forEach((checkbox) => {
-        checkbox.addEventListener("change", filterCitiesBySelectedProvinces);
-      });
-  }
-
-  attachProvinceCheckboxListeners();
-
-  // Function to collect all selected checkboxes' values in a dropdown
   function getSelectedCheckboxValues(dropdownContentId) {
     const checkboxes = document.querySelectorAll(
       `#${dropdownContentId} input[type="checkbox"]:checked`
     );
     return Array.from(checkboxes).map((checkbox) => checkbox.value);
   }
-
-  // Function to toggle dropdowns
-  function toggleDropdown(dropdownId) {
-    const dropdown = document.getElementById(dropdownId);
-    dropdown.style.display =
-      dropdown.style.display === "block" ? "none" : "block";
-  }
-
-  // Attach event listeners to dropdown headers
-  document.querySelectorAll(".DropdownHeader").forEach((header) => {
-    header.addEventListener("click", function () {
-      const dropdownId = header.getAttribute("data-target");
-      toggleDropdown(dropdownId);
-    });
-  });
 
   // Function to validate date inputs
   function validateDates(startDate, endDate) {
@@ -235,15 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedCountries = getSelectedCheckboxValues("countryDropdown");
     const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
-    const selectedModes = getSelectedCheckboxValues("modeDropdown");
-
-    console.log("Event Name:", eventName);
-    console.log("Start Date:", startDate);
-    console.log("End Date:", endDate);
-    console.log("Selected Countries:", selectedCountries);
-    console.log("Selected Provinces:", selectedProvinces);
-    console.log("Selected Cities:", selectedCities);
-    console.log("Selected Modes:", selectedModes);
+    // Additional form data processing can be added here
 
     confirmationMessage.textContent = `Your event '${eventName}' scheduled from ${startDate} to ${endDate} has been registered.`;
     confirmationMessage.style.color = "black";
