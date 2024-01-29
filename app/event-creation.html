@@ -34,6 +34,7 @@
           ></span>
         </label>
         <br />
+
         <!-- Country Dropdown -->
         <label>
           Country:
@@ -42,19 +43,13 @@
               Select Country
             </div>
             <div class="DropdownContent" id="countryDropdown">
-              <div>
-                <input type="checkbox" value="Canada" /> <label>Canada</label>
-              </div>
-              <div>
-                <input type="checkbox" value="USA" /> <label>USA</label>
-              </div>
-              <!-- ... other countries -->
+              <!-- Countries will be populated here -->
             </div>
           </div>
         </label>
         <br />
 
-        <!-- Province Dropdown -->
+        <!-- Province Dropdown (Dynamically Populated) -->
         <label>
           Province:
           <div class="DropdownContainer">
@@ -62,24 +57,13 @@
               Select Province
             </div>
             <div class="DropdownContent" id="provinceDropdown">
-              <div>
-                <input type="checkbox" id="selectAllProvinces" />
-                <label>Select All Provinces</label>
-              </div>
-              <div>
-                <input type="checkbox" value="Alberta" /> <label>Alberta</label>
-              </div>
-              <div>
-                <input type="checkbox" value="British Columbia" />
-                <label>British Columbia</label>
-              </div>
-              <!-- ... other provinces -->
+              <!-- Provinces will be populated here -->
             </div>
           </div>
         </label>
         <br />
 
-        <!-- City Dropdown -->
+        <!-- City Dropdown (Dynamically Populated) -->
         <label>
           City:
           <div class="DropdownContainer">
@@ -87,32 +71,13 @@
               Select City
             </div>
             <div class="DropdownContent" id="cityDropdown">
-              <div>
-                <input type="checkbox" id="selectAllCities" />
-                <label>Select All Cities</label>
-              </div>
-              <!-- Cities in Alberta -->
-              <div class="City Alberta">
-                <input type="checkbox" value="Calgary" /> <label>Calgary</label>
-              </div>
-              <div class="City Alberta">
-                <input type="checkbox" value="Edmonton" />
-                <label>Edmonton</label>
-              </div>
-              <!-- Cities in British Columbia -->
-              <div class="City British Columbia">
-                <input type="checkbox" value="Vancouver" />
-                <label>Vancouver</label>
-              </div>
-              <div class="City British Columbia">
-                <input type="checkbox" value="Victoria" />
-                <label>Victoria</label>
-              </div>
-              <!-- ... other cities -->
+              <!-- Cities will be populated here -->
             </div>
           </div>
         </label>
         <br />
+
+        <!-- Mode Dropdown -->
         <label>
           Mode:
           <div class="DropdownContainer">
@@ -120,10 +85,6 @@
               Select Mode
             </div>
             <div class="DropdownContent" id="modeDropdown">
-              <div>
-                <input type="checkbox" id="selectAllModes" />
-                <label>Select All Modes</label>
-              </div>
               <div>
                 <input type="checkbox" value="Drive Alone" />
                 <label>Drive Alone</label>
@@ -195,11 +156,7 @@
       <p id="eventErrorData"></p>
     </div>
 
-    <!-- ... (rest of your HTML) -->
-
     <p id="confirmationMessage"></p>
-
-    <!-- ... (rest of your HTML) -->
 
     <script src="js/event-creation.js"></script>
   </body>
