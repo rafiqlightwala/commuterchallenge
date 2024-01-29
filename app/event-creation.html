@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Form</title>
+    <link rel="stylesheet" type="text/css" href="./event-creation.css" />
+  </head>
+  <body>
+    <div class="Form">
+      <button class="CreateEventButton" id="createEventButton">
+        Create Your Event
+      </button>
+      <form id="eventForm" style="display: none">
+        <!-- Event Name Input -->
+        <label>
+          Event Name:
+          <input type="text" id="eventName" required />
+        </label>
+        <br />
+
+        <!-- Start Date Input -->
+        <label>
+          Start Date:
+          <input type="date" id="startDate" required />
+        </label>
+        <br />
+
+        <!-- End Date Input -->
+        <label>
+          End Date:
+          <input type="date" id="endDate" required />
+          <span
+            id="dateErrorMessage"
+            style="color: red; margin-left: 10px"
+          ></span>
+        </label>
+        <br />
+
+        <!-- Country Dropdown -->
+        <label>
+          Country:
+          <div class="DropdownContainer">
+            <div class="DropdownContent" id="countryDropdown">
+              <!-- Countries will be populated here -->
+            </div>
+          </div>
+        </label>
+        <br />
+
+        <!-- Province Dropdown (Dynamically Populated) -->
+        <label>
+          Province:
+          <div class="DropdownContainer">
+            <div class="DropdownContent" id="provinceDropdown">
+              <!-- Provinces will be populated here -->
+            </div>
+          </div>
+        </label>
+        <br />
+
+        <!-- City Dropdown (Dynamically Populated) -->
+        <label>
+          City:
+          <div class="DropdownContainer">
+            <div class="DropdownContent" id="cityDropdown">
+              <!-- Cities will be populated here -->
+            </div>
+          </div>
+        </label>
+        <br />
+
+        <!-- Mode Dropdown -->
+        <label>
+          Modes:
+          <div class="DropdownContainer">
+            <div class="DropdownContent" id="modeDropdown">
+              <!-- Commuter Modes will be populated here -->
+            </div>
+          </div>
+        </label>
+        <br />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <p id="eventData"></p>
+      <p id="eventErrorData"></p>
+    </div>
+
+    <p id="confirmationMessage"></p>
+
+    <script type="module" src="js/event-creation.js"></script>
+  </body>
+</html>

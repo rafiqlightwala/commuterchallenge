@@ -1,7 +1,4 @@
-import { getCommuterModes } from "./api.js";
-
 document.addEventListener("DOMContentLoaded", function () {
-
   // PhotoSlider Component
   const photoSlider = document.getElementById("photoSlider");
   const photos = [
@@ -53,18 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSlider();
   }, 3000);
 
-
-  //IGNORE THE FOLLOWING LINE IT IS JUST CHECKING CODE
-  fetchCommuterModes();
 });
 
-async function fetchCommuterModes() {
-  try {
-    const commuterModesArray = await getCommuterModes();
-    console.log(commuterModesArray);
-    // Now you can call setCommuterModesArray or any other logic you need
-    // setCommuterModesArray(commuterModesArray);
-  } catch (error) {
-    console.error("Error fetching commuter modes:", error);
-  }
-}
+
+
+window.openEventCreationForm = function () {
+  window.open("event-creation.html", "_blank");
+};
