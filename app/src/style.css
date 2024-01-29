@@ -1,3 +1,4 @@
+/* Global Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -15,13 +16,6 @@ header {
   text-align: center;
   color: white;
   padding: 20px;
-}
-
-.logo-container img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 100px;
 }
 
 nav {
@@ -53,24 +47,31 @@ nav li a:hover {
   color: #ff7900;
 }
 
-/* Photo Slider */
-.photo-slider {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Image Slider */
+.image-slider {
+  position: relative;
+  width: 100%;
+  height: 450px;
 }
 
-.photo-slider img {
+.slider-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
+  display: none; /* Hide all images initially */
+}
+
+.slider-image.active {
+  display: block; /* Only show the active image */
 }
 
 /* Events Section */
 #eventsSection {
   background-color: white;
-  text-align: center;
+  text-align: left;
   padding: 20px;
 }
 
@@ -100,8 +101,7 @@ nav li a:hover {
 .event .event-name, .event .event-dates {
   font-size: 18px;
   color: #747578;
-  margin 5px 0;
-  min-height: 40px;
+  margin: 5px 0; /* Uniform margin for name and dates */
 }
 
 /* Event Buttons */
@@ -115,7 +115,7 @@ nav li a:hover {
   border-radius: 25px;
   width: 180px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .action-button-event:hover {
@@ -125,8 +125,8 @@ nav li a:hover {
 
 /* Registration Section */
 #commuterChallenge {
-  background-color: #8ED400;
-  text-align: center;
+  background-color: #f7f7f7;
+  text-align: left;
   padding: 20px;
 }
 
@@ -138,8 +138,8 @@ nav li a:hover {
 
 .challenge-button {
   background-color: transparent;
-  color: #ff7900;
-  border: 4px solid #ff7900;
+  color: #8ED400;
+  border: 4px solid #8ED400;
   cursor: pointer;
   padding: 10px 15px;
   font-size: 22px;
@@ -147,19 +147,28 @@ nav li a:hover {
   width: 225px;
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .challenge-button:hover {
-  background-color: #8ED400;
-  color: #ffffff;
-  border: none;
+  background-color: transparent;
+  color: #ff7900;
+  border: 4px solid #ff7900;
+}
+
+.challenge-button i {
+  margin-bottom: 5px; /* Space between icon and text */
+  font-size: 30px;
 }
 
 /* Commuter Challenge Canada Section */
 #commuterChallengeCanada {
-  background-color: #747578;
-  color: white;
-  text-align: center;
+  background-color: #ffffff;
+  color: #000000;
+  text-align: left;
   padding: 20px;
 }
 
@@ -171,8 +180,9 @@ nav li a:hover {
 
 .challenge-photo img {
   width: 100%;
-  max-width: 300px;
+  max-width: 600px;
   margin-right: 20px;
+  height: 300px;
 }
 
 .challenge-info {
@@ -186,11 +196,27 @@ nav li a:hover {
 }
 
 /* Contact Form */
-#contact {
-  background-color: #ff7a00;
-  color: white;
-  text-align: center;
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+}
+
+.contact-photo img {
+  width: 90%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.contact-form {
+  flex: 1;
+  padding: 10px;
+  max-width: 500px;
+}
+
+#contact {
+  background-color: #f7f7f7;
 }
 
 .form-group {
@@ -202,95 +228,100 @@ nav li a:hover {
   margin-bottom: 5px;
 }
 
-.form-group input, .form-group textarea {
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.form-group textarea {
-  height: 100px;
+.submit-button {
+  background-color: #8ED400;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: #ff7900;
 }
 
 /* Footer */
 footer {
-  background-color: black;
+  background-color: #747578;
   color: white;
-  text-align:
-}
-
-.challenge-text {
-  color: white; /* White color for the challenge text */
-  font-size: 40px; /* Adjust font size as needed */
-}
-
-.date-text {
-  color: #8ED400; /* Orange color for the date text */
-  font-size: 40px; /* Adjust font size as needed */
-}
-
-.photo-slider {
-  overflow: hidden;
+  padding: 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-content > * {
+  flex: 1; /* Equal space distribution */
+  text-align: center;
+}
+
+/* Style the links in the footer */
+.footer-content a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s;
+}
+
+.footer-content a:hover {
+  color: #ff7900;
+}
+
+.social-media {
+  display: flex;
   justify-content: center;
 }
 
-.photo-slider .slide {
-  position: relative;
-  width: 100%; /* Ensures the slide takes the full width of the container */
-  height: 650px;
+.social-media i {
+  font-size: 26px;
+  margin: 0 10px;
 }
 
-.photo-slider img {
-  width: 100%; /* Ensures the image stretches to the full width of the slide */
-  height: auto; /* Maintains the aspect ratio of the image */
-  object-fit: cover; /* Ensures the image covers the slide area */
+.footer-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.slide-overlay {
-  position: absolute;
-  top: 85%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #8ED400; /* Adjust text color as needed */
-  text-align: center;
-  font-size: 25px;
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background 
-  border-radius: 10px; /* Optional: adds rounded corners */
-  z-index: 2; /* Ensures the overlay is above the image */
-  width: 100%; /* Adjust the width as needed */
-  display: flex; /* Enable flexbox */
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center children horizontally */
-  justify-content: center; /* Center children vertically */
-  font-weight: bold;
-}
-
-.slide-date {
-  font-size: 13px;
-  margin-bottom: 0;
-  font-weight: bold;
-  text-align: right;
-}
-
-.slide-button {
+.footer-button button {
   background-color: transparent;
   color: #ffffff;
   border: 4px solid #8ED400;
   cursor: pointer;
   padding: 10px 15px;
-  font-size: 20px;
+  font-size: 22px;
   border-radius: 25px;
-  text-align: center;
-  margin-bottom: 50px;
-  margin-top: 0;
-  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.slide-button:hover {
-  background-color: transparent;
-  color: #ffffff;
-  border: 4px solid #ff7900;
+.footer-button button:hover {
+  background-color: #ff7900;
+  border-color: #ff7900;
+}
+
+.footer-logo {
+  width: 50px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  /* Add responsive styles here */
 }
