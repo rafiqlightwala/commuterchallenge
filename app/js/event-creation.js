@@ -16,6 +16,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     createEventButton.style.display = "none";
   });
 
+  function openEventCreationForm() {
+    eventForm.style.display = "block"; // Show the form
+    createEventButton.style.display = "none"; // Optional: hide the button
+  
+    // Scroll to the form section
+    document.querySelector('.form-section').scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  }
+  
   let countriesArr = [];
   let provincesArr = {};
   let citiesArr = {};

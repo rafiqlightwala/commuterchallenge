@@ -1,3 +1,4 @@
+/* Global Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -11,22 +12,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Header and Navigation Bar */
 header {
-  background-color: #747578; /* Navbar background color */
+  background-color: #ffffff; /* Navbar background color */
   text-align: center;
-  color: white;
+  color: #747578;
   padding: 20px;
-}
-
-.logo-container img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 100px;
+  font-weight: bold;
 }
 
 nav {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 nav ul {
@@ -36,6 +32,7 @@ nav ul {
   align-items: center;
   justify-content: center;
   margin: 0;
+  margin-left: 80px;
 }
 
 nav li {
@@ -44,7 +41,7 @@ nav li {
 }
 
 nav li a {
-  color: white;
+  color: #747578;
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -52,6 +49,20 @@ nav li a {
 nav li a:hover {
   color: #ff7900;
 }
+
+/* Logo */
+.navbar-logo {
+  height: 55px; /* Adjust as needed */
+  margin-right: 20px; /* Spacing between logo and nav items */
+}
+
+/* Update the nav style to align items */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Photo Slider */
 .photo-slider {
@@ -67,159 +78,6 @@ nav li a:hover {
   object-fit: cover;
 }
 
-/* Events Section */
-#eventsSection {
-  background-color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.events-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.event {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 30%;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.event img {
-  max-width: 300px;
-  height: 150px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.event .event-name, .event .event-dates {
-  font-size: 18px;
-  color: #747578;
-  margin 5px 0;
-  min-height: 40px;
-}
-
-/* Event Buttons */
-.action-button-event {
-  background-color: transparent;
-  color: #ff7900;
-  border: 4px solid #ff7900;
-  cursor: pointer;
-  padding: 10px 10px;
-  font-size: 20px;
-  border-radius: 25px;
-  width: 180px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.action-button-event:hover {
-  color: #8ED400;
-  border: 4px solid #8ED400;
-}
-
-/* Registration Section */
-#commuterChallenge {
-  background-color: #8ED400;
-  text-align: center;
-  padding: 20px;
-}
-
-.commuter-challenge-buttons {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
-
-.challenge-button {
-  background-color: transparent;
-  color: #ff7900;
-  border: 4px solid #ff7900;
-  cursor: pointer;
-  padding: 10px 15px;
-  font-size: 22px;
-  border-radius: 25px;
-  width: 225px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.challenge-button:hover {
-  background-color: #8ED400;
-  color: #ffffff;
-  border: none;
-}
-
-/* Commuter Challenge Canada Section */
-#commuterChallengeCanada {
-  background-color: #747578;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.challenge-canada-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.challenge-photo img {
-  width: 100%;
-  max-width: 300px;
-  margin-right: 20px;
-}
-
-.challenge-info {
-  max-width: 300px;
-}
-
-.challenge-dropdown {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-}
-
-/* Contact Form */
-#contact {
-  background-color: #ff7a00;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-group input, .form-group textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.form-group textarea {
-  height: 100px;
-}
-
-/* Footer */
-footer {
-  background-color: black;
-  color: white;
-  text-align:
-}
-
 .challenge-text {
   color: white; /* White color for the challenge text */
   font-size: 40px; /* Adjust font size as needed */
@@ -230,13 +88,6 @@ footer {
   font-size: 40px; /* Adjust font size as needed */
 }
 
-.photo-slider {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .photo-slider .slide {
   position: relative;
   width: 100%; /* Ensures the slide takes the full width of the container */
@@ -244,9 +95,9 @@ footer {
 }
 
 .photo-slider img {
-  width: 100%; /* Ensures the image stretches to the full width of the slide */
-  height: auto; /* Maintains the aspect ratio of the image */
-  object-fit: cover; /* Ensures the image covers the slide area */
+  width: 100%;
+  height: 800px;
+  object-fit: cover;
 }
 
 .slide-overlay {
@@ -268,13 +119,6 @@ footer {
   font-weight: bold;
 }
 
-.slide-date {
-  font-size: 13px;
-  margin-bottom: 0;
-  font-weight: bold;
-  text-align: right;
-}
-
 .slide-button {
   background-color: transparent;
   color: #ffffff;
@@ -294,3 +138,348 @@ footer {
   color: #ffffff;
   border: 4px solid #ff7900;
 }
+
+/* Events Section */
+#eventsSection {
+  background-color: white;
+  text-align: left;
+  padding: 20px;
+}
+
+.events-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 27%;
+  padding: 15px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 3px solid #b7b8bc;
+  border-radius: 25px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.event:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.event img {
+  max-width: 300px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.event .event-name, .event .event-dates {
+  font-size: 18px;
+  color: #747578;
+  margin: 5px 0;
+}
+
+/* Event Buttons */
+.action-button-event {
+  background-color: transparent;
+  color: #ff7900;
+  border: 4px solid #ff7900;
+  cursor: pointer;
+  padding: 10px 10px;
+  font-size: 20px;
+  border-radius: 25px;
+  width: 180px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.action-button-event:hover {
+  color: #8ED400;
+  border: 4px solid #8ED400;
+}
+
+/* Registration Section */
+#commuterChallenge {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./img/priscilla-du-preez-kb4dMrBVuEU-unsplash.jpg');
+  background-size: cover; /* Cover the entire section */
+  background-position: center; /* Center the image in the section */
+  background-repeat: no-repeat;
+  background-color: #f7f7f7;
+  text-align: left;
+  padding: 20px;
+  min-height: 500px;
+  color: #ffffff;
+}
+
+.commuter-challenge-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.commuter-challenge-buttons::after {
+  display: none;
+}
+
+
+.challenge-button {
+  background-color: #ffffff;
+  color: #747578; /* Darker grey for better readability */
+  border: 5px solid #8ED400; /* Bright green for visibility */
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 22px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+}
+
+.challenge-button:hover {
+  background-color: #f0f0f0; /* Light background on hover for contrast */
+  color: #747578; /* Orange text color to match the border */
+  border: 5px solid #ff7900; /* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+.challenge-button:active {
+  background-color: #e0e0e0; /* Darker background for pressed effect */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Smaller shadow for pressed effect */
+}
+
+.challenge-button i {
+  margin-bottom: 5px; /* Space between icon and text */
+  font-size: 30px; /* Larger icon for visual appeal */
+}
+
+.challenge-button:last-child {
+  flex: 1 0 auto; /* Adjust the last button to take the required space */
+}
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.center-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-column, .center-column {
+  flex: 1 0 calc(33.3% - 20px); /* Equal width for each column, adjusting for margin */
+  margin: 0 10px;
+}
+
+
+/* Commuter Challenge Canada Section */
+#commuterChallengeCanada {
+  background-color: #ffffff;
+  color: #000000;
+  text-align: left;
+  padding: 20px;
+}
+
+.challenge-canada-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.challenge-photo img {
+  width: 100%;
+  max-width: 600px;
+  margin-right: 20px;
+  height: 300px;
+}
+
+.challenge-info {
+  max-width: 300px;
+}
+
+.challenge-dropdown {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+/* Contact Form */
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.contact-photo img {
+  width: 90%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 25px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
+}
+
+.contact-form {
+  flex: 1;
+  padding: 10px;
+  max-width: 500px;
+}
+
+#contact {
+  background-color: #f7f7f7;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: #8ED400;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-button:hover {
+  background-color: #ff7900;
+}
+
+/* Footer */
+footer {
+  background-color: #ffffff;
+  color: #747578;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 25px solid #ff7900;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-content > * {
+  flex: 1; /* Equal space distribution */
+  text-align: center;
+}
+
+/* Style the links in the footer */
+.footer-content a {
+  text-decoration: none;
+  color: #747578;
+  transition: color 0.3s;
+}
+
+.footer-content a:hover {
+  color: #ff7900;
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+}
+
+.social-media i {
+  font-size: 26px;
+  margin: 0 10px;
+}
+
+.footer-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-button button {
+  background-color: transparent;
+  color: #747578;
+  border: 4px solid #8ED400;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 22px;
+  border-radius: 25px;
+  margin-bottom: 25px;
+}
+
+.footer-button button:hover {
+  background-color: transparent;
+  border-color: #ff7900;
+}
+
+.footer-logo {
+  height: 55px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Adjust styles for mobile responsiveness */
+  nav ul {
+      flex-direction: column;
+      margin-left: 0;
+  }
+  nav li {
+      margin-right: 0;
+      margin-bottom: 10px; /* Add space between items in a column layout */
+  }
+  .footer-content {
+      flex-direction: column;
+  }
+  .footer-content > * {
+      margin-bottom: 20px; /* Add space between stacked items */
+  }
+}
+
+@media (max-width: 768px) {
+  .challenge-button {
+    width: 100%; /* Full width on smaller screens */
+  }
+  .commuter-challenge-buttons::after {
+    display: none; /* Hide pseudo-element on smaller screens */
+  }
+}
+
+
+
+
+
+
+
