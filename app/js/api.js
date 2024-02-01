@@ -8,7 +8,7 @@ export async function addEvent(formData) {
       // Do not set Content-Type header when sending FormData
       // headers will be set automatically, including the correct 'boundary'
     });
-    const returnedData = await response.text().json();
+    const returnedData = await response.json();
 
     if (response.status !== 201) {
       // Handle non-201 status
