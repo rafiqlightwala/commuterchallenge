@@ -43,7 +43,12 @@ const createEvent = async (eventBody) => {
   const commuterModeIds = validCommuterModeDocuments.map(mode => mode._id);
 
   // Create the event with city and commuter mode IDs
-  return Event.create({ ...eventBody, cities: cityIds, commuterModes: commuterModeIds });
+  return Event.create({ 
+    ...eventBody, 
+    cities: cityIds, 
+    commuterModes: commuterModeIds,
+    eventLogoUrl: eventBody.eventLogoUrl // Ensure your Event model supports this field
+  });
 };
 
 module.exports = {

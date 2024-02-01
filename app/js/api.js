@@ -1,44 +1,29 @@
-// api.js
-// Add Event
-export async function addEvent(
-    eventName,
-    startingDate,
-    endingDate,
-    selectedCities,
-    selectedCommuterModes
-  ) {
-    const apiEndpoint = "http://localhost:4000/v1/events";
-  
-    try {
-      const response = await fetch(apiEndpoint, {
-        method: "POST",
-        body: JSON.stringify({
-          name: eventName,
-          startDate: startingDate,
-          endDate: endingDate,
-          cities: selectedCities,
-          commuterModes: selectedCommuterModes,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      const returnedData = await response.json();
-  
-      if (response.status !== 201) {
-        // Handle non-201 status
-        returnedData.error = true
-        return returnedData;
-      } else {
-        returnedData.error = false
-        return returnedData;
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  }
+export async function addEvent(formData) {
+  const apiEndpoint = "http://localhost:4000/v1/events";
 
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      body: formData,  // Directly use formData here, no JSON.stringify
+      // Do not set Content-Type header when sending FormData
+      // headers will be set automatically, including the correct 'boundary'
+    });
+    const returnedData = await response.text().json();
+
+    if (response.status !== 201) {
+      // Handle non-201 status
+      returnedData.error = true;
+      return returnedData;
+    } else {
+      returnedData.error = false;
+      return returnedData;
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    const returnedData = {error: true, message: "Some weird error happened"}
+    return returnedData
+  }
+}
 
 export async function getCommuterModes() {
   const apiEndpoint = "http://localhost:4000/v1/utility/commutermodes";

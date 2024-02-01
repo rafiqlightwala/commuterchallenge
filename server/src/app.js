@@ -15,7 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //use cors
-app.use(cors())
+app.use(cors({
+  origin: 'http://127.0.0.1:5500' // or use '*' to allow all origins
+}));
 
 // v1 api routes
 app.use('/v1', routes);
