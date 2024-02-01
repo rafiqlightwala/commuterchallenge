@@ -1,37 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Event Form</title>
+    <title>Creater Your Event!</title>
     <link rel="stylesheet" type="text/css" href="./event-creation.css" />
   </head>
+
   <body>
-    <div class="Form">
-      <button class="CreateEventButton" id="createEventButton">
-        Create Your Event
-      </button>
-      <form id="eventForm" style="display: none">
-        <!-- Event Name Input -->
-        <label>
-          Event Name:
-          <input type="text" id="eventName" required />
-        </label>
-        <br />
+    <header>
+      <nav id="navbar">
+        <a href="index.html">
+        <img src="/app/img/logo192-removebg-preview.png" alt="Logo" class="navbar-logo"></a>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#get-involved">GET INVOLVED</a></li>
+          <li><a href="#resources">RESOURCES</a></li>
+          <li><a href="#results">RESULTS</a></li>
+          <li><a href="#city-contact">CITY CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <button class="CreateEventButton" id="createEventButton">
+          Create Your Event !
+        </button>
+        <form id="eventForm" style="display: none">
+          <!-- Event Name Input -->
+          <label for="eventName">
+            Event Name:
+            <input type="text" id="eventName" required />
+          </label>
+          <br />
 
         <!-- Start Date Input -->
-        <label>
+        <label for="startDate">
           Start Date:
           <input type="date" id="startDate" required />
         </label>
         <br />
 
         <!-- End Date Input -->
-        <label>
+        <label for="endDate">
           End Date:
           <input type="date" id="endDate" required />
-          <span
-            id="dateErrorMessage"
-            style="color: red; margin-left: 10px"
-          ></span>
+          <span id="dateErrorMessage" style="color: red; margin-left: 10px"></span>
         </label>
         <br />
 
@@ -79,15 +93,37 @@
         </label>
         <br />
 
-        <button type="submit">Submit</button>
-      </form>
+        <button type="submit">SUBMIT</button>
+        </form>
 
-      <p id="eventData"></p>
-      <p id="eventErrorData"></p>
-    </div>
+        <p id="eventData"></p>
+        <p id="eventErrorData"></p>
+        <!-- Confirmation Message -->
+        <p id="confirmationMessage"></p>
+      </section>
+    </main>
 
-    <p id="confirmationMessage"></p>
+    <footer>
+      <div class="footer-content">
+        <p><a href="#city-contact">CITY CONTACTS</a></p>
+        <p><a href="#coordinator-resources">COORDINATOR RESOURCES</a></p>
+        <p><a href="#sponsors">SPONSORS</a></p>
+        <div class="social-media">
+          <i class="fa-brands fa-twitter"></i>
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+    
+        <!-- Button on the right side -->
+        <div class="footer-button">
+          <button type="button">BECOME A SPONSOR</button>
+          <!-- Logo right below the button -->
+          <img src="./img/logo192-removebg-preview.png" alt="Footer Logo" class="footer-logo">
+        </div>
+      </div>
+    </footer>
 
     <script type="module" src="js/event-creation.js"></script>
+
   </body>
 </html>

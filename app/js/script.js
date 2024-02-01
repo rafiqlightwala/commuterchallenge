@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <span class="challenge-text">ARE YOU READY FOR THE NEXT CHALLENGE?</span><br>
               <span class="date-text">June 2-8, 2024</span>
             </p>
-            <button class="slide-button">REGISTER NOW!</button>
+            <button class="slide-button">REGISTER NOW !</button>
           </div>
         </div>
       `;

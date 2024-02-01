@@ -1,17 +1,92 @@
+/* Global Styles */
+html, body {
+    height: 100%; /* set the minimum height of the body to be the full viewport height */
+    margin: 0;
+    padding: 0;
+    font-family: Tahoma, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column; /* stack children vertically */
+    background-image: url('./img/background-pic.jpg');
+    background-size: cover;
+  }
+  
+  main {
+    flex: 1; /* allows the main content to expand and fill available space */
+    /* Your existing styles for main */
+  }
+
+/* Header and Navigation Bar */
+header {
+    background-color: #ffffff; /* Navbar background color */
+    text-align: center;
+    color: #747578;
+    padding: 20px;
+    font-weight: bold;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    margin-left: 80px;
+  }
+  
+  nav li {
+    margin-right: 50px;
+    cursor: pointer;
+  }
+  
+  nav li a {
+    color: #747578;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  nav li a:hover {
+    color: #ff7900;
+  }
+  
+  /* Logo */
+  .navbar-logo {
+    height: 55px; /* Adjust as needed */
+    margin-right: 20px; /* Spacing between logo and nav items */
+  }
+
+  /* Main Content Styles */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 /* Style for the form container */
-.Form {
+.form-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    padding: 40px;
+    border: 4px solid #747578;
+    border-radius: 25px;
     background-color: #f0f0f0;
     max-width: 400px;
-    margin: 0 auto;
+    margin: 50 auto;
     margin-top: 50px;
     margin-bottom: 50px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
 }
 
 /* Style for form labels */
@@ -37,13 +112,13 @@ button[type="submit"] {
     background-color: #8ed400;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     margin-top: 20px;
 }
 
 /* Change background color on hover for the submit button */
 button[type="submit"]:hover {
-    background-color: #5c9b00; /* Darker green color on hover */
+    background-color: #ff7900; /* Darker green color on hover */
 }
 
 /* Style for the Create Event Button */
@@ -54,14 +129,14 @@ button[type="submit"]:hover {
     background-color: #8ed400;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
 /* Change background color on hover for the Create Event Button */
 .CreateEventButton:hover {
-    background-color: #5c9b00; /* Darker green color on hover */
+    background-color: #ff7900; /* Darker green color on hover */
 }
 
 /* Style for dropdowns */
@@ -80,4 +155,95 @@ select {
     color: green; /* Adjust the color as needed */
 }
 
-/* Additional styles for other elements can be added here */
+/* Footer */
+footer {
+    background-color: #ffffff;
+    color: #747578;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 25px solid #ff7900;
+    margin-top: auto; /* push the footer to the bottom */
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .footer-content > * {
+    flex: 1; /* Equal space distribution */
+    text-align: center;
+  }
+  
+  /* Style the links in the footer */
+  .footer-content a {
+    text-decoration: none;
+    color: #747578;
+    transition: color 0.3s;
+  }
+  
+  .footer-content a:hover {
+    color: #ff7900;
+  }
+  
+  .social-media {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .social-media i {
+    font-size: 26px;
+    margin: 0 10px;
+  }
+  
+  .footer-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-button button {
+    background-color: transparent;
+    color: #747578;
+    border: 4px solid #8ED400;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 22px;
+    border-radius: 25px;
+    margin-bottom: 25px;
+  }
+  
+  .footer-button button:hover {
+    background-color: transparent;
+    border-color: #ff7900;
+  }
+  
+  .footer-logo {
+    height: 55px;
+  }
+  
+  
+ /* Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust styles for mobile responsiveness */
+    nav ul {
+        flex-direction: column;
+        margin-left: 0;
+    }
+    nav li {
+        margin-right: 0;
+        margin-bottom: 10px; /* Add space between items in a column layout */
+    }
+    .footer-content {
+        flex-direction: column;
+    }
+    .footer-content > * {
+        margin-bottom: 20px; /* Add space between stacked items */
+    }
+}
+  
+  
