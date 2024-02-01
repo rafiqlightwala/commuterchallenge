@@ -2,29 +2,31 @@ import { getCommuterModes, getLocations, addEvent } from "./api.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   // DOM elements
-  const createEventButton = document.getElementById("createEventButton");
+  // const createEventButton = document.getElementById("createEventButton");
   const eventForm = document.getElementById("eventForm");
   const eventNameInput = document.getElementById("eventName");
   const startDateInput = document.getElementById("startDate");
   const endDateInput = document.getElementById("endDate");
+  const eventLogoInput = document.getElementById("eventLogo"); // Logo input
   const dateErrorMessage = document.getElementById("dateErrorMessage");
   const confirmationMessage = document.getElementById("confirmationMessage");
 
-  // Toggle the display of the event form
-  createEventButton.addEventListener("click", function () {
-    eventForm.style.display = "block";
-    createEventButton.style.display = "none";
-  });
+ // Toggle the display of the event form and smooth scroll
+//  createEventButton.addEventListener("click", function () {
+//   eventForm.style.display = "block";
+//   createEventButton.style.display = "none";
+//   document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+// });
 
-  function openEventCreationForm() {
-    eventForm.style.display = "block"; // Show the form
-    createEventButton.style.display = "none"; // Optional: hide the button
+  // function openEventCreationForm() {
+  //   eventForm.style.display = "block"; // Show the form
+  //   createEventButton.style.display = "none"; // Optional: hide the button
   
-    // Scroll to the form section
-    document.querySelector('.form-section').scrollIntoView({ 
-      behavior: 'smooth' 
-    });
-  }
+  //   // Scroll to the form section
+  //   document.querySelector('.form-section').scrollIntoView({ 
+  //     behavior: 'smooth' 
+  //   });
+  // }
   
   let countriesArr = [];
   let provincesArr = {};
