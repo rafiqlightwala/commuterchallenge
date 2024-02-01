@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     formData.append("name", eventNameInput.value);
     formData.append("startDate", startDateInput.value);
     formData.append("endDate", endDateInput.value);
-    //formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
+    formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
 
     // Get selected cities and commuter modes as arrays
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
