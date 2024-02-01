@@ -6,6 +6,7 @@ const ApiError = require('../utils/ApiError');
 
 const errorConverter = (err, req, res, next) => {
   let error = err;
+  console.log(error)
   if (!(error instanceof ApiError)) {
     const statusCode =
       error.statusCode || error instanceof mongoose.Error ? httpStatus.BAD_REQUEST : httpStatus.INTERNAL_SERVER_ERROR;
@@ -17,6 +18,7 @@ const errorConverter = (err, req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
+  console.log(err)
   let { statusCode, message } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
@@ -33,6 +35,7 @@ const errorHandler = (err, req, res, next) => {
 
   if (config.env === 'development') {
     logger.error(err);
+    console.log(err)
   }
 
   res.status(statusCode).send(response);

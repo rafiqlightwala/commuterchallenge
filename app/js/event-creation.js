@@ -11,23 +11,23 @@ document.addEventListener("DOMContentLoaded", async function () {
   const dateErrorMessage = document.getElementById("dateErrorMessage");
   const confirmationMessage = document.getElementById("confirmationMessage");
 
- // Toggle the display of the event form and smooth scroll
-//  createEventButton.addEventListener("click", function () {
-//   eventForm.style.display = "block";
-//   createEventButton.style.display = "none";
-//   document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-// });
+  // Toggle the display of the event form and smooth scroll
+  //  createEventButton.addEventListener("click", function () {
+  //   eventForm.style.display = "block";
+  //   createEventButton.style.display = "none";
+  //   document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+  // });
 
   // function openEventCreationForm() {
   //   eventForm.style.display = "block"; // Show the form
   //   createEventButton.style.display = "none"; // Optional: hide the button
-  
+
   //   // Scroll to the form section
-  //   document.querySelector('.form-section').scrollIntoView({ 
-  //     behavior: 'smooth' 
+  //   document.querySelector('.form-section').scrollIntoView({
+  //     behavior: 'smooth'
   //   });
   // }
-  
+
   let countriesArr = [];
   let provincesArr = {};
   let citiesArr = {};
@@ -251,40 +251,42 @@ document.addEventListener("DOMContentLoaded", async function () {
   endDateInput.addEventListener("change", checkDateValidity);
 
   // Handling form submission
-  eventForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
+  eventForm.addEventListener('submit', async function (event) {
+    event.preventDefault()
+    //e.stopImmediatePropagation()
 
-    const eventName = eventNameInput.value;
-    const startDate = startDateInput.value;
-    const endDate = endDateInput.value;
+    // Create a FormData object and append data
+    const formData = new FormData();
+    formData.append("name", eventNameInput.value);
+    formData.append("startDate", startDateInput.value);
+    formData.append("endDate", endDateInput.value);
+    //formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
+
+    // Get selected cities and commuter modes as arrays
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
     const selectedModes = getSelectedCheckboxValues("modeDropdown");
-    
 
-    if (!validateDates(startDate, endDate)) {
+    // Append arrays to FormData
+    // Note: This might need to be adjusted based on how your server expects to receive arrays
+    selectedCities.forEach((city) => formData.append("cities", city));
+    selectedModes.forEach((mode) => formData.append("commuterModes", mode));
+
+    if (!validateDates(startDateInput.value, endDateInput.value)) {
       dateErrorMessage.textContent =
         "End date cannot be before the start date.";
       return;
     }
 
-    const returnedData = await addEvent(
-      eventName,
-      startDate,
-      endDate,
-      selectedCities,
-      selectedModes
-    );
-
+    const returnedData = await addEvent(formData);
     if (returnedData.error) {
-      //Additional form data processing can be added here
+      // Additional form data processing can be added here
       confirmationMessage.textContent = returnedData.message;
       confirmationMessage.style.color = "red";
     } else {
-      //Additional form data processing can be added here
-      confirmationMessage.textContent = `Your event '${eventName}' scheduled from ${startDate} to ${endDate} has been registered.`;
+      // Additional form data processing can be added here
+      confirmationMessage.textContent = `Your event '${eventNameInput.value}' scheduled from ${startDateInput.value} to ${endDateInput.value} has been registered.`;
       confirmationMessage.style.color = "green";
     }
-
     clearForm();
   });
 
@@ -316,4 +318,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       modeDropdown.appendChild(div);
     });
   }
+  
+
 });
+
+
+

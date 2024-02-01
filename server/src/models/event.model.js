@@ -31,10 +31,20 @@ const eventSchema = mongoose.Schema(
     }],
     commuterModes: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'CommuterMode',  
+      ref: 'CommuterMode',
     }],
     eventDays: {
       type: Number,
+    },
+    eventLogoUrl: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: function(v) {
+          return validator.isURL(v);
+        },
+        message: 'Invalid URL format'
+      }
     }
   },
   {

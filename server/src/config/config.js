@@ -26,4 +26,10 @@ module.exports = {
       //will add options here in the future
     }
   },
+  cloudinaryconfig: {
+    cloud_name: envVars.CLOUDINARY_NAME,
+    api_key: envVars.CLOUDINARY_API_KEY,
+    api_secret: envVars.CLOUDINARY_API_SECRET,
+    secure: true
+  }
 };
