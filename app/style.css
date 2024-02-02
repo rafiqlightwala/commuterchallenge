@@ -144,13 +144,16 @@ nav {
   background-color: white;
   text-align: left;
   padding: 20px;
+  height: 400px;
 }
 
 .events-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-evenly; /* Center items vertically if there's space */
+  margin-top: 25px;
 }
+
 
 .event {
   display: flex;
@@ -173,8 +176,8 @@ nav {
 }
 
 .event img {
-  max-width: 300px;
-  height: 150px;
+  max-width: 100%;
+  height: 100%;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -206,7 +209,7 @@ nav {
 
 /* Registration Section */
 #commuterChallenge {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./img/priscilla-du-preez-kb4dMrBVuEU-unsplash.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/priscilla-du-preez-kb4dMrBVuEU-unsplash.jpg');
   background-size: cover; /* Cover the entire section */
   background-position: center; /* Center the image in the section */
   background-repeat: no-repeat;
@@ -221,6 +224,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
+  margin-top: 120px;
 }
 
 .commuter-challenge-buttons::after {
@@ -231,7 +235,7 @@ nav {
 .challenge-button {
   background-color: #ffffff;
   color: #747578; /* Darker grey for better readability */
-  border: 5px solid #8ED400; /* Bright green for visibility */
+  border: 7px solid #fbe11f; /* Bright green for visibility */
   cursor: pointer;
   padding: 10px 15px;
   font-size: 22px; /* Slightly larger for readability */
@@ -251,7 +255,7 @@ nav {
 .challenge-button:hover {
   background-color: #f0f0f0; /* Light background on hover for contrast */
   color: #747578; /* Orange text color to match the border */
-  border: 5px solid #ff7900; /* Bright orange for visibility */
+  border: 7px solid #00a8e1; /* Bright orange for visibility */
   box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
@@ -367,16 +371,30 @@ nav {
 
 .submit-button {
   background-color: #8ED400;
-  color: white;
+  color: #ffffff; /* Darker grey for better readability */
   border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
   cursor: pointer;
+  padding: 10px 15px;
+  font-size: 18px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
   font-weight: bold;
 }
 
 .submit-button:hover {
-  background-color: #ff7900;
+  background-color: #ff7900; /* Light background on hover for contrast */
+  color: #ffffff; /* Orange text color to match the border */
+  border: none; /* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
 /* Footer */
@@ -430,19 +448,31 @@ footer {
 }
 
 .footer-button button {
-  background-color: transparent;
-  color: #747578;
-  border: 4px solid #8ED400;
+  background-color: #ffffff;
+  color: #747578; /* Darker grey for better readability */
+  border: 5px solid #8ED400; /* Bright green for visibility */
   cursor: pointer;
   padding: 10px 15px;
-  font-size: 22px;
-  border-radius: 25px;
-  margin-bottom: 25px;
+  font-size: 17px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+  font-weight: bold;
 }
 
 .footer-button button:hover {
-  background-color: transparent;
-  border-color: #ff7900;
+  background-color: #ffffff; /* Light background on hover for contrast */
+  color: #747578; /* Orange text color to match the border */
+  border: 5px solid #ff7900;/* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
 .footer-logo {
