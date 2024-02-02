@@ -46,4 +46,18 @@ router.post(
 );
 
 
+router.put(
+  '/:eventId',
+  uploadMiddleware,  // Use the same middleware for file upload
+  (req, res, next) => {
+    // The same middleware logic for handling cities and commuterModes
+    req.body.cities = Array.isArray(req.body.cities) ? req.body.cities : [req.body.cities].filter(Boolean);
+    req.body.commuterModes = Array.isArray(req.body.commuterModes) ? req.body.commuterModes : [req.body.commuterModes].filter(Boolean);
+    
+    next(); // Proceed to the next middleware
+  },
+  validate(eventValidation.updateEvent), // Make sure you have corresponding validation for updating an event
+  eventController.updateEvent // You will define this in event.controller.js
+);
+
 module.exports = router;

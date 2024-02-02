@@ -25,6 +25,32 @@ export async function addEvent(formData) {
   }
 }
 
+export async function updateEvent(eventId, formData) {
+  const apiEndpoint = `http://localhost:4000/v1/events/${eventId}`;
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "PUT", // or "PATCH" if you are partially updating the resource
+      body: formData
+    });
+    const returnedData = await response.json();
+
+    if (response.status !== 200) { // Typically, 200 is the success status for an update operation
+      // Handle non-200 status
+      returnedData.error = true;
+      return returnedData;
+    } else {
+      returnedData.error = false;
+      return returnedData;
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    const returnedData = {error: true, message: "Some weird error happened"}
+    return returnedData;
+  }
+}
+
+
 export async function getCommuterModes() {
   const apiEndpoint = "http://localhost:4000/v1/utility/commutermodes";
 

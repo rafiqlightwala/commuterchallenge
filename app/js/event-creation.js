@@ -1,4 +1,7 @@
-import { getCommuterModes, getLocations, addEvent } from "./api.js";
+import { getCommuterModes, getLocations, addEvent, updateEvent } from "./api.js";
+
+let isFormSubmitted = false;
+let newEventId = ""
 
 document.addEventListener("DOMContentLoaded", async function () {
   // DOM elements
@@ -252,56 +255,62 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // Handling form submission
   eventForm.addEventListener('submit', async function (event) {
-    event.preventDefault()
-    //e.stopImmediatePropagation()
-
+    event.preventDefault();
+  
+    document.getElementById('loadingIndicator').style.display = 'flex';
     // Create a FormData object and append data
     const formData = new FormData();
     formData.append("name", eventNameInput.value);
     formData.append("startDate", startDateInput.value);
     formData.append("endDate", endDateInput.value);
     formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
-
+  
     // Get selected cities and commuter modes as arrays
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
     const selectedModes = getSelectedCheckboxValues("modeDropdown");
-
+  
     // Append arrays to FormData
-    // Note: This might need to be adjusted based on how your server expects to receive arrays
-    selectedCities.forEach((city) => formData.append("cities", city));
-    selectedModes.forEach((mode) => formData.append("commuterModes", mode));
-
+    selectedCities.forEach((city) => formData.append("cities[]", city)); // Modified to handle array of values
+    selectedModes.forEach((mode) => formData.append("commuterModes[]", mode)); // Modified to handle array of values
+  
     if (!validateDates(startDateInput.value, endDateInput.value)) {
-      dateErrorMessage.textContent =
-        "End date cannot be before the start date.";
+      dateErrorMessage.textContent = "End date cannot be before the start date.";
       return;
     }
-
-    const returnedData = await addEvent(formData);
-    console.log(returnedData)
+  
+    let returnedData;
+    if (!isFormSubmitted) {
+      returnedData = await addEvent(formData);
+      if (!returnedData.error) {
+        newEventId = returnedData.id
+        document.querySelector('#eventForm button[type="submit"]').textContent = 'UPDATE EVENT';
+      }
+    } else {
+      returnedData = await updateEvent(newEventId, formData);
+    }
+  
     if (returnedData.error) {
-      // Additional form data processing can be added here
       confirmationMessage.textContent = returnedData.message;
       confirmationMessage.style.color = "red";
     } else {
-      // Additional form data processing can be added here
+      const actionVerb = isFormSubmitted ? 'Updated' : 'Created'; 
+      isFormSubmitted = true;
       confirmationMessage.innerHTML = `
-      <strong>📅 Event Created Successfully!</strong><br>
-      <strong>Event Name:</strong> ${returnedData.name}<br>
-      <strong>Start Date:</strong> ${startDateInput.value}<br>
-      <strong>End Date:</strong> ${endDateInput.value}<br>
-      <strong>Total Days:</strong> ${returnedData.eventDays}<br>
-      <strong>Cities:</strong> ${selectedCities}<br>
-      <strong>Modes:</strong> ${selectedModes}<br>
-      <strong>Image Link:</strong> <a href="${returnedData.eventLogoUrl}" target="_blank">Click to View Image</a>
-    `;
-    confirmationMessage.style.color = "green";
-
-      // confirmationMessage.textContent = `Your event '${eventNameInput.value}' scheduled from ${startDateInput.value} to ${endDateInput.value} has been registered.`;
-      // confirmationMessage.style.color = "green";
+        <strong>📅 Event ${actionVerb} Successfully!</strong><br>
+        <strong>Event Name:</strong> ${returnedData.name}<br>
+        <strong>Start Date:</strong> ${startDateInput.value}<br>
+        <strong>End Date:</strong> ${endDateInput.value}<br>
+        <strong>Total Days:</strong> ${returnedData.eventDays}<br>
+        <strong>Cities:</strong> ${selectedCities.join(', ')}<br> <!-- Ensure arrays are joined into a string -->
+        <strong>Modes:</strong> ${selectedModes.join(', ')}<br> <!-- Ensure arrays are joined into a string -->
+        <strong>Image Link:</strong> <a href="${returnedData.eventLogoUrl}" target="_blank">Click to View Image</a>
+      `;
+      confirmationMessage.style.color = "green";
     }
-    clearForm();
+    document.getElementById('loadingIndicator').style.display = 'none';
+    //clearForm(); // Uncomment if you want to clear the form after submission
   });
+  
 
   // Function to clear all inputs and checkboxes in the form
   function clearForm() {

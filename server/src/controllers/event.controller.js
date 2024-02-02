@@ -43,6 +43,31 @@ const createEvent = catchAsync(async (req, res) => {
 });
 
 
+const updateEvent = catchAsync(async (req, res) => {
+  const eventId = req.params.eventId; // Get the event ID from the URL parameters
+  
+  // The rest of the code is quite similar to createEvent
+  if (req.file) {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: "commuter_events" },
+      async (error, result) => {
+        if (error) {
+          throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error uploading file to Cloudinary');
+        }
+        req.body.eventLogoUrl = result.secure_url;
+        const event = await eventService.updateEvent(eventId, req.body);
+        res.status(httpStatus.OK).send(event);
+      }
+    );
+    const readableStream = require('stream').Readable.from(req.file.buffer);
+    readableStream.pipe(uploadStream);
+  } else {
+    const event = await eventService.updateEvent(eventId, req.body);
+    res.status(httpStatus.OK).send(event);
+  }
+});
+
 module.exports = {
   createEvent,
+  updateEvent
 };
