@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     formData.append("name", eventNameInput.value);
     formData.append("startDate", startDateInput.value);
     formData.append("endDate", endDateInput.value);
-    //formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
+    formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
 
     // Get selected cities and commuter modes as arrays
     const selectedCities = getSelectedCheckboxValues("cityDropdown");
@@ -278,14 +278,27 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const returnedData = await addEvent(formData);
+    console.log(returnedData)
     if (returnedData.error) {
       // Additional form data processing can be added here
       confirmationMessage.textContent = returnedData.message;
       confirmationMessage.style.color = "red";
     } else {
       // Additional form data processing can be added here
-      confirmationMessage.textContent = `Your event '${eventNameInput.value}' scheduled from ${startDateInput.value} to ${endDateInput.value} has been registered.`;
-      confirmationMessage.style.color = "green";
+      confirmationMessage.innerHTML = `
+      <strong>📅 Event Created Successfully!</strong><br>
+      <strong>Event Name:</strong> ${returnedData.name}<br>
+      <strong>Start Date:</strong> ${startDateInput.value}<br>
+      <strong>End Date:</strong> ${endDateInput.value}<br>
+      <strong>Total Days:</strong> ${returnedData.eventDays}<br>
+      <strong>Cities:</strong> ${selectedCities}<br>
+      <strong>Modes:</strong> ${selectedModes}<br>
+      <strong>Image Link:</strong> <a href="${returnedData.eventLogoUrl}" target="_blank">Click to View Image</a>
+    `;
+    confirmationMessage.style.color = "green";
+
+      // confirmationMessage.textContent = `Your event '${eventNameInput.value}' scheduled from ${startDateInput.value} to ${endDateInput.value} has been registered.`;
+      // confirmationMessage.style.color = "green";
     }
     clearForm();
   });
