@@ -49,11 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
     currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
     updateSlider();
   }, 3000);
-
 });
-
-
 
 window.openEventCreationForm = function () {
   window.open("event-creation.html", "_blank");
 };
+
+document
+  .getElementById("registerNowButton")
+  .addEventListener("click", function () {
+    window.location.href = "upcoming-events-register.html";
+  });
