@@ -190,3 +190,53 @@ footer {
     display: none; /* Hide pseudo-element on smaller screens */
   }
 }
+
+.event-summary {
+  text-align: center;
+  padding: 20px;
+}
+
+.metrics-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.metric {
+  flex-basis: 20%; /* Adjust based on your layout preference */
+  margin: 10px;
+}
+
+.metric h3 {
+  font-size: 20px; /* Adjust font size as needed */
+  margin-bottom: 10px;
+}
+
+.metric-value {
+  font-size: 36px; /* Large font size for visibility */
+  font-weight: bold;
+}
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.metrics-table th, .metrics-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd; /* Light gray border for readability */
+}
+
+.metrics-table th {
+  background-color: #f4f4f4; /* Light background for the header */
+}
+
+.metrics-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra striping for rows */
+}
+
+.metrics-table tr:hover {
+  background-color: #eaeaea; /* Hover effect for rows */
+}
+
