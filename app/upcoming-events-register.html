@@ -32,7 +32,49 @@
     </header>
 
     <main>
+      <div class="registration-container" id="registrationForm">
+        <!-- Step 1: Location Information -->
+        <div id="step1">
+          <h2>Step 1: Location Information</h2>
+          <label for="province">What province do you work in?</label>
+          <select id="province" name="province" required>
+            <option value="">Select a province</option>
+            <option value="Alberta">Alberta</option>
+            <option value="British Columbia">British Columbia</option>
+            <option value="Manitoba">Manitoba</option>
+            <!-- Add more provinces as needed -->
+          </select>
+          <label for="city">What city do you work in?</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            required
+            placeholder="Enter city"
+          />
+          <button type="button" onclick="validateAndShowStep('step1', 'step2')">
+            Continue
+          </button>
+        </div>
 
+        <!-- Step 2: Personal Information (Placeholder for content) -->
+        <div id="step2" style="display: none">
+          <h2>Step 2: Personal Information</h2>
+          <!-- Include personal information fields here -->
+          <button type="button" onclick="showStep('step1')">Previous</button>
+          <button type="button" onclick="validateAndShowStep('step2', 'step3')">
+            Continue
+          </button>
+        </div>
+
+        <!-- Step 3: Login Information (Placeholder for content) -->
+        <div id="step3" style="display: none">
+          <h2>Step 3: Login Information</h2>
+          <!-- Include login information fields here -->
+          <button type="button" onclick="showStep('step2')">Previous</button>
+          <button type="submit" onclick="finalSubmit()">Register</button>
+        </div>
+      </div>
     </main>
 
     <footer>
@@ -60,6 +102,6 @@
     </footer>
 
     <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/upcomingevents.js"></script>
   </body>
 </html>

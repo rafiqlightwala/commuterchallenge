@@ -22,7 +22,13 @@
         </a>
         <ul>
           <li><a href="index.html">HOME</a></li>
-          <li><a href="#about">ABOUT</a></li>
+          <li class="about-dropdown">
+            <a href="#">ABOUT
+              <div class="about-dropdown-content">
+                <a href="#">Learn More About Commuter Challenge</a>
+                <!-- Add more links as needed -->
+              </div>
+
           <li><a href="#get-involved">GET INVOLVED</a></li>
           <li><a href="#resources">RESOURCES</a></li>
           <li><a href="#results">RESULTS</a></li>
@@ -67,7 +73,9 @@
             <img src="img/logo192.png" alt="Event 2 Logo" />
             <p class="event-name">National Commuter Challenge</p>
             <p class="event-dates">June 2-8, 2024</p>
-            <button class="action-button-event">Register Now !</button>
+            <button id="registerNowButton" class="action-button-event">
+              Register Now !
+            </button>
           </div>
           <!-- Event 3 -->
           <div class="event">
@@ -104,7 +112,10 @@
           </div>
 
           <!-- Second Column -->
-          <div class="button-column center-column" onclick="openEventCreationForm()">
+          <div
+            class="button-column center-column"
+            onclick="openEventCreationForm()"
+          >
             <!-- Button 3 -->
             <button class="challenge-button">
               <i class="fa-regular fa-building"></i>
