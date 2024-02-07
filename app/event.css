@@ -1,0 +1,192 @@
+/* Global Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Tahoma, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Top bar styles */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Adjust as needed */
+  background-color: #ffffff; /* Optional: change to match your design */
+}
+
+.header-logo {
+  height: 50px; /* Adjust based on your logo's size */
+}
+
+.date {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Header and Navigation Bar */
+header {
+  background-color: #00a8e1; /* Navbar background color */
+  text-align: left;
+  color: #ffffff;
+  padding: 20px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin: 0;
+  margin-left: 80px;
+}
+
+nav li {
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+nav li a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav li a:hover {
+  color: #fbe11f;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 55px; /* Adjust as needed */
+  margin-right: 20px; /* Spacing between logo and nav items */
+}
+
+/* Update the nav style to align items */
+nav {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+/* Footer */
+footer {
+  background-color: #ffffff;
+  color: #747578;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 25px solid #ff7900;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-content > * {
+  flex: 1; /* Equal space distribution */
+  text-align: center;
+}
+
+/* Style the links in the footer */
+.footer-content a {
+  text-decoration: none;
+  color: #747578;
+  transition: color 0.3s;
+}
+
+.footer-content a:hover {
+  color: #ff7900;
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+}
+
+.social-media i {
+  font-size: 26px;
+  margin: 0 10px;
+}
+
+.footer-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-button button {
+  background-color: #ffffff;
+  color: #747578; /* Darker grey for better readability */
+  border: 5px solid #8ED400; /* Bright green for visibility */
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 17px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.footer-button button:hover {
+  background-color: #ffffff; /* Light background on hover for contrast */
+  color: #747578; /* Orange text color to match the border */
+  border: 5px solid #ff7900;/* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+.footer-logo {
+  height: 55px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  /* Adjust styles for mobile responsiveness */
+  nav ul {
+      flex-direction: column;
+      margin-left: 0;
+  }
+  nav li {
+      margin-right: 0;
+      margin-bottom: 10px; /* Add space between items in a column layout */
+  }
+  .footer-content {
+      flex-direction: column;
+  }
+  .footer-content > * {
+      margin-bottom: 20px; /* Add space between stacked items */
+  }
+}
+
+@media (max-width: 768px) {
+  .challenge-button {
+    width: 100%; /* Full width on smaller screens */
+  }
+  .commuter-challenge-buttons::after {
+    display: none; /* Hide pseudo-element on smaller screens */
+  }
+}
