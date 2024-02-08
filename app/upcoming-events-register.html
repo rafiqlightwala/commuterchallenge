@@ -31,51 +31,101 @@
       </nav>
     </header>
 
-    <main>
-      <div class="registration-container" id="registrationForm">
-        <!-- Step 1: Location Information -->
-        <div id="step1">
-          <h2>Step 1: Location Information</h2>
-          <label for="province">What province do you work in?</label>
-          <select id="province" name="province" required>
-            <option value="">Select a province</option>
-            <option value="Alberta">Alberta</option>
-            <option value="British Columbia">British Columbia</option>
-            <option value="Manitoba">Manitoba</option>
-            <!-- Add more provinces as needed -->
-          </select>
-          <label for="city">What city do you work in?</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            required
-            placeholder="Enter city"
-          />
-          <button type="button" onclick="validateAndShowStep('step1', 'step2')">
-            Continue
-          </button>
+    <div class="container">
+      <h1 class="form-title">REGISTRATION</h1>
+      <form action="#">
+        <div class="main-user-info">
+          <div class="user-input-box">
+            <label for="fullName">Full Name</label>
+            <input type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Enter Full Name"/>
+          </div>
+          <div class="user-input-box">
+            <label for="dateofbirth">Date of Birth</label>
+            <input type="text"
+                    id="dateofbirth"
+                    name="dateofbirth"
+                    placeholder="Enter Date of Birth"/>
+          </div>
+          <div class="user-input-box">
+            <label for="email">Email</label>
+            <input type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter Email"/>
+          </div>
+          <div class="user-input-box">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Enter Phone Number"/>
+          </div>
+          <div class="user-input-box">
+            <label for="companyname">Company Name</label>
+            <input type="text"
+                    id="companyname"
+                    name="companyname"
+                    placeholder="Enter Company Name"/>
+          </div>
+          <div class="user-input-box">
+            <label for="country">Country</label>
+            <select id="country" name="country">
+              <option value="Canada">Canada</option>
+              <!-- Add more countries as options here if needed -->
+            </select>
+          </div>
+          <div class="user-input-box">
+            <label for="province">Province</label>
+            <select id="province" name="province">
+              <option value="AB">Alberta</option>
+              <option value="BC">British Columbia</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland and Labrador</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="ON">Ontario</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NT">Northwest Territories</option>
+              <option value="NU">Nunavut</option>
+              <option value="YT">Yukon</option>
+            </select>
+          </div>
+          <div class="user-input-box">
+            <label for="city">City</label>
+            <select id="city" name="city">
+              <option value="Edmonton">Edmonton</option>
+              <option value="Calgary">Calgary</option>
+              <option value="Banff">Banff</option>
+              <!-- Add more cities as needed -->
+            </select>
+          </div>  
+          <div class="user-input-box">
+            <label for="mode">Transportation Mode</label>
+            <select id="mode" name="mode">
+              <option value="workfromhome">Work From Home</option>
+              <option value="biking">Biking</option>
+              <option value="carpooling">Car Pooling</option>
+              <!-- Add more cities as needed -->
+            </select>
+          </div>
+          <div class="user-input-box">
+            <label for="registrationtype">Registration Type</label>
+            <select id="registrationtype" name="registrationtype">
+              <option value="individual">Individual</option>
+              <option value="employee">Employee</option>
+            </select>
+          </div>        
+        </div>      
+        <div class="form-submit-btn">
+          <input type="submit" value="SUBMIT">
         </div>
-
-        <!-- Step 2: Personal Information (Placeholder for content) -->
-        <div id="step2" style="display: none">
-          <h2>Step 2: Personal Information</h2>
-          <!-- Include personal information fields here -->
-          <button type="button" onclick="showStep('step1')">Previous</button>
-          <button type="button" onclick="validateAndShowStep('step2', 'step3')">
-            Continue
-          </button>
-        </div>
-
-        <!-- Step 3: Login Information (Placeholder for content) -->
-        <div id="step3" style="display: none">
-          <h2>Step 3: Login Information</h2>
-          <!-- Include login information fields here -->
-          <button type="button" onclick="showStep('step2')">Previous</button>
-          <button type="submit" onclick="finalSubmit()">Register</button>
-        </div>
-      </div>
-    </main>
+      </form>
+    </div>
 
     <footer>
       <div class="footer-content">
