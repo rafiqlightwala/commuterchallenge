@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { Event, City, CommuterMode } = require("../models"); // Ensure CommuterMode is imported
+const { Event, City, CommuterMode, Province } = require("../models"); // Ensure CommuterMode is imported
 const ApiError = require("../utils/ApiError");
 
 /**
@@ -133,9 +133,79 @@ const updateEvent = async (eventId, eventBody) => {
   return event;
 };
 
+
+const getEventDetailsById = async (eventId) => {
+  // Fetch the event and populate cities with their provinces and commuter modes
+  const event = await Event.findById(eventId)
+    .populate({
+      path: 'cities',
+      select: 'name province',
+      populate: {
+        path: 'province',
+        model: 'Province',
+        select: 'name'
+      }
+    })
+    .populate({
+      path: 'commuterModes',
+      select: 'name' // Only populate name for commuter modes
+    })
+    .exec();
+
+  if (!event) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Event not found');
+  }
+
+  // Format cities under their provinces
+  const citiesHierarchy = event.cities.reduce((acc, city) => {
+    const provinceName = city.province.name;
+    if (!acc[provinceName]) {
+      acc[provinceName] = [];
+    }
+    acc[provinceName].push(city.name);
+    return acc;
+  }, {});
+
+  // Convert commuter modes to an array of names
+  const commuterModeNames = event.commuterModes.map(mode => mode.name);
+
+  // Create a response object that includes the cities hierarchy and commuter mode names
+  const responseObject = event.toObject(); // Convert Mongoose document to plain JavaScript object
+  responseObject.cities = citiesHierarchy; // Replace cities array with the hierarchy
+  responseObject.commuterModes = commuterModeNames; // Replace commuterModeIds with names
+  responseObject.startToEnd = formatDateRange(event.startDate, event.endDate);
+
+
+  return responseObject;
+};
+
+
+function formatDateRange(startDate, endDate) {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  const start = new Date(startDate).toLocaleDateString('en-GB', options);
+  const end = new Date(endDate).toLocaleDateString('en-GB', options);
+
+  // Extract day and month for start and end, assuming they are in "dd MMM yyyy" format
+  const [startDay, startMonth, startYear] = start.split(' ');
+  const [endDay, endMonth, endYear] = end.split(' ');
+
+  // Format range based on whether the start and end dates are in the same year and month
+  if (startYear === endYear) {
+    if (startMonth === endMonth) {
+      return `${parseInt(startDay)}th - ${parseInt(endDay)}th ${startMonth} ${startYear}`;
+    } else {
+      return `${parseInt(startDay)}th ${startMonth} - ${parseInt(endDay)}th ${endMonth} ${startYear}`;
+    }
+  } else {
+    // If start and end dates are in different years, unlikely for an event but included for completeness
+    return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
+  }
+}
+
 module.exports = {
   createEvent,
   updateEvent,
+  getEventDetailsById,
 };
 
 // /**
