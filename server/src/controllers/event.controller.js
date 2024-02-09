@@ -67,7 +67,16 @@ const updateEvent = catchAsync(async (req, res) => {
   }
 });
 
+const getEvent = catchAsync(async (req, res) => {
+  const eventId = req.params.eventId;
+  const eventWithCities = await eventService.getEventDetailsById(eventId);
+
+  res.send(eventWithCities);
+});
+
+
 module.exports = {
   createEvent,
-  updateEvent
+  updateEvent,
+  getEvent
 };
