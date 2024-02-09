@@ -74,7 +74,19 @@ export async function getCommuterModes() {
   }
 }
 
-// api.js
+export async function fetchEventData(eventId) {
+  try {
+    const response = await fetch(`http://localhost:4000/v1/events/${eventId}`);
+    if (!response.ok) {
+      throw new Error('Event not found');
+    }
+    const eventData = await response.json();
+    return eventData;
+  } catch (error) {
+    console.error('Failed to fetch event data:', error);
+    //alert('Failed to load event details.');
+  }
+}
 
 // Fetch Locations
 export async function getLocations() {

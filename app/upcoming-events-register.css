@@ -80,7 +80,16 @@ nav li a:hover {
   font-size: 26px;
   font-weight: 600;
   text-align: center;
-  padding-bottom: 6px;
+  padding-bottom: 0px;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+
+.form-date {
+  font-size: 22px;
+  font-weight: 400;
+  text-align: center;
+  padding-bottom: 8px;
   color: white;
   text-shadow: 2px 2px 2px black;
   border-bottom: solid 1px white;
@@ -90,7 +99,7 @@ nav li a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 6px 0;
 }
 
 .user-input-box, .registration-details-box {
@@ -252,4 +261,18 @@ footer {
   .user-input-box {
     width: 100%;
   }
+}
+
+.header-container {
+  display: flex;
+  align-items: center; /* This will vertically align items in the container */
+  gap: 20px; /* Adjust the space between the logo and the text */
+}
+
+.event-logo {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  border: 2px solid #ffffff; /* Adjust color and border size as needed */
+  border-radius: 10px; /* Rounded edges */
+  object-fit: cover; /* This will ensure the image covers the area properly */
 }

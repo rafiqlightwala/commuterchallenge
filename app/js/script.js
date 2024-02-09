@@ -58,5 +58,5 @@ window.openEventCreationForm = function () {
 document
   .getElementById("registerNowButton")
   .addEventListener("click", function () {
-    window.location.href = "upcoming-events-register.html";
+    window.location.href = "upcoming-events-register.html?id=65c5a45a25ab16b0f1a102ab";
   });

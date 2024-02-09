@@ -60,4 +60,9 @@ router.put(
   eventController.updateEvent // You will define this in event.controller.js
 );
 
+
+// Assuming eventController.getEvent is the function that handles fetching an event by ID
+router.get('/:eventId', eventController.getEvent);
+
+
 module.exports = router;
