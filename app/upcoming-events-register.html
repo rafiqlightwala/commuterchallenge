@@ -32,7 +32,7 @@
     </header>
 
     <div class="forms-container"> <!-- Parent container for the forms -->
-      <div class="container"> <!-- First form container -->
+      <div class="container" id="firstForm"> <!-- First form container -->
         <div class="header-container">
           <img src="URL_OF_YOUR_LOGO" alt="Event Logo" class="event-logo"/>
           <div>
@@ -140,6 +140,31 @@
           </div>
         </form>
       </div>
+      <div class="container" id="secondForm" style="display:none;">
+        <form action="#">
+          <div>
+            <h1 class="form-title">COMPLETE REGISTRATION</h1>
+            <h2 class="form-date"></h2>
+          </div>
+            <div class="main-user-info2">
+                <div class="user-input-box2">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Email Address"/>
+                </div>
+                <div class="user-input-box2">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create Password"/>
+                </div>
+                <div class="user-input-box2">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"/>
+                </div>
+            </div>
+            <div class="form-submit-btn2">
+                <input type="submit" value="REGISTER">
+            </div>
+        </form>
+    </div>
   </div>
 
     <footer>

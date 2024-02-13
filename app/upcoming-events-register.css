@@ -254,6 +254,83 @@ footer {
   height: 55px;
 }
 
+/* Second Form Specific Styles */
+#secondForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the content */
+  height: 100vh; /* Adjust this to ensure it fills the desired height */
+  background: rgba(0, 0, 0, 0.6); /* Assuming similar background style */
+  padding: 28px;
+  border-radius: 25px;
+  margin: 12px;
+  box-sizing: border-box;
+  height: auto;
+}
+
+#secondForm .main-user-info2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
+  width: 100%; /* Adjust based on your preference */
+}
+
+.user-input-box2 {
+  width: 80%; /* Adjust the width as necessary */
+  margin-bottom: 20px; /* Adds some space between input boxes */
+  color: white; /* Assuming similar text color for consistency */
+}
+
+.user-input-box2 label {
+  font-size: 20px; /* Matching the style of the first form */
+  margin-bottom: 5px;
+}
+
+.user-input-box2 input, 
+.user-input-box2 select {
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding: 0 10px;
+  background: #ffffff; /* Ensure input fields are easily visible */
+}
+
+.form-submit-btn2 {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  width: 100%; /* Ensure the button container fills the form width */
+}
+
+.form-submit-btn2 input {
+  background-color: #8ED400;
+  color: #ffffff; /* Darker grey for better readability */
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 18px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.form-submit-btn2 input:hover {
+  background-color: #ff7900; /* Light background on hover for contrast */
+  color: #ffffff; /* Orange text color to match the border */
+  border: none; /* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   nav ul {
