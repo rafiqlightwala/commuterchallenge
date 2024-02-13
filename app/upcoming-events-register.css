@@ -4,12 +4,15 @@ body, html {
   padding: 0;
   font-family: Tahoma, sans-serif;
 }
+*, *::before, *::after {
+  box-sizing: border-box; /* Ensures consistent sizing */
+}
 
 body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(/app/img/anna-claire-schellenberg-TUTOHQEbhFk-unsplash.jpg);
+  background: url(img/anna-claire-schellenberg-TUTOHQEbhFk-unsplash.jpg);
   background-size: cover;
 }
 
@@ -65,16 +68,27 @@ nav li a:hover {
   margin-right: 20px;
 }
 
-/* Form */
+/* Adjusted Form Container for Side-by-Side Layout */
+.forms-container {
+  display: flex;
+  justify-content: center; /* Centers the forms within the container */
+  align-items: flex-start; /* Aligns items at the start of the flex container */
+  flex-wrap: wrap; /* Allows forms to wrap on smaller screens */
+  width: 90%; /* Adjust width as necessary */
+  max-width: 1200px; /* Ensures the container does not exceed a max width */
+  margin: 20px auto; /* Centers the container and adds vertical spacing */
+}
+
 .container {
   width: 100%;
-  max-width: 650px;
+  max-width: 48%;
   background: rgba(0, 0, 0, 0.6);
   padding: 28px;
-  margin: auto;
   border-radius: 25px;
-  margin-bottom: 20px;
+  margin: 12px;
+  box-sizing: border-box; 
 }
+
 
 .form-title {
   font-size: 26px;
@@ -169,6 +183,7 @@ nav li a:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
+
 /* Footer */
 footer {
   background-color: #ffffff;
@@ -260,6 +275,13 @@ footer {
 
   .user-input-box {
     width: 100%;
+  }
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%; /* Allows each form to take full width on smaller screens */
   }
 }
 

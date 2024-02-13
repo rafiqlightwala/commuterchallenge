@@ -31,107 +31,116 @@
       </nav>
     </header>
 
-    <div class="container">
-      <div class="header-container">
-        <img src="URL_OF_YOUR_LOGO" alt="Event Logo" class="event-logo"/>
-        <div>
-          <h1 class="form-title">REGISTRATION - Event Name Here</h1>
-          <h2 class="form-date">Event Date Here</h2>
+    <div class="forms-container"> <!-- Parent container for the forms -->
+      <div class="container"> <!-- First form container -->
+        <div class="header-container">
+          <img src="URL_OF_YOUR_LOGO" alt="Event Logo" class="event-logo"/>
+          <div>
+            <h1 class="form-title">REGISTRATION - Event Name Here</h1>
+            <h2 class="form-date">Event Date Here</h2>
+          </div>
         </div>
+        <form action="#">
+          <div class="main-user-info">
+            <div class="user-input-box">
+              <label for="fullName">Full Name</label>
+              <input type="text"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="Enter Full Name"/>
+            </div>
+            <div class="user-input-box">
+              <label for="dateofbirth">Year of Birth</label>
+              <input type="text"
+                      id="dateofbirth"
+                      name="dateofbirth"
+                      placeholder="Enter Date of Birth"/>
+            </div>
+            <div class="user-input-box">
+              <label for="companyname">Team / Unaffiliated</label>
+              <input type="text"
+                      id="companyname"
+                      name="companyname"
+                      placeholder="Enter Company Name"/>
+            </div>
+            <div class="user-input-box">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      placeholder="Enter Phone Number"/>
+            </div>
+            <div class="user-input-box">
+              <label for="postalcode">Postal Code</label>
+              <input
+                type="text"
+                id="postalcode"
+                name="postalcode"
+                placeholder="Enter Postal Code"
+                pattern="[A-Za-z0-9]{5,6}"
+                title="Postal code (e.g., 12345 or A1B2C3)"
+              />
+            </div>
+            <div class="user-input-box">
+              <label for="city">City</label>
+              <select id="city" name="city">
+                <option value="Edmonton">Edmonton</option>
+                <option value="Calgary">Calgary</option>
+                <option value="Banff">Banff</option>
+                <!-- Add more cities as needed -->
+              </select>
+            </div>  
+
+            <div class="user-input-box">
+              <label for="province">Province</label>
+              <select id="province" name="province">
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="YT">Yukon</option>
+              </select>
+            </div>
+
+            <div class="user-input-box">
+              <label for="country">Country</label>
+              <select id="country" name="country">
+                <option value="Canada">Canada</option>
+                <!-- Add more countries as options here if needed -->
+              </select>
+            </div>
+
+            <div class="user-input-box">
+              <label for="mode">Transportation Mode</label>
+              <select id="mode" name="mode">
+                <option value="workfromhome">Work From Home</option>
+                <option value="biking">Biking</option>
+                <option value="carpooling">Car Pooling</option>
+                <!-- Add more options as needed -->
+              </select>
+            </div>
+            <div class="user-input-box">
+              <label for="registrationtype">Registration Type</label>
+              <select id="registrationtype" name="registrationtype">
+                <option value="individual">Individual</option>
+                <option value="employee">Employee</option>
+              </select>
+            </div>        
+          </div>      
+          <div class="form-submit-btn">
+            <input type="submit" value="CONTINUE">
+          </div>
+        </form>
       </div>
-      <form action="#">
-        <div class="main-user-info">
-          <div class="user-input-box">
-            <label for="fullName">Full Name</label>
-            <input type="text"
-                    id="fullName"
-                    name="fullName"
-                    placeholder="Enter Full Name"/>
-          </div>
-          <div class="user-input-box">
-            <label for="dateofbirth">Date of Birth</label>
-            <input type="text"
-                    id="dateofbirth"
-                    name="dateofbirth"
-                    placeholder="Enter Date of Birth"/>
-          </div>
-          <div class="user-input-box">
-            <label for="email">Email</label>
-            <input type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter Email"/>
-          </div>
-          <div class="user-input-box">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    placeholder="Enter Phone Number"/>
-          </div>
-          <div class="user-input-box">
-            <label for="companyname">Company Name</label>
-            <input type="text"
-                    id="companyname"
-                    name="companyname"
-                    placeholder="Enter Company Name"/>
-          </div>
-          <div class="user-input-box">
-            <label for="country">Country</label>
-            <select id="country" name="country">
-              <option value="Canada">Canada</option>
-              <!-- Add more countries as options here if needed -->
-            </select>
-          </div>
-          <div class="user-input-box">
-            <label for="province">Province</label>
-            <select id="province" name="province">
-              <option value="AB">Alberta</option>
-              <option value="BC">British Columbia</option>
-              <option value="MB">Manitoba</option>
-              <option value="NB">New Brunswick</option>
-              <option value="NL">Newfoundland and Labrador</option>
-              <option value="NS">Nova Scotia</option>
-              <option value="ON">Ontario</option>
-              <option value="PE">Prince Edward Island</option>
-              <option value="QC">Quebec</option>
-              <option value="SK">Saskatchewan</option>
-              <option value="NT">Northwest Territories</option>
-              <option value="NU">Nunavut</option>
-              <option value="YT">Yukon</option>
-            </select>
-          </div>
-          <div class="user-input-box">
-            <label for="city">City</label>
-            <select id="city" name="city">
-              <option value="Edmonton">Edmonton</option>
-              <option value="Calgary">Calgary</option>
-              <option value="Banff">Banff</option>
-              <!-- Add more cities as needed -->
-            </select>
-          </div>  
-          <div class="user-input-box">
-            <label for="mode">Transportation Mode</label>
-            <select id="mode" name="mode">
-              <option value="workfromhome">Work From Home</option>
-              <option value="biking">Biking</option>
-              <option value="carpooling">Car Pooling</option>
-              <!-- Add more cities as needed -->
-            </select>
-          </div>
-          <div class="user-input-box">
-            <label for="registrationtype">Registration Type</label>
-            <select id="registrationtype" name="registrationtype">
-              <option value="individual">Individual</option>
-              <option value="employee">Employee</option>
-            </select>
-          </div>        
-        </div>      
-        <div class="form-submit-btn">
-          <input type="submit" value="SUBMIT">
-        </div>
-      </form>
-    </div>
+  </div>
 
     <footer>
       <div class="footer-content">
