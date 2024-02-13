@@ -100,3 +100,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.showStep = showStep;
   window.finalSubmit = finalSubmit;
 });
+
+document.querySelector('.form-submit-btn input[type="submit"]').addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent form submission to stay on the same page
+  document.getElementById('firstForm').style.display = 'none'; // Hide first form
+  document.getElementById('secondForm').style.display = 'block'; // Show second form
+});
+

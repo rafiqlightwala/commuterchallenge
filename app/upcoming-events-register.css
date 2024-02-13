@@ -4,12 +4,15 @@ body, html {
   padding: 0;
   font-family: Tahoma, sans-serif;
 }
+*, *::before, *::after {
+  box-sizing: border-box; /* Ensures consistent sizing */
+}
 
 body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(/app/img/anna-claire-schellenberg-TUTOHQEbhFk-unsplash.jpg);
+  background: url(img/anna-claire-schellenberg-TUTOHQEbhFk-unsplash.jpg);
   background-size: cover;
 }
 
@@ -65,16 +68,27 @@ nav li a:hover {
   margin-right: 20px;
 }
 
-/* Form */
+/* Adjusted Form Container for Side-by-Side Layout */
+.forms-container {
+  display: flex;
+  justify-content: center; /* Centers the forms within the container */
+  align-items: flex-start; /* Aligns items at the start of the flex container */
+  flex-wrap: wrap; /* Allows forms to wrap on smaller screens */
+  width: 90%; /* Adjust width as necessary */
+  max-width: 1200px; /* Ensures the container does not exceed a max width */
+  margin: 20px auto; /* Centers the container and adds vertical spacing */
+}
+
 .container {
   width: 100%;
-  max-width: 650px;
+  max-width: 48%;
   background: rgba(0, 0, 0, 0.6);
   padding: 28px;
-  margin: auto;
   border-radius: 25px;
-  margin-bottom: 20px;
+  margin: 12px;
+  box-sizing: border-box; 
 }
+
 
 .form-title {
   font-size: 26px;
@@ -169,6 +183,7 @@ nav li a:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
+
 /* Footer */
 footer {
   background-color: #ffffff;
@@ -239,6 +254,83 @@ footer {
   height: 55px;
 }
 
+/* Second Form Specific Styles */
+#secondForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the content */
+  height: 100vh; /* Adjust this to ensure it fills the desired height */
+  background: rgba(0, 0, 0, 0.6); /* Assuming similar background style */
+  padding: 28px;
+  border-radius: 25px;
+  margin: 12px;
+  box-sizing: border-box;
+  height: auto;
+}
+
+#secondForm .main-user-info2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
+  width: 100%; /* Adjust based on your preference */
+}
+
+.user-input-box2 {
+  width: 80%; /* Adjust the width as necessary */
+  margin-bottom: 20px; /* Adds some space between input boxes */
+  color: white; /* Assuming similar text color for consistency */
+}
+
+.user-input-box2 label {
+  font-size: 20px; /* Matching the style of the first form */
+  margin-bottom: 5px;
+}
+
+.user-input-box2 input, 
+.user-input-box2 select {
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid grey;
+  padding: 0 10px;
+  background: #ffffff; /* Ensure input fields are easily visible */
+}
+
+.form-submit-btn2 {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  width: 100%; /* Ensure the button container fills the form width */
+}
+
+.form-submit-btn2 input {
+  background-color: #8ED400;
+  color: #ffffff; /* Darker grey for better readability */
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 18px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+  font-weight: bold;
+}
+
+.form-submit-btn2 input:hover {
+  background-color: #ff7900; /* Light background on hover for contrast */
+  color: #ffffff; /* Orange text color to match the border */
+  border: none; /* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   nav ul {
@@ -260,6 +352,13 @@ footer {
 
   .user-input-box {
     width: 100%;
+  }
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%; /* Allows each form to take full width on smaller screens */
   }
 }
 
