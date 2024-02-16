@@ -1,6 +1,8 @@
 const Country = require('../models/country.model');
 const Province = require('../models/province.model');
 const City = require('../models/city.model');
+const Team = require('../models/team.model'); // Ensure this path is correct
+
 const CommuterMode = require('../models/commuterMode.model');
 
 const getLocations = async () => {
@@ -28,7 +30,15 @@ const getCommuterModes = async () => {
   return { commuterModes }; // Wrap the result in an object with a "commuterModes" key
 };
 
+const getTeams = async () => {
+  const teamDocuments = await Team.find({}, 'name'); // Retrieve all teams with only the 'name' field
+  const teams = teamDocuments.map(team => team.name); // Extract the name from each document
+
+  return { teams }; // Wrap the result in an object with a "teams" key
+};
+
 module.exports = {
   getLocations,
-  getCommuterModes
+  getCommuterModes,
+  getTeams
 };

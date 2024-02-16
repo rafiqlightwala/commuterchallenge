@@ -74,6 +74,29 @@ export async function getCommuterModes() {
   }
 }
 
+export async function getTeams() {
+  const apiEndpoint = "http://localhost:4000/v1/utility/teams";
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const returnedData = await response.json();
+    return returnedData.teams; 
+  } catch (error) {
+    console.error("Fetch error:", error);
+    //throw error; // Rethrow the error if you want to handle it outside
+  }
+}
+
 export async function fetchEventData(eventId) {
   try {
     const response = await fetch(`http://localhost:4000/v1/events/${eventId}`);

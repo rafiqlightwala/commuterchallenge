@@ -1,4 +1,5 @@
 import { fetchEventData } from "./api.js";
+import { getTeams } from "./api.js";
 
 let firstFormData = {};
 
@@ -242,7 +243,7 @@ function getEventIdFromQueryString() {
 }
 
 // Placeholder function to populate event data into the form
-function populateEventData(eventData) {
+async function populateEventData(eventData) {
   // Populate the event name and date range
   document.querySelector(".form-title").textContent =
     "REGISTRATION - " + eventData.name;
@@ -288,6 +289,18 @@ function populateEventData(eventData) {
     option.value = mode;
     option.textContent = mode;
     modeSelect.appendChild(option);
+  });
+
+  // New: Populate the team select dropdown
+  const teams = await getTeams(); // Fetch teams using the provided function
+  const teamSelect = document.getElementById("team");
+  // Clear existing options except the first 'Unaffiliated' option
+  teamSelect.innerHTML = '';
+  teams.forEach((team) => {
+    const option = document.createElement("option");
+    option.value = team; // Assuming 'team' is a string. Adjust if 'team' is an object
+    option.textContent = team;
+    teamSelect.appendChild(option);
   });
 }
 

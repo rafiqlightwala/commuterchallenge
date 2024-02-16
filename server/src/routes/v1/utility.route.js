@@ -10,6 +10,9 @@ router
   .route('/commutermodes')
   .get(utilityController.getCommuterModes);
 
-// Add more routes as needed for provinces and cities
+  
+router
+  .route('/teams')
+  .get(utilityController.getTeams); // Use the getTeams controller method
 
 module.exports = router;
