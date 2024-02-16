@@ -36,8 +36,8 @@
       <div class="container" id="firstForm">
         <!-- First form container -->
         <div class="header-container">
-          <img src="URL_OF_YOUR_LOGO" alt="Event Logo" class="event-logo" />
-          <div>
+          <img src="https://www.transparenttextures.com/patterns/cardboard-flat.png" alt="Event Logo" class="event-logo" />
+          <div> 
             <h1 class="form-title">REGISTRATION - Event Name Here</h1>
             <h2 class="form-date input">Event Date Here</h2>
           </div>
@@ -54,22 +54,21 @@
               />
             </div>
             <div class="user-input-box">
-              <label for="dateofbirth">Year of Birth</label>
+              <label for="yearofbirth">Year of Birth</label>
               <input
                 type="text"
-                id="dateofbirth"
-                name="dateofbirth"
-                placeholder="Enter Date of Birth"
-              />
+                id="yearofbirth"
+                name="yearofbirth"
+                placeholder="Enter Year of Birth"
+                pattern="\d{4}"
+                title="Year of Birth (4 digits)"/>
             </div>
             <div class="user-input-box">
-              <label for="companyname">Team / Unaffiliated</label>
-              <input
-                type="text"
-                id="companyname"
-                name="companyname"
-                placeholder="Enter Company Name"
-              />
+              <label for="team">Team / Unaffiliated</label>
+              <select id="team" name="team">
+                <option value="unaffiliated">Unaffiliated</option>
+                <option value="team 1">Team 1</option>
+              </select>
             </div>
             <div class="user-input-box">
               <label for="phoneNumber">Phone Number</label>
@@ -79,7 +78,7 @@
                 name="phoneNumber"
                 placeholder="Enter Phone Number"
               />
-            </div>
+            </div>            
             <div class="user-input-box">
               <label for="postalcode">Postal Code</label>
               <input
@@ -87,16 +86,14 @@
                 id="postalcode"
                 name="postalcode"
                 placeholder="Enter Postal Code"
-                pattern="[A-Za-z0-9]{5,6}"
-                title="Postal code (e.g., 12345 or A1B2C3)"
+                pattern="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$"
+                title="Please enter a valid Canadian postal code (e.g., M4B 1B3 or M4B1B3)."
               />
             </div>
+            
             <div class="user-input-box">
               <label for="city">City</label>
               <select id="city" name="city">
-                <option value="Edmonton">Edmonton</option>
-                <option value="Calgary">Calgary</option>
-                <option value="Banff">Banff</option>
                 <!-- Add more cities as needed -->
               </select>
             </div>
@@ -104,19 +101,7 @@
             <div class="user-input-box">
               <label for="province">Province</label>
               <select id="province" name="province">
-                <option value="AB">Alberta</option>
-                <option value="BC">British Columbia</option>
-                <option value="MB">Manitoba</option>
-                <option value="NB">New Brunswick</option>
-                <option value="NL">Newfoundland and Labrador</option>
-                <option value="NS">Nova Scotia</option>
-                <option value="ON">Ontario</option>
-                <option value="PE">Prince Edward Island</option>
-                <option value="QC">Quebec</option>
-                <option value="SK">Saskatchewan</option>
-                <option value="NT">Northwest Territories</option>
-                <option value="NU">Nunavut</option>
-                <option value="YT">Yukon</option>
+
               </select>
             </div>
 
@@ -131,9 +116,6 @@
             <div class="user-input-box">
               <label for="mode">Transportation Mode</label>
               <select id="mode" name="mode">
-                <option value="workfromhome">Work From Home</option>
-                <option value="biking">Biking</option>
-                <option value="carpooling">Car Pooling</option>
                 <!-- Add more options as needed -->
               </select>
             </div>
@@ -216,7 +198,14 @@
       </div>
     </footer>
 
-    <script type="module" src="js/script.js"></script>
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p id="modal-text"></p>
+      </div>
+    </div>
+
     <script type="module" src="js/upcoming-events-register.js"></script>
   </body>
 </html>
