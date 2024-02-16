@@ -5,3 +5,4 @@ module.exports.Country = require('./country.model');
 module.exports.CommuterMode = require('./commuterMode.model');
 module.exports.Team = require('./team.model');
 module.exports.User = require('./user.model');
+module.exports.Token = require('./token.model');

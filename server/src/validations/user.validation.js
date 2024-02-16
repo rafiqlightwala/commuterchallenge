@@ -27,7 +27,7 @@ const createUser = {
     city: Joi.string().required(), 
     postalCode: Joi.string().trim().required(),
     mode: Joi.string().required(),
-    events: Joi.array().items(Joi.string().custom(objectId)).single().required(), // To allow array of events or a single event
+    eventId: Joi.string().required().custom(objectId)
   }),
 };
 

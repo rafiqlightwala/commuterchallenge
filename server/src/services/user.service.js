@@ -14,7 +14,7 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
 
-  const city = await City.findOne({ name: userBody.cityName });
+  const city = await City.findOne({ name: userBody.city });
   if (!city) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'City not found');
   }

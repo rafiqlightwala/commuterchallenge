@@ -1,12 +1,27 @@
 const Joi = require('joi');
-const { password } = require('./custom.validation');
+const { password, objectId } = require('./custom.validation');
+
+// const register = {
+//   body: Joi.object().keys({
+//     email: Joi.string().required().email(),
+//     password: Joi.string().required().custom(password),
+//     name: Joi.string().required(),
+//   }),
+// };
 
 const register = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
-    name: Joi.string().required(),
-  }),
+    fullName: Joi.string().required().trim(),
+    email: Joi.string().required().email().lowercase().trim(),
+    password: Joi.string().required().custom(password).trim(),
+    role: Joi.string().valid('user', 'admin'),
+    phoneNumber: Joi.string().trim().required(), 
+    yearOfBirth: Joi.number().integer().min(1900).max(new Date().getFullYear()).required(),
+    city: Joi.string().required(), 
+    postalCode: Joi.string().trim().required(),
+    mode: Joi.string().required(),
+    eventId: Joi.string().required().custom(objectId)
+  }).unknown(true),
 };
 
 const login = {
