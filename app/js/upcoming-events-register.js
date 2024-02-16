@@ -1,4 +1,4 @@
-import { fetchEventData } from "./api.js";
+import { fetchEventData, registerUser } from "./api.js";
 import { getTeams } from "./api.js";
 
 let firstFormData = {};
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Event listener for the "Register" button in the second form
   document
     .querySelector('#secondForm .form-submit-btn2 input[type="submit"]')
-    .addEventListener("click", function (event) {
+    .addEventListener("click",  async function (event) {
       event.preventDefault(); // Prevent default submission
       if (validateSecondForm()) {
         // Collect data from the second form
@@ -54,9 +54,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         const combinedFormData = { ...firstFormData, ...secondFormData, eventId };
 
         // Console log combined form data
-        console.log("Final form submission data:", combinedFormData);
+        //console.log("Final form submission data:", combinedFormData);
 
-        showModal("Registration complete!");
+        let returnedData = await registerUser(combinedFormData);
+        if (!returnedData.error) {
+          console.log(returnedData)
+          showModal("Registration Successful. Please wait..");
+          setTimeout(() => {
+            window.location.href = 'logged-in-daily-tracking.html'; // Redirect to the specified page
+          }, 1500); // Adjust the time as needed
+        } else {
+          showModal(returnedData.message)
+        }
+
+        
       }
     });
 
@@ -322,6 +333,7 @@ function showModal(message) {
     }
   };
 }
+
 
 
 

@@ -50,6 +50,34 @@ export async function updateEvent(eventId, formData) {
   }
 }
 
+export async function registerUser(userData) {
+  const apiEndpoint = "http://localhost:4000/v1/auth/register";
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Set Content-Type header for JSON
+      },
+      body: JSON.stringify(userData), // Convert userData object to JSON string
+    });
+    const returnedData = await response.json();
+
+    if (response.status !== 201) {
+      // Handle non-201 status
+      returnedData.error = true;
+      return returnedData;
+    } else {
+      returnedData.error = false;
+      return returnedData;
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: true, message: "Some weird error happened" };
+  }
+}
+
+
 
 export async function getCommuterModes() {
   const apiEndpoint = "http://localhost:4000/v1/utility/commutermodes";

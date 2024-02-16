@@ -1,8 +1,6 @@
 const httpStatus = require('http-status');
-const { User, CommuterMode } = require('../models');
+const { User, CommuterMode, City, Event, Team } = require('../models');
 const ApiError = require('../utils/ApiError');
-const City = require('../models/city.model');
-const Event = require('../models/event.model');
 
 /**
  * Create a user
@@ -25,6 +23,12 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Commuter Mode not found');
   }
   userBody.mode = mode._id;
+
+  const team = await Team.findOne({ name: userBody.team });
+  if (!team) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Team not found in Database');
+  }
+  userBody.team = team._id;
 
   if (userBody.eventId) {
     const event = await Event.findById(userBody.eventId);
