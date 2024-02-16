@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const phoneNumberInput = document.getElementById("phoneNumber");
         phoneNumberInput.value = normalizePhoneNumber(phoneNumberInput.value);
 
-        const postalCodeInput = document.getElementById("postalcode");
+        const postalCodeInput = document.getElementById("postalCode");
         postalCodeInput.value = normalizePostalCode(postalCodeInput.value); // Normalize postal code
 
         // Collect form data after normalization
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
   document
-    .getElementById("yearofbirth")
+    .getElementById("yearOfBirth")
     .addEventListener("input", function (e) {
       // Remove any characters that are not digits
       e.target.value = e.target.value.replace(/\D/g, "");
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
     });
 
-  document.getElementById("postalcode").addEventListener("input", function (e) {
+  document.getElementById("postalCode").addEventListener("input", function (e) {
     let value = e.target.value.toUpperCase(); // Ensure uppercase for consistency
     let formatted = "";
 
@@ -144,7 +144,7 @@ function validateFirstForm() {
   }
 
   // Additional validation for the Year of Birth
-  const yearOfBirthInput = document.getElementById("yearofbirth");
+  const yearOfBirthInput = document.getElementById("yearOfBirth");
   const yearOfBirth = parseInt(yearOfBirthInput.value, 10);
   const currentYear = new Date().getFullYear();
   if (isNaN(yearOfBirth) || yearOfBirth < 1900 || yearOfBirth > currentYear) {
@@ -166,7 +166,7 @@ function validateFirstForm() {
   }
 
   // Canadian postal code validation
-  const postalCodeInput = document.getElementById("postalcode");
+  const postalCodeInput = document.getElementById("postalCode");
   const postalCode = postalCodeInput.value.toUpperCase(); // Convert to uppercase to match the expected format
   const postalCodeRegex = /^[A-Z]\d[A-Z] \d[A-Z]\d$/;
   if (!postalCodeRegex.test(postalCode)) {
