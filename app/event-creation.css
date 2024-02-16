@@ -10,8 +10,8 @@ html, body {
     display: flex;
     flex-direction: column; /* stack children vertically */
     background-image: url('./img/background-pic.jpg');
-    background-size: 100% 100%; 
-    background-position: center center;
+    background-size: cover; 
+    background-position: cover;
   }
   
   main {
@@ -80,7 +80,6 @@ main {
     align-items: center;
     justify-content: center;
     padding: 40px;
-    border: 4px solid #747578;
     border-radius: 25px;
     background-color: #f0f0f0;
     max-width: 400px;
@@ -88,6 +87,8 @@ main {
     margin-top: 50px;
     margin-bottom: 50px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
 }
 
 /* Style for form labels */
@@ -107,19 +108,32 @@ input[type="date"] {
 
 /* Style for the submit button */
 button[type="submit"] {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #8ed400;
-    color: #fff;
-    border: none;
-    border-radius: 25px;
-    margin-top: 20px;
+  background-color: #8ED400;
+  color: #ffffff; /* Darker grey for better readability */
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 18px; /* Slightly larger for readability */
+  border-radius: 25px; /* Smooth, rounded corners */
+  width: 225px;
+  text-align: center;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+  flex: none; /* Flex grow, flex shrink, and flex basis */
+  margin: 10px auto;
+  font-weight: bold;
 }
 
 /* Change background color on hover for the submit button */
 button[type="submit"]:hover {
-    background-color: #ff7900; /* Darker green color on hover */
+  background-color: #ff7900; /* Light background on hover for contrast */
+  color: #ffffff; /* Orange text color to match the border */
+  border: none; /* Bright orange for visibility */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
 
 /* Style for the Create Event Button */
@@ -208,19 +222,31 @@ footer {
   }
   
   .footer-button button {
-    background-color: transparent;
-    color: #747578;
-    border: 4px solid #8ED400;
+    background-color: #ffffff;
+    color: #747578; /* Darker grey for better readability */
+    border: 5px solid #8ED400; /* Bright green for visibility */
     cursor: pointer;
     padding: 10px 15px;
-    font-size: 22px;
-    border-radius: 25px;
-    margin-bottom: 25px;
+    font-size: 17px; /* Slightly larger for readability */
+    border-radius: 25px; /* Smooth, rounded corners */
+    width: 225px;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease; /* Smooth transition for visual effects */
+    flex: none; /* Flex grow, flex shrink, and flex basis */
+    margin: 10px auto;
+    font-weight: bold;
   }
   
   .footer-button button:hover {
-    background-color: transparent;
-    border-color: #ff7900;
+    background-color: #ffffff; /* Light background on hover for contrast */
+    color: #747578; /* Orange text color to match the border */
+    border: 5px solid #ff7900;/* Bright orange for visibility */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
   }
   
   .footer-logo {
@@ -256,12 +282,12 @@ footer {
 }
 
 .loader {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 36px;
-  height: 36px;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border-left-color: #ff7900;
-  animation: spin 1s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
