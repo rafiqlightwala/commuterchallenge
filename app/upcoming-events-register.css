@@ -375,3 +375,52 @@ footer {
   border-radius: 10px; /* Rounded edges */
   object-fit: cover; /* This will ensure the image covers the area properly */
 }
+
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top, ensure higher than other elements */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.6); /* Slightly darker background w/ opacity for better focus on modal */
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 10% auto; /* Adjusted for slightly higher placement */
+  padding: 40px; /* More padding for a spacious look */
+  border: 1px solid #888;
+  width: 50%; /* Adjust width for a wider modal on larger screens */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Added shadow for depth */
+  border-radius: 25px; /* Rounded corners for consistency with form styling */
+  font-family: Tahoma, sans-serif; /* Consistent font family */
+  color: #747578; /* Consistent font color */
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px; /* Slightly larger for easier interaction */
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #ff7900; /* Hover effect color changed to match site theme */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal-text {
+  margin-top: 20px; /* Spacing adjustment for text inside modal */
+  font-size: 20px; /* Larger font size for readability */
+  text-align: center; /* Centered text for better presentation */
+}

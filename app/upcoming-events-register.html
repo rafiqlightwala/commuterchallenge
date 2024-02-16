@@ -31,82 +31,77 @@
       </nav>
     </header>
 
-    <div class="forms-container"> <!-- Parent container for the forms -->
-      <div class="container" id="firstForm"> <!-- First form container -->
+    <div class="forms-container">
+      <!-- Parent container for the forms -->
+      <div class="container" id="firstForm">
+        <!-- First form container -->
         <div class="header-container">
-          <img src="URL_OF_YOUR_LOGO" alt="Event Logo" class="event-logo"/>
-          <div>
+          <img src="https://www.transparenttextures.com/patterns/cardboard-flat.png" alt="Event Logo" class="event-logo" />
+          <div> 
             <h1 class="form-title">REGISTRATION - Event Name Here</h1>
-            <h2 class="form-date">Event Date Here</h2>
+            <h2 class="form-date input">Event Date Here</h2>
           </div>
         </div>
         <form action="#">
           <div class="main-user-info">
             <div class="user-input-box">
               <label for="fullName">Full Name</label>
-              <input type="text"
-                      id="fullName"
-                      name="fullName"
-                      placeholder="Enter Full Name"/>
-            </div>
-            <div class="user-input-box">
-              <label for="dateofbirth">Year of Birth</label>
-              <input type="text"
-                      id="dateofbirth"
-                      name="dateofbirth"
-                      placeholder="Enter Date of Birth"/>
-            </div>
-            <div class="user-input-box">
-              <label for="companyname">Team / Unaffiliated</label>
-              <input type="text"
-                      id="companyname"
-                      name="companyname"
-                      placeholder="Enter Company Name"/>
-            </div>
-            <div class="user-input-box">
-              <label for="phoneNumber">Phone Number</label>
-              <input type="text"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      placeholder="Enter Phone Number"/>
-            </div>
-            <div class="user-input-box">
-              <label for="postalcode">Postal Code</label>
               <input
                 type="text"
-                id="postalcode"
-                name="postalcode"
-                placeholder="Enter Postal Code"
-                pattern="[A-Za-z0-9]{5,6}"
-                title="Postal code (e.g., 12345 or A1B2C3)"
+                id="fullName"
+                name="fullName"
+                placeholder="Enter Full Name"
               />
             </div>
             <div class="user-input-box">
+              <label for="yearOfBirth">Year of Birth</label>
+              <input
+                type="text"
+                id="yearOfBirth"
+                name="yearOfBirth"
+                placeholder="Enter Year of Birth"
+                pattern="\d{4}"
+                title="Year of Birth (4 digits)"/>
+            </div>
+            <div class="user-input-box">
+              <label for="team">Team / Unaffiliated</label>
+              <select id="team" name="team">
+                <option value="unaffiliated">Unaffiliated</option>
+                <option value="team 1">Team 1</option>
+              </select>
+            </div>
+            <div class="user-input-box">
+              <label for="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                placeholder="Enter Phone Number"
+              />
+            </div>            
+            <div class="user-input-box">
+              <label for="postalCode">Postal Code</label>
+              <input
+                type="text"
+                id="postalCode"
+                name="postalCode"
+                placeholder="Enter Postal Code"
+                pattern="^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$"
+                title="Please enter a valid Canadian postal code (e.g., M4B 1B3 or M4B1B3)."
+              />
+            </div>
+            
+            <div class="user-input-box">
               <label for="city">City</label>
               <select id="city" name="city">
-                <option value="Edmonton">Edmonton</option>
-                <option value="Calgary">Calgary</option>
-                <option value="Banff">Banff</option>
                 <!-- Add more cities as needed -->
               </select>
-            </div>  
+            </div>
 
             <div class="user-input-box">
               <label for="province">Province</label>
               <select id="province" name="province">
-                <option value="AB">Alberta</option>
-                <option value="BC">British Columbia</option>
-                <option value="MB">Manitoba</option>
-                <option value="NB">New Brunswick</option>
-                <option value="NL">Newfoundland and Labrador</option>
-                <option value="NS">Nova Scotia</option>
-                <option value="ON">Ontario</option>
-                <option value="PE">Prince Edward Island</option>
-                <option value="QC">Quebec</option>
-                <option value="SK">Saskatchewan</option>
-                <option value="NT">Northwest Territories</option>
-                <option value="NU">Nunavut</option>
-                <option value="YT">Yukon</option>
+
               </select>
             </div>
 
@@ -121,9 +116,6 @@
             <div class="user-input-box">
               <label for="mode">Transportation Mode</label>
               <select id="mode" name="mode">
-                <option value="workfromhome">Work From Home</option>
-                <option value="biking">Biking</option>
-                <option value="carpooling">Car Pooling</option>
                 <!-- Add more options as needed -->
               </select>
             </div>
@@ -133,39 +125,54 @@
                 <option value="individual">Individual</option>
                 <option value="employee">Employee</option>
               </select>
-            </div>        
-          </div>      
+            </div>
+          </div>
           <div class="form-submit-btn">
-            <input type="submit" value="CONTINUE">
+            <input type="submit" value="CONTINUE" />
           </div>
         </form>
       </div>
-      <div class="container" id="secondForm" style="display:none;">
+      <div class="container" id="secondForm" style="display: none">
         <form action="#">
           <div>
             <h1 class="form-title">COMPLETE REGISTRATION</h1>
             <h2 class="form-date"></h2>
           </div>
-            <div class="main-user-info2">
-                <div class="user-input-box2">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="Enter Email Address"/>
-                </div>
-                <div class="user-input-box2">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Create Password"/>
-                </div>
-                <div class="user-input-box2">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"/>
-                </div>
+          <div class="main-user-info2">
+            <div class="user-input-box2">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email Address"
+              />
             </div>
-            <div class="form-submit-btn2">
-                <input type="submit" value="REGISTER">
+            <div class="user-input-box2">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create Password"
+              />
             </div>
+            <div class="user-input-box2">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+              />
+            </div>
+          </div>
+          <div class="form-submit-btn2">
+            <input type="submit" value="REGISTER" />
+          </div>
         </form>
+      </div>
     </div>
-  </div>
 
     <footer>
       <div class="footer-content">
@@ -191,7 +198,15 @@
       </div>
     </footer>
 
-    <script type="module" src="js/script.js"></script>
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p id="modal-text"></p>
+
+      </div>
+    </div>
+
     <script type="module" src="js/upcoming-events-register.js"></script>
   </body>
 </html>
