@@ -179,7 +179,6 @@ nav {
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
-  border: 4px solid #8ED400;
 }
 
 .event img, .event i {
@@ -190,8 +189,10 @@ nav {
   margin-bottom: 30px;
 }
 
+
 .custom-icon-size {
   font-size: 70px; /* Or any size you prefer */
+  color: #747578;
 }
 
 .event .event-name, .event .event-dates {
