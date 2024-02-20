@@ -11,10 +11,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  height: 100vh;
+  height: auto;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, 0.3)), url(img/denys-nevozhai-7nrsVjvALnA-unsplash.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(img/denys-nevozhai-7nrsVjvALnA-unsplash.jpg);
   background-size: cover;
 }
 
@@ -40,11 +40,11 @@ nav ul {
   align-items: center;
   justify-content: center;
   margin: 0;
-  margin-left: 80px;
+  margin-left: 50px;
 }
 
 nav li {
-  margin-right: 50px;
+  margin-right: 36px;
   cursor: pointer;
 }
 
@@ -71,6 +71,32 @@ nav {
   align-items: center;
 }
 
+/* Ensures the user-info block is treated as a single item with internal line breaks */
+.user-info {
+  display: flex;
+  flex-direction: column; /* Stacks child divs vertically */
+  align-items: center; /* Centers the content */
+  width: 285px;
+  margin-top: 20px;
+}
+
+.user-info div {
+  margin: 1px 0; /* Small vertical space between the two lines */
+}
+
+.user-name, .user-organization, .logout-link {
+  font-size: 12px; /* Adjust font size as needed */
+}
+
+.logout-link {
+  text-decoration: underline; /* Makes it clear that this is a clickable link */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+.logout-link:hover {
+  color: #ff7900; /* Hover effect to match other nav items */
+}
+
 .section-container {
   display: flex;
   justify-content: space-between;
@@ -80,6 +106,7 @@ nav {
 }
 
 .track-commute-header {
+  margin-top: 30px;
   color: #ff7900;
 }
 
@@ -98,7 +125,7 @@ nav {
   flex-direction: column;
   width: 20%;
   gap: 1px; /* Space between form elements */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   padding: 28px;
   border-radius: 25px;
   margin: 12px;
@@ -148,6 +175,111 @@ button#log-button:hover {
   border: none; /* Bright orange for visibility */
   box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
 }
+
+/* Total Impact Section */
+#total-impact-title {
+  color: #ffffff;
+  text-align: center;
+  font-size: 40px; /* Adjust this value to increase the title size */
+  font-weight: bold;
+  margin-bottom: 10px; /* Increase this value to lower the title relative to the columns */
+}
+
+#total-impact {
+  display: flex;
+  flex-direction: column; /* Ensures that items are laid out in a vertical list */
+  align-items: center; /* Center align the items */
+  background: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  padding: 20px;
+  margin: 30px auto;
+  width: 90%;
+  border-radius: 15px;
+}
+
+
+
+.impact-row {
+  display: flex;
+  justify-content: center; /* Center the columns horizontally */
+  width: 100%;
+}
+
+.impact-item {
+  width: 45%; /* Adjust the width of each item */
+  margin: 10px; /* Adjust spacing between items */
+  text-align: center; /* Center text within each item */
+  padding: 10px;
+  border-bottom: 2px solid #8ED400; /* Orange bottom border */
+}
+
+.impact-item .impact-value {
+  font-size: 65px;
+  color: #8ED400;
+}
+
+.impact-value:hover {
+  color: #ff7900; /* Changes the font color on hover */
+}
+
+
+
+.impact-item .impact-category {
+  font-size: 30px;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .impact-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.activity-log {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  margin: 30px auto;
+  padding: 20px;
+  width: 83%;
+}
+
+.activity-log-title {
+  color: #747578;
+  text-align: center;
+}
+
+.activity-log-header,
+.activity-log-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  padding: 10px 0;
+  color: #747578;
+}
+
+.activity-log-header {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.activity-log-item:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.activity-log-item {
+  background-color: #ffffff; /* For better readability against the dark section background */
+  margin: 5px 0; /* Space between items */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
 
 
 /* Footer */
