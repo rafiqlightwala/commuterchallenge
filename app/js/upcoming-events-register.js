@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         let returnedData = await registerUser(combinedFormData);
         if (!returnedData.error) {
-          console.log(returnedData)
+          //console.log(returnedData)
+          localStorage.setItem('userDetails', JSON.stringify(returnedData.user));
+          localStorage.setItem('tokens', JSON.stringify(returnedData.tokens));
           showModal("Registration Successful. Please wait..");
           setTimeout(() => {
             window.location.href = 'logged-in-daily-tracking.html'; // Redirect to the specified page

@@ -26,7 +26,6 @@ const createEvent = catchAsync(async (req, res) => {
 
         // Create the event in your database
         const event = await eventService.createEvent(req.body);
-        console.log(event);
         res.status(httpStatus.CREATED).send(event);
       }
     );
@@ -37,7 +36,6 @@ const createEvent = catchAsync(async (req, res) => {
   } else {
     // Handle case where there's no file uploaded
     const event = await eventService.createEvent(req.body);
-    console.log(event);
     res.status(httpStatus.CREATED).send(event);
   }
 });

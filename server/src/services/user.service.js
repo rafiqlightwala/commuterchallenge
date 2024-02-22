@@ -12,36 +12,51 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
 
+  // Assuming userBody.city, userBody.mode, and userBody.team contain names, not IDs
   const city = await City.findOne({ name: userBody.city });
   if (!city) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'City not found');
   }
-  userBody.city = city._id;
 
   const mode = await CommuterMode.findOne({ name: userBody.mode });
   if (!mode) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Commuter Mode not found');
   }
-  userBody.mode = mode._id;
 
   const team = await Team.findOne({ name: userBody.team });
   if (!team) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Team not found in Database');
   }
+
+  userBody.city = city._id;
+  userBody.mode = mode._id;
   userBody.team = team._id;
 
+  let events = [];
   if (userBody.eventId) {
     const event = await Event.findById(userBody.eventId);
     if (!event) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Event not found');
     }
-    userBody.events = [event._id];
-  } else {
-    userBody.events = []; 
+    events.push(event._id);
   }
+  
+  userBody.events = events;
   const user = await User.create(userBody);
-  return user;
+
+  // Fetch event names and team name for the response
+  const eventNames = await Event.find({ '_id': { $in: user.events } })
+    .then(events => events.map(event => event.name));
+  const teamName = team.name;
+
+  // Include eventNames and teamName in the user object for the response
+  const userResponse = user.toJSON(); // Convert Mongoose document to a plain JavaScript object
+  userResponse.teamName = teamName;
+  userResponse.eventNames = eventNames;
+
+  return userResponse;
 };
+
 
 /**
  * Query for users

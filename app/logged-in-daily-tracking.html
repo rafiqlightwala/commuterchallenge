@@ -1,78 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Commuter Challenge</title>
-    <link rel="stylesheet" href="logged-in-daily-tracking.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <header>
-      <nav id="navbar">
-        <a href="index.html"
-          ><img
-            src="img/logo192-removebg-preview.png"
-            alt="Logo"
-            class="navbar-logo"
-          />
-        </a>
-        <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li class="about-dropdown">
-            <a href="#">ABOUT
-              <div class="about-dropdown-content">
-                <a href="#">Learn More About Commuter Challenge</a>
-                <!-- Add more links as needed -->
-              </div>
 
-          <li><a href="#get-involved">GET INVOLVED</a></li>
-          <li><a href="#resources">RESOURCES</a></li>
-          <li><a href="#results">RESULTS</a></li>
-          <li><a href="#city-contact">CITY CONTACT</a></li>
-          <li class="user-info">
-            <div>Welcome Back, <span class="user-name">Kathryn Winkler</span></div>
-            <div><span class="user-organization">InceptionU</span> | <a href="#logout" class="logout-link">Log Out</a></div>
-          </li>
-        </ul>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commuter Challenge</title>
+  <link rel="stylesheet" href="logged-in-daily-tracking.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
 
-    <main>
-      <div class="section-container">
-        <div class="text-container">
-            <h2 class="track-commute-header">Track your commute trips to InceptionU</h2>
-            <br>
-            <div class="commute-info">
-            <p>For each day of the Commuter Challenge, enter every mode and corresponding distance that you traveled in kilometers. You can choose multiple modes per day each segment of your trip to and from work.</p>
-            <p>For any assistance with your data, email us at info@commuterchallenge.ca</p>
-            <p>If you worked from home, please enter the distance you would have traveled if you had gone to your workplace. If you are working from home due to COVID-19, enter your local walking or cycling trips to accumulate calories burned.</p></div>
+<body>
+  <header>
+    <nav id="navbar">
+      <a href="index.html"><img src="img/logo192-removebg-preview.png" alt="Logo" class="navbar-logo" />
+      </a>
+      <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li class="about-dropdown">
+          <a href="#">ABOUT
+            <div class="about-dropdown-content">
+              <a href="#">Learn More About Commuter Challenge</a>
+              <!-- Add more links as needed -->
+            </div>
+
+        <li><a href="#get-involved">GET INVOLVED</a></li>
+        <li><a href="#resources">RESOURCES</a></li>
+        <li><a href="#results">RESULTS</a></li>
+        <li><a href="#city-contact">CITY CONTACT</a></li>
+        <li class="user-info">
+          <div>Welcome, <span class="user-name">User</span></div>
+          <div><span class="user-organization">Team</span> | <a href="#logout" class="logout-link">Log Out</a></div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="section-container">
+      <div class="text-container">
+        <h1 class="track-commute-header1">Event Name</h1>
+        <h2 class="track-commute-header">Track your commute trips to Team</h2>
+        <br>
+        <div class="commute-info">
+          <p>For each day of the Commuter Challenge, enter every mode and corresponding distance that you traveled in
+            kilometers. You can choose multiple modes per day each segment of your trip to and from work.</p>
+          <p>For any assistance with your data, email us at info@commuterchallenge.ca</p>
+          <p>If you worked from home, please enter the distance you would have traveled if you had gone to your
+            workplace. If you are working from home, enter your local walking or cycling trips to accumulate calories
+            burned.</p>
         </div>
-        <div class="form-container">
-            <label for="day-dropdown">Day:</label>
-            <select id="day-dropdown">
-                <!-- Populate with options -->
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
-                <!-- Add more days as needed -->
-            </select>
-            
-            <label for="mode-dropdown">Mode:</label>
-            <select id="mode-dropdown">
-                <!-- Populate with options -->
-                <option value="mode1">Mode 1</option>
-                <option value="mode2">Mode 2</option>
-                <!-- Add more modes as needed -->
-            </select>
-            
-            <label for="distance">Distance:</label>
-            <input type="text" id="distance" name="distance">
-            
-            <button id="log-button">LOG</button>
-        </div>
+      </div>
+      <div class="form-container">
+        <label for="day-dropdown">Day:</label>
+        <select id="day-dropdown">
+          <!-- Populate with options -->
+          <option value="">Event Day 1</option>
+          <option value="">Event Day 2</option>
+          <!-- Add more days as needed -->
+        </select>
+
+        <label for="mode-dropdown">Mode:</label>
+        <select id="mode-dropdown">
+          <!-- Populate with options -->
+          <option value="">Other</option>
+          <option value="">Walk</option>
+          <!-- Add more modes as needed -->
+        </select>
+
+        <label for="distance">Distance (km):</label>
+        <input type="text" id="distance" name="distance">
+
+        <button id="log-button">LOG</button>
+      </div>
     </div>
 
     <section id="total-impact">
@@ -109,47 +108,53 @@
       <div class="activity-log-items">
         <!-- Example Item -->
         <div class="activity-log-item">
-          <div>2024-02-20</div>
-          <div>Biking</div>
-          <div>10</div>
+          <div>-</div>
+          <div>-</div>
+          <div>-</div>
         </div>
         <!-- Additional items will be dynamically added here -->
       </div>
     </section>
-    
-    
-    
-    
-    
-    
 
-    </main>
 
-    <footer>
-      <div class="footer-content">
-        <p><a href="#city-contact">CITY CONTACTS</a></p>
-        <p><a href="#coordinator-resources">COORDINATOR RESOURCES</a></p>
-        <p><a href="#sponsors">SPONSORS</a></p>
-        <div class="social-media">
-          <i class="fa-brands fa-twitter"></i>
-          <i class="fa-brands fa-facebook"></i>
-          <i class="fa-brands fa-instagram"></i>
-        </div>
 
-        <!-- Button on the right side -->
-        <div class="footer-button">
-          <button type="button">BECOME A SPONSOR</button>
-          <!-- Logo right below the button -->
-          <img
-            src="./img/logo192-removebg-preview.png"
-            alt="Footer Logo"
-            class="footer-logo"
-          />
-        </div>
+
+
+
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p><a href="#city-contact">CITY CONTACTS</a></p>
+      <p><a href="#coordinator-resources">COORDINATOR RESOURCES</a></p>
+      <p><a href="#sponsors">SPONSORS</a></p>
+      <div class="social-media">
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-instagram"></i>
       </div>
-    </footer>
 
-    <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/api.js"></script>
-  </body>
+      <!-- Button on the right side -->
+      <div class="footer-button">
+        <button type="button">BECOME A SPONSOR</button>
+        <!-- Logo right below the button -->
+        <img src="./img/logo192-removebg-preview.png" alt="Footer Logo" class="footer-logo" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Structure -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <p id="modal-text"></p>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/api.js"></script>
+  <script type="module" src="js/logged-in-daily-tracking.js"></script>
+</body>
+
 </html>

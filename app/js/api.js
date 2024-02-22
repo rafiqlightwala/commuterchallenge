@@ -187,3 +187,83 @@ const transformLocationData = (locationData) => {
     citiesArr,
   };
 };
+
+export async function addTrack(trackData, accessToken) {
+  const apiEndpoint = "http://localhost:4000/v1/activity";
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(trackData),
+    });
+    const returnedData = await response.json();
+
+    if (response.status !== 201) {
+      // Handle non-201 status
+      returnedData.error = true;
+      return returnedData;
+    } else {
+      returnedData.error = false;
+      return returnedData;
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: true, message: "Some weird error happened" };
+  }
+}
+
+
+export async function getTracksForEvent(eventId, accessToken) {
+
+  const apiEndpoint = `http://localhost:4000/v1/activity/event/${eventId}`;
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      },
+    });
+
+    if (!response.ok) {
+      // If the response is not OK, throw an error
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const tracksData = await response.json();
+    return tracksData; // Assuming this is the array of track objects
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: true, message: `Failed to fetch tracks for event: ${eventId}` };
+  }
+}
+
+export async function getTotalImpact(eventId, accessToken) {
+  const apiEndpoint = `http://localhost:4000/v1/activity/total-impact/${eventId}`;
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+    });
+
+    if (!response.ok) {
+      // If the response is not OK, throw an error
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const totalImpactData = await response.json();
+    return totalImpactData; // Assuming this is the object with total impact information
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: true, message: `Failed to fetch total impact for event: ${eventId}` };
+  }
+}
