@@ -1,4 +1,9 @@
-import { fetchEventData, addTrack, getTracksForEvent } from "./api.js";
+import {
+  fetchEventData,
+  addTrack,
+  getTracksForEvent,
+  getTotalImpact,
+} from "./api.js";
 
 const dayDropdown = document.getElementById("day-dropdown");
 const modeDropdown = document.getElementById("mode-dropdown");
@@ -66,6 +71,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Fetch and display the activity logs for the event
   }
 
+  // Fetch and display the total impact for the event
+  const totalImpactData = await getTotalImpact(
+    eventId,
+    userTokens.access.token
+  );
+  console.log(totalImpactData)
+  if (totalImpactData && !totalImpactData.error) {
+    updateTotalImpact(totalImpactData);
+  } else {
+    console.error(totalImpactData.message);
+    // Handle the error, maybe show a message to the user
+  }
+
   const tracksData = await getTracksForEvent(eventId, userTokens.access.token);
   if (tracksData && !tracksData.error) {
     populateActivityLog(tracksData);
@@ -123,8 +141,19 @@ logButton.addEventListener("click", async () => {
     addTrackToActivityLog({
       day: day,
       mode: mode,
-      distance: distance
+      distance: distance,
     });
+
+    const updatedTotalImpactData = await getTotalImpact(
+      userDetails.events[0],
+      tokens.access.token
+    );
+    if (updatedTotalImpactData && !updatedTotalImpactData.error) {
+      updateTotalImpact(updatedTotalImpactData);
+    } else {
+      console.error(updatedTotalImpactData.message);
+      // Handle the error, maybe show a message to the user
+    }
 
     // Optionally, clear the input fields or update the UI as needed
     distanceInput.value = "";
@@ -209,13 +238,24 @@ function populateActivityLog(tracksData) {
 }
 
 function addTrackToActivityLog(track) {
-  const activityLogContainer = document.querySelector('.activity-log-items');
-  const logItem = document.createElement('div');
-  logItem.className = 'activity-log-item';
+  const activityLogContainer = document.querySelector(".activity-log-items");
+  const logItem = document.createElement("div");
+  logItem.className = "activity-log-item";
   logItem.innerHTML = `
     <div>${new Date(track.day).toLocaleDateString()}</div>
     <div>${track.mode}</div>
     <div>${track.distance}</div>
   `;
   activityLogContainer.appendChild(logItem); // Append the new log item to the container
+}
+
+function updateTotalImpact(totalImpact) {
+  // Assuming you have one .impact-item for each category and they are in order.
+  const impactItems = document.querySelectorAll(".impact-item .impact-value");
+  if (impactItems.length >= 4) {
+    impactItems[0].textContent = totalImpact.totalKilometers;
+    impactItems[1].textContent = totalImpact.caloriesBurned;
+    impactItems[2].textContent = totalImpact.fuelSaved;
+    impactItems[3].textContent = totalImpact.co2Avoided;
+  }
 }

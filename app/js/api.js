@@ -242,3 +242,28 @@ export async function getTracksForEvent(eventId, accessToken) {
     return { error: true, message: `Failed to fetch tracks for event: ${eventId}` };
   }
 }
+
+export async function getTotalImpact(eventId, accessToken) {
+  const apiEndpoint = `http://localhost:4000/v1/activity/total-impact/${eventId}`;
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+    });
+
+    if (!response.ok) {
+      // If the response is not OK, throw an error
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const totalImpactData = await response.json();
+    return totalImpactData; // Assuming this is the object with total impact information
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: true, message: `Failed to fetch total impact for event: ${eventId}` };
+  }
+}
