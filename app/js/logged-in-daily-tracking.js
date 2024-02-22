@@ -24,8 +24,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (userDetails && userDetails.teamName) {
     document.querySelector(".user-organization").textContent =
       userDetails.teamName;
-    document.querySelector("h2.track-commute-header").textContent =
-      "Track your commute trips to " + userDetails.teamName;
+    // Check if the team name is 'Unaffiliated'
+    if (userDetails.teamName === "Unaffiliated") {
+      document.querySelector("h2.track-commute-header").textContent =
+        "Track your daily commute trips";
+    } else {
+      document.querySelector("h2.track-commute-header").textContent =
+        "Track your commute trips to " + userDetails.teamName;
+    }
   }
 
   // Update event name to the first one in the array
@@ -76,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventId,
     userTokens.access.token
   );
-  console.log(totalImpactData)
+  console.log(totalImpactData);
   if (totalImpactData && !totalImpactData.error) {
     updateTotalImpactAnimated(totalImpactData);
   } else {
@@ -260,20 +266,19 @@ function addTrackToActivityLog(track) {
 //   }
 // }
 
-
 function animateValue(obj, start, end, duration) {
   let startTimestamp = null;
-  
+
   const easeOutQuad = (t) => t * (2 - t); // Easing function for a nice effect
-  
+
   const step = (timestamp) => {
     if (!startTimestamp) startTimestamp = timestamp;
     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
     const easedProgress = easeOutQuad(progress); // Apply easing function to progress
     const value = easedProgress * (end - start) + start;
-    
+
     obj.textContent = value.toFixed(1); // Update text content with eased value
-    
+
     if (progress < 1) {
       window.requestAnimationFrame(step);
     } else {
