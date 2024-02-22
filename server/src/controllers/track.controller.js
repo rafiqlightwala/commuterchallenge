@@ -3,7 +3,6 @@ const catchAsync = require('../utils/catchAsync');
 const { trackService } = require('../services');
 
 const createTrack = catchAsync(async (req, res) => {
-  console.log(req.user.id)
   const track = await trackService.createTrack({
     ...req.body,
     userId: req.user.id,

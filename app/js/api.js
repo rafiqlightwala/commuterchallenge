@@ -218,8 +218,7 @@ export async function addTrack(trackData, accessToken) {
 
 
 export async function getTracksForEvent(eventId, accessToken) {
-  console.log(eventId);
-  console.log(accessToken);
+
   const apiEndpoint = `http://localhost:4000/v1/activity/event/${eventId}`;
 
   try {

@@ -61,14 +61,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (eventId) {
     const eventData = await fetchEventData(eventId);
     if (eventData) {
-      console.log(eventData);
       populateEventData(eventData);
     }
     // Fetch and display the activity logs for the event
   }
 
   const tracksData = await getTracksForEvent(eventId, userTokens.access.token);
-  console.log(tracksData);
   if (tracksData && !tracksData.error) {
     populateActivityLog(tracksData);
   } else {
@@ -121,6 +119,12 @@ logButton.addEventListener("click", async () => {
     }
 
     showModal(successMessage);
+
+    addTrackToActivityLog({
+      day: day,
+      mode: mode,
+      distance: distance
+    });
 
     // Optionally, clear the input fields or update the UI as needed
     distanceInput.value = "";
@@ -202,4 +206,16 @@ function populateActivityLog(tracksData) {
     `;
     activityLogContainer.appendChild(logItem);
   });
+}
+
+function addTrackToActivityLog(track) {
+  const activityLogContainer = document.querySelector('.activity-log-items');
+  const logItem = document.createElement('div');
+  logItem.className = 'activity-log-item';
+  logItem.innerHTML = `
+    <div>${new Date(track.day).toLocaleDateString()}</div>
+    <div>${track.mode}</div>
+    <div>${track.distance}</div>
+  `;
+  activityLogContainer.appendChild(logItem); // Append the new log item to the container
 }

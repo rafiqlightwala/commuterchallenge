@@ -9,7 +9,7 @@ const createTrack = async (trackBody) => {
 
 const getTracksByUserAndEvent = async (userId, eventId) => {
   const tracks = await Track.find({ userId: userId, eventId: eventId })
-    .sort('date'); // Sort by date in ascending order
+    .sort('day'); // Sort by date in ascending order
   if (!tracks) {
     throw new ApiError(httpStatus.NOT_FOUND, 'No tracks found for this user and event');
   }
