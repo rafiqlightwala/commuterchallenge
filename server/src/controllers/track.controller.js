@@ -10,6 +10,13 @@ const createTrack = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(track);
 });
 
+const getTotalImpact = catchAsync(async (req, res) => {
+  const { eventId } = req.params;
+  const userId = req.user.id;
+  const totalImpact = await trackService.calculateTotalImpact(userId, eventId);
+  res.status(httpStatus.OK).send(totalImpact);
+});
+
 const getMyTracksForEvent = catchAsync(async (req, res) => {
   const { eventId } = req.params;
   const userId = req.user.id;
@@ -20,4 +27,5 @@ const getMyTracksForEvent = catchAsync(async (req, res) => {
 module.exports = {
   createTrack,
   getMyTracksForEvent,
+  getTotalImpact,
 };

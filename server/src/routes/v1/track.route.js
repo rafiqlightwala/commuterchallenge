@@ -10,4 +10,7 @@ router.post('/', auth(), validate(trackValidation.createTrack), trackController.
 
 router.get('/event/:eventId', auth(), trackController.getMyTracksForEvent);
 
+router.get('/total-impact/:eventId', auth(), trackController.getTotalImpact);
+
+
 module.exports = router;
