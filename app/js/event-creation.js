@@ -343,3 +343,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const provincesSelect = document.getElementById('provinces');
+  const provinces = ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Nova Scotia', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan'];
+  
+  provinces.forEach(province => {
+      const option = document.createElement('option');
+      option.value = province;
+      option.textContent = province;
+      provincesSelect.appendChild(option);
+  });
+});
+
