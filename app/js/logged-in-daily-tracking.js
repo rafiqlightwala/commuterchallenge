@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
   console.log(totalImpactData)
   if (totalImpactData && !totalImpactData.error) {
-    updateTotalImpact(totalImpactData);
+    updateTotalImpactAnimated(totalImpactData);
   } else {
     console.error(totalImpactData.message);
     // Handle the error, maybe show a message to the user
@@ -149,7 +149,7 @@ logButton.addEventListener("click", async () => {
       tokens.access.token
     );
     if (updatedTotalImpactData && !updatedTotalImpactData.error) {
-      updateTotalImpact(updatedTotalImpactData);
+      updateTotalImpactAnimated(updatedTotalImpactData);
     } else {
       console.error(updatedTotalImpactData.message);
       // Handle the error, maybe show a message to the user
@@ -249,13 +249,47 @@ function addTrackToActivityLog(track) {
   activityLogContainer.appendChild(logItem); // Append the new log item to the container
 }
 
-function updateTotalImpact(totalImpact) {
-  // Assuming you have one .impact-item for each category and they are in order.
+// function updateTotalImpact(totalImpact) {
+//   // Assuming you have one .impact-item for each category and they are in order.
+//   const impactItems = document.querySelectorAll(".impact-item .impact-value");
+//   if (impactItems.length >= 4) {
+//     impactItems[0].textContent = totalImpact.totalKilometers;
+//     impactItems[1].textContent = totalImpact.caloriesBurned;
+//     impactItems[2].textContent = totalImpact.fuelSaved;
+//     impactItems[3].textContent = totalImpact.co2Avoided;
+//   }
+// }
+
+
+function animateValue(obj, start, end, duration) {
+  let startTimestamp = null;
+  
+  const easeOutQuad = (t) => t * (2 - t); // Easing function for a nice effect
+  
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const easedProgress = easeOutQuad(progress); // Apply easing function to progress
+    const value = easedProgress * (end - start) + start;
+    
+    obj.textContent = value.toFixed(1); // Update text content with eased value
+    
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    } else {
+      obj.textContent = end.toFixed(1); // Ensure it ends on the exact value
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+function updateTotalImpactAnimated(totalImpact) {
   const impactItems = document.querySelectorAll(".impact-item .impact-value");
   if (impactItems.length >= 4) {
-    impactItems[0].textContent = totalImpact.totalKilometers;
-    impactItems[1].textContent = totalImpact.caloriesBurned;
-    impactItems[2].textContent = totalImpact.fuelSaved;
-    impactItems[3].textContent = totalImpact.co2Avoided;
+    // Set a duration between 1000 and 2000 milliseconds for the animation
+    animateValue(impactItems[0], 0, totalImpact.totalKilometers, 1500);
+    animateValue(impactItems[1], 0, totalImpact.caloriesBurned, 1500);
+    animateValue(impactItems[2], 0, totalImpact.fuelSaved, 1500);
+    animateValue(impactItems[3], 0, totalImpact.co2Avoided, 1500);
   }
 }
