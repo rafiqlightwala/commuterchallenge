@@ -354,5 +354,32 @@ document.addEventListener('DOMContentLoaded', function () {
       option.textContent = province;
       provincesSelect.appendChild(option);
   });
+
+  // Populating cities
+  const citiesSelect = document.getElementById('cities');
+  const cities = ['City1', 'City2', 'City3', 'City4']; // Replace with your actual cities list
+  
+  cities.forEach(city => {
+      const option = document.createElement('option');
+      option.value = city;
+      option.textContent = city;
+      citiesSelect.appendChild(option);
+  });
+
+  const modesSelect = document.getElementById('modes');
+  const modes = ['Online', 'In-person', 'Hybrid']; // Replace these with your actual modes
+  
+  modes.forEach(mode => {
+      const option = document.createElement('option');
+      option.value = mode;
+      option.textContent = mode;
+      modesSelect.appendChild(option);
+  });
+
+
+
+
+
+
 });
 
