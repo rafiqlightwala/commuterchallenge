@@ -21,12 +21,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Update team name
-  if (userDetails && userDetails.teamName) {
-    document.querySelector(".user-organization").textContent =
-      userDetails.teamName;
-    document.querySelector("h2.track-commute-header").textContent =
-      "Track your commute trips to " + userDetails.teamName;
+if (userDetails && userDetails.teamName) {
+  document.querySelector(".user-organization").textContent = userDetails.teamName;
+  // Check if the team name is 'Unaffiliated'
+  if (userDetails.teamName === 'Unaffiliated') {
+    document.querySelector("h2.track-commute-header").textContent = "Track your daily commute trips";
+  } else {
+    document.querySelector("h2.track-commute-header").textContent = "Track your commute trips to " + userDetails.teamName;
   }
+}
+
 
   // Update event name to the first one in the array
   if (
