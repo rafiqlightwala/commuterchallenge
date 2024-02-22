@@ -8,6 +8,7 @@ const logButton = document.getElementById("log-button");
 document.addEventListener("DOMContentLoaded", async () => {
   // Retrieve user details from localStorage
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const userTokens = JSON.parse(localStorage.getItem("tokens"));
 
   // Update user name
   if (userDetails && userDetails.fullName) {
@@ -63,8 +64,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log(eventData);
       populateEventData(eventData);
     }
+    // Fetch and display the activity logs for the event
   }
 
+  const tracksData = await getTracksForEvent(eventId, userTokens.access.token);
+  console.log(tracksData);
+  if (tracksData && !tracksData.error) {
+    populateActivityLog(tracksData);
+  } else {
+    console.error(tracksData.message);
+    // Handle the error, maybe show a message to the user
+  }
 });
 
 logButton.addEventListener("click", async () => {
@@ -93,18 +103,18 @@ logButton.addEventListener("click", async () => {
   if (!response.error) {
     // If track is added successfully
     console.log("Track added successfully:", response);
-    
+
     // Format the date nicely using toLocaleDateString
     const formattedDate = new Date(day).toLocaleDateString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
 
     // Determine the success message based on the mode
     let successMessage = `You did ${distance} km of ${mode} on ${formattedDate}<br>`;
-    if (mode.toLowerCase() === 'drive alone') {
+    if (mode.toLowerCase() === "drive alone") {
       successMessage += `Try a more eco-friendly and healthier mode of transport next! 🚴🌱🏃‍♀️`;
     } else {
       successMessage += `Keep up the great work! 💪`;
@@ -113,7 +123,7 @@ logButton.addEventListener("click", async () => {
     showModal(successMessage);
 
     // Optionally, clear the input fields or update the UI as needed
-    distanceInput.value = '';
+    distanceInput.value = "";
   } else {
     // If there is an error adding the track
     showModal(response.message);
@@ -175,4 +185,21 @@ function showModal(message) {
       modal.style.display = "none";
     }
   };
+}
+
+//Function to populate the activity log on the page
+function populateActivityLog(tracksData) {
+  const activityLogContainer = document.querySelector(".activity-log-items");
+  activityLogContainer.innerHTML = ""; // Clear any existing log entries
+
+  tracksData.forEach((track) => {
+    const logItem = document.createElement("div");
+    logItem.className = "activity-log-item";
+    logItem.innerHTML = `
+      <div>${new Date(track.day).toLocaleDateString()}</div>
+      <div>${track.mode}</div>
+      <div>${track.distance}</div>
+    `;
+    activityLogContainer.appendChild(logItem);
+  });
 }

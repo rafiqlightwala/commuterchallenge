@@ -189,7 +189,7 @@ const transformLocationData = (locationData) => {
 };
 
 export async function addTrack(trackData, accessToken) {
-  const apiEndpoint = "http://localhost:4000/v1/track";
+  const apiEndpoint = "http://localhost:4000/v1/activity";
 
   try {
     const response = await fetch(apiEndpoint, {
@@ -218,14 +218,16 @@ export async function addTrack(trackData, accessToken) {
 
 
 export async function getTracksForEvent(eventId, accessToken) {
-  const apiEndpoint = `http://localhost:4000/v1/track/event/${eventId}`;
+  console.log(eventId);
+  console.log(accessToken);
+  const apiEndpoint = `http://localhost:4000/v1/activity/event/${eventId}`;
 
   try {
     const response = await fetch(apiEndpoint, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`, // Include the access token in the Authorization header
+        "Accept": "application/json",
+        "Authorization": `Bearer ${accessToken}`
       },
     });
 

@@ -17,7 +17,7 @@ const defaultRoutes = [
     route: eventRoute,
   },
   {
-    path: '/track',
+    path: '/activity',
     route: trackRoute,
   },
   {
