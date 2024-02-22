@@ -18,6 +18,7 @@ const getTeams = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(teams);
 });
 
+
 module.exports = {
   getLocations,
   getCommuterModes,

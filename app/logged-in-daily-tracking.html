@@ -34,8 +34,8 @@
           <li><a href="#results">RESULTS</a></li>
           <li><a href="#city-contact">CITY CONTACT</a></li>
           <li class="user-info">
-            <div>Welcome Back, <span class="user-name">Kathryn Winkler</span></div>
-            <div><span class="user-organization">InceptionU</span> | <a href="#logout" class="logout-link">Log Out</a></div>
+            <div>Welcome, <span class="user-name">User</span></div>
+            <div><span class="user-organization">Team</span> | <a href="#logout" class="logout-link">Log Out</a></div>
           </li>
         </ul>
       </nav>
@@ -44,31 +44,32 @@
     <main>
       <div class="section-container">
         <div class="text-container">
-            <h2 class="track-commute-header">Track your commute trips to InceptionU</h2>
+            <h1 class="track-commute-header1">Event Name</h1>
+            <h2 class="track-commute-header">Track your commute trips to Team</h2>
             <br>
             <div class="commute-info">
             <p>For each day of the Commuter Challenge, enter every mode and corresponding distance that you traveled in kilometers. You can choose multiple modes per day each segment of your trip to and from work.</p>
             <p>For any assistance with your data, email us at info@commuterchallenge.ca</p>
-            <p>If you worked from home, please enter the distance you would have traveled if you had gone to your workplace. If you are working from home due to COVID-19, enter your local walking or cycling trips to accumulate calories burned.</p></div>
+            <p>If you worked from home, please enter the distance you would have traveled if you had gone to your workplace. If you are working from home, enter your local walking or cycling trips to accumulate calories burned.</p></div>
         </div>
         <div class="form-container">
             <label for="day-dropdown">Day:</label>
             <select id="day-dropdown">
                 <!-- Populate with options -->
-                <option value="monday">Monday</option>
-                <option value="tuesday">Tuesday</option>
+                <option value="">Event Day 1</option>
+                <option value="">Event Day 2</option>
                 <!-- Add more days as needed -->
             </select>
             
             <label for="mode-dropdown">Mode:</label>
             <select id="mode-dropdown">
                 <!-- Populate with options -->
-                <option value="mode1">Mode 1</option>
-                <option value="mode2">Mode 2</option>
+                <option value="">Other</option>
+                <option value="">Walk</option>
                 <!-- Add more modes as needed -->
             </select>
             
-            <label for="distance">Distance:</label>
+            <label for="distance">Distance (km):</label>
             <input type="text" id="distance" name="distance">
             
             <button id="log-button">LOG</button>
@@ -148,8 +149,7 @@
         </div>
       </div>
     </footer>
-
-    <script type="module" src="js/script.js"></script>
     <script type="module" src="js/api.js"></script>
+    <script type="module" src="js/logged-in-daily-tracking.js"></script>
   </body>
 </html>
