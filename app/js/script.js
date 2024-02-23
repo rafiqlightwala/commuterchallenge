@@ -59,18 +59,16 @@ document
   .getElementById("national-button")
   .addEventListener("click", function () {
     window.location.href =
-      "upcoming-events-register.html?id=65d7ad2553ae517d5b72a754";
+      "upcoming-events-register.html?id=65d8f832390c3bdf4501adec";
   });
 
 document
   .getElementById("jackfrost-button")
   .addEventListener("click", function () {
     window.location.href =
-      "upcoming-events-register.html?id=65d7a55653ae517d5b72a255";
+      "upcoming-events-register.html?id=65d8f938390c3bdf4501af0e";
   });
-document
-  .getElementById("campus-button")
-  .addEventListener("click", function () {
-    window.location.href =
-      "upcoming-events-register.html?id=65d7ad8653ae517d5b72a85b";
-  });
+document.getElementById("campus-button").addEventListener("click", function () {
+  window.location.href =
+    "upcoming-events-register.html?id=65d8fafd390c3bdf4501b011";
+});
