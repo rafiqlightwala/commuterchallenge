@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="slide-overlay">
             <p class="slide-text">
               <span class="challenge-text">ARE YOU READY FOR THE NEXT CHALLENGE?</span><br>
-              <span class="date-text">June 2-8, 2024</span>
+              <span class="date-text">June 2nd to 8th, 2024</span>
             </p>
             <button class="slide-button">REGISTER NOW</button>
           </div>
@@ -56,7 +56,21 @@ window.openEventCreationForm = function () {
 };
 
 document
-  .getElementById("registerNowButton")
+  .getElementById("national-button")
   .addEventListener("click", function () {
-    window.location.href = "upcoming-events-register.html?id=65c5a45a25ab16b0f1a102ab";
+    window.location.href =
+      "upcoming-events-register.html?id=65d7ad2553ae517d5b72a754";
+  });
+
+document
+  .getElementById("jackfrost-button")
+  .addEventListener("click", function () {
+    window.location.href =
+      "upcoming-events-register.html?id=65d7a55653ae517d5b72a255";
+  });
+document
+  .getElementById("campus-button")
+  .addEventListener("click", function () {
+    window.location.href =
+      "upcoming-events-register.html?id=65d7ad8653ae517d5b72a85b";
   });

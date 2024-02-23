@@ -1,173 +1,96 @@
-import { getCommuterModes, getLocations, addEvent, updateEvent } from "./api.js";
+import {
+  getCommuterModes,
+  getLocations,
+  addEvent,
+  updateEvent,
+} from "./api.js";
 
 let isFormSubmitted = false;
-let newEventId = ""
+let newEventId = "";
 
 document.addEventListener("DOMContentLoaded", async function () {
   // DOM elements
   // const createEventButton = document.getElementById("createEventButton");
   const eventForm = document.getElementById("eventForm");
-  const eventNameInput = document.getElementById("eventName");
+  const eventNameInput = document.getElementById("name");
   const startDateInput = document.getElementById("startDate");
   const endDateInput = document.getElementById("endDate");
   const eventLogoInput = document.getElementById("eventLogo"); // Logo input
-  const dateErrorMessage = document.getElementById("dateErrorMessage");
-  const confirmationMessage = document.getElementById("confirmationMessage");
+  //const confirmationMessage = document.getElementById("confirmationMessage");
 
-  // Toggle the display of the event form and smooth scroll
-  //  createEventButton.addEventListener("click", function () {
-  //   eventForm.style.display = "block";
-  //   createEventButton.style.display = "none";
-  //   document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-  // });
-
-  // function openEventCreationForm() {
-  //   eventForm.style.display = "block"; // Show the form
-  //   createEventButton.style.display = "none"; // Optional: hide the button
-
-  //   // Scroll to the form section
-  //   document.querySelector('.form-section').scrollIntoView({
-  //     behavior: 'smooth'
-  //   });
-  // }
-
-  let countriesArr = [];
-  let provincesArr = {};
+  let provincesArr = [];
   let citiesArr = {};
 
   try {
     const locationData = await getLocations();
     console.log(locationData);
-    countriesArr = locationData.countriesArr;
-    provincesArr = locationData.provincesArr;
+    provincesArr = locationData.provincesArr["Canada"];
+    console.log(provincesArr);
     citiesArr = locationData.citiesArr;
-    populateCountries(countriesArr); // Call this function to populate countries dropdown
+    populateProvinces(provincesArr);
+    populateCities(citiesArr, provincesArr);
   } catch (error) {
     console.error("Error fetching locations:", error);
   }
 
-  // Populate countries
-  function populateCountries(countries) {
-    console.log(countries);
-    const countryDropdown = document.getElementById("countryDropdown");
-    countries.forEach((country) => {
-      const div = document.createElement("div");
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = country;
-      checkbox.addEventListener("change", function () {
-        toggleProvincesDisplay(this.value, this.checked);
-      });
-      const label = document.createElement("label");
-      label.textContent = country;
-      div.appendChild(checkbox);
-      div.appendChild(label);
-      countryDropdown.appendChild(div);
+  function populateProvinces(provinces) {
+    const provincesSelect = document.getElementById("provinces");
+    provincesSelect.innerHTML = ""; // Clear existing options
+
+    // Optionally, add a 'Select All' option
+    const selectAllOption = document.createElement("option");
+    selectAllOption.value = "all";
+    selectAllOption.textContent = "Select All";
+    provincesSelect.appendChild(selectAllOption);
+
+    provinces.forEach((province) => {
+      const option = document.createElement("option");
+      option.value = province; // Use province name as value, or an ID if you have one
+      option.textContent = province; // Use province name as text
+      provincesSelect.appendChild(option);
     });
   }
 
-  function toggleProvincesDisplay(country, isVisible) {
-    const provinceDropdown = document.getElementById("provinceDropdown");
-    if (isVisible) {
-      provinceDropdown.style.display = "block";
-      populateProvinces(country); // Call this to populate provinces when a country is selected
+  function populateCities(citiesArr, selectedProvinces = []) {
+    const citiesSelect = document.getElementById("cities");
+    citiesSelect.innerHTML = ""; // Clear existing options
+
+    const selectAllOption = document.createElement("option");
+    selectAllOption.value = "all";
+    selectAllOption.textContent = "Select All";
+    citiesSelect.appendChild(selectAllOption);
+
+    Object.entries(citiesArr).forEach(([province, cities]) => {
+      // Check if selectedProvinces includes all or the specific province
+      if (
+        selectedProvinces.includes("all") ||
+        selectedProvinces.includes(province)
+      ) {
+        cities.forEach((city) => {
+          const option = document.createElement("option");
+          option.value = city;
+          option.textContent = city; // Display city name
+          citiesSelect.appendChild(option);
+        });
+      }
+    });
+  }
+
+  const provincesSelect = document.getElementById("provinces");
+
+  provincesSelect.addEventListener("change", () => {
+    const selectedOptions = Array.from(provincesSelect.selectedOptions);
+    const selectedProvinces = selectedOptions.map((option) => option.value);
+
+    // Handle 'Select All' option
+    if (selectedOptions.includes("all")) {
+      populateCities(citiesArr); // Pass all cities if 'Select All' is selected
     } else {
-      provinceDropdown.style.display = "none";
+      populateCities(citiesArr, selectedProvinces);
     }
-  }
+  });
 
-  function populateProvinces(country) {
-    const provinceDropdown = document.getElementById("provinceDropdown");
-    provinceDropdown.innerHTML = ""; // Clear existing options
-    provinceDropdown.style.display = "block"; // Show the dropdown
-
-    // Add 'Select All' option
-    addSelectAllOption(
-      provinceDropdown,
-      "selectAllProvinces",
-      "Select All Provinces"
-    );
-
-    if (provincesArr[country]) {
-      // Ensure the country has provinces
-      provincesArr[country].forEach((province) => {
-        const div = document.createElement("div");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = province;
-        checkbox.addEventListener("change", filterCitiesBySelectedProvinces); // Added event listener
-        const label = document.createElement("label");
-        label.textContent = province;
-        div.appendChild(checkbox);
-        div.appendChild(label);
-        provinceDropdown.appendChild(div);
-      });
-    }
-
-    setupSelectAllFunctionality("selectAllProvinces", "provinceDropdown"); // Setup select all functionality
-  }
-
-  // Function to filter cities based on selected provinces
-  function filterCitiesBySelectedProvinces() {
-    const selectedProvinces = getSelectedCheckboxValues("provinceDropdown");
-    const cityDropdown = document.getElementById("cityDropdown");
-    const anyProvinceSelected = selectedProvinces.length > 0;
-
-    cityDropdown.innerHTML = ""; // Clear the cities dropdown only once here
-    if (anyProvinceSelected) {
-      // Add 'Select All' option if any province is selected, only once here
-      addSelectAllOption(cityDropdown, "selectAllCities", "Select All Cities");
-
-      selectedProvinces.forEach((province) => {
-        populateCities(province); // Call this to populate cities when a province is selected
-      });
-
-      setupSelectAllFunctionality("selectAllCities", "cityDropdown"); // Setup select all functionality for cities
-    } else {
-      //cityDropdown.style.display = "none"; // Hide the dropdown if no province is selected
-    }
-  }
-
-  // Populate cities
-  function populateCities(province) {
-    const cityDropdown = document.getElementById("cityDropdown");
-
-    if (citiesArr[province]) {
-      // Ensure the province has cities
-      citiesArr[province].forEach((city) => {
-        const div = document.createElement("div");
-        div.classList.add("City");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = city;
-        const label = document.createElement("label");
-        label.textContent = city;
-        div.appendChild(checkbox);
-        div.appendChild(label);
-        cityDropdown.appendChild(div);
-      });
-    }
-  }
-
-  // Function to add Select All option
-  function addSelectAllOption(dropdown, selectAllId, labelContent) {
-    const selectAllDiv = document.createElement("div");
-    const selectAllCheckbox = document.createElement("input");
-    selectAllCheckbox.type = "checkbox";
-    selectAllCheckbox.id = selectAllId;
-    selectAllCheckbox.value = "selectAll"; // Set a value for 'Select All'
-    const selectAllLabel = document.createElement("label");
-    selectAllLabel.textContent = labelContent;
-    selectAllDiv.appendChild(selectAllCheckbox);
-    selectAllDiv.appendChild(selectAllLabel);
-    dropdown.appendChild(selectAllDiv);
-  }
-
-  //populateCountries();
-  //populateProvinces();
-  //populateCities();
-  //filterCitiesBySelectedProvinces();
-
+  // Fetch and populate commuter modes
   try {
     const commuterModesArray = await getCommuterModes();
     populateCommuterModes(commuterModesArray);
@@ -175,171 +98,147 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Error fetching commuter modes:", error);
   }
 
-  // Function to setup select all functionality
-  function setupSelectAllFunctionality(selectAllId, dropdownId) {
-    const selectAllCheckbox = document.getElementById(selectAllId);
+  function populateCommuterModes(modes) {
+    const modesSelect = document.getElementById("commuterModes");
+    modesSelect.innerHTML = ""; // Clear existing options
 
-    // Attach the event listener to the 'Select All' checkbox only
-    selectAllCheckbox.addEventListener("change", function () {
-      // Check if the 'Select All' checkbox is the one that fired the event
-      if (selectAllCheckbox.checked) {
-        const checkboxes = document.querySelectorAll(
-          `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
-        );
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = true;
-        });
-      } else {
-        const checkboxes = document.querySelectorAll(
-          `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
-        );
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      }
+    // Optionally, add a 'Select All' option for modes
+    const selectAllOption = document.createElement("option");
+    selectAllOption.value = "all";
+    selectAllOption.textContent = "Select All";
+    modesSelect.appendChild(selectAllOption);
 
-      if (dropdownId === "provinceDropdown") {
-        filterCitiesBySelectedProvinces();
-      }
+    modes.forEach((mode) => {
+      const option = document.createElement("option");
+      option.value = mode; // Assuming mode is a string that can be used as value
+      option.textContent = mode; // The text to display for this mode
+      modesSelect.appendChild(option);
     });
-
-    // Set up individual checkboxes to update 'Select All' checkbox state
-    const checkboxes = document.querySelectorAll(
-      `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
-    );
-    checkboxes.forEach((checkbox) =>
-      checkbox.addEventListener("change", function () {
-        const allCheckboxes = document.querySelectorAll(
-          `#${dropdownId} input[type="checkbox"]:not(#${selectAllId})`
-        );
-        const allChecked = Array.from(allCheckboxes).every((cb) => cb.checked);
-        const anyChecked = Array.from(allCheckboxes).some((cb) => cb.checked);
-
-        selectAllCheckbox.checked = allChecked;
-        selectAllCheckbox.indeterminate = anyChecked && !allChecked;
-      })
-    );
   }
 
-  function getSelectedCheckboxValues(dropdownContentId) {
-    const checkboxes = document.querySelectorAll(
-      `#${dropdownContentId} input[type="checkbox"]:checked`
-    );
-    // Filter out the 'Select All' value
-    return Array.from(checkboxes)
-      .filter((checkbox) => checkbox.value !== "selectAll")
-      .map((checkbox) => checkbox.value);
-  }
-
-  // Function to validate date inputs
-  function validateDates(startDate, endDate) {
-    return new Date(startDate) <= new Date(endDate);
-  }
-
-  // Function to check date validity and display error
-  function checkDateValidity() {
-    const startDate = startDateInput.value;
-    const endDate = endDateInput.value;
-
-    if (startDate && endDate && !validateDates(startDate, endDate)) {
-      dateErrorMessage.textContent =
-        "End date cannot be before the start date.";
-    } else {
-      dateErrorMessage.textContent = "";
-    }
-  }
-
-  // Attach event listeners to date inputs for immediate validation
-  startDateInput.addEventListener("change", checkDateValidity);
-  endDateInput.addEventListener("change", checkDateValidity);
-
-  // Handling form submission
-  eventForm.addEventListener('submit', async function (event) {
+  eventForm.addEventListener("submit", async function (event) {
     event.preventDefault();
   
-    document.getElementById('loadingIndicator').style.display = 'flex';
-    // Create a FormData object and append data
-    const formData = new FormData();
-    formData.append("name", eventNameInput.value);
-    formData.append("startDate", startDateInput.value);
-    formData.append("endDate", endDateInput.value);
-    formData.append("eventLogo", eventLogoInput.files[0]); // Append the file
+    // Start the loading indicator
+    document.getElementById("loadingIndicator").style.display = "flex";
   
-    // Get selected cities and commuter modes as arrays
-    const selectedCities = getSelectedCheckboxValues("cityDropdown");
-    const selectedModes = getSelectedCheckboxValues("modeDropdown");
-  
-    // Append arrays to FormData
-    selectedCities.forEach((city) => formData.append("cities[]", city)); // Modified to handle array of values
-    selectedModes.forEach((mode) => formData.append("commuterModes[]", mode)); // Modified to handle array of values
-  
-    if (!validateDates(startDateInput.value, endDateInput.value)) {
-      dateErrorMessage.textContent = "End date cannot be before the start date.";
-      return;
+    // Validate dates before proceeding
+    if (!validateDates()) {
+      showModal("Event end date cannot be before the start date.");
+      document.getElementById("loadingIndicator").style.display = "none";
+      return; // Stop form submission
     }
   
-    let returnedData;
-    if (!isFormSubmitted) {
-      returnedData = await addEvent(formData);
-      if (!returnedData.error) {
-        newEventId = returnedData.id
-        document.querySelector('#eventForm button[type="submit"]').textContent = 'UPDATE EVENT';
+    const formData = new FormData(eventForm);
+    formData.delete("provinces"); // Remove provinces from formData
+    formData.append("eventLogo", eventLogoInput.files[0]);
+  
+    // Temporary arrays for cities and modes
+    let tempCities = [];
+    let tempModes = [];
+  
+    // Handle 'all' for cities
+    const citiesSelect = document.getElementById("cities");
+    if (Array.from(citiesSelect.selectedOptions).some(option => option.value === "all")) {
+      formData.delete("cities"); // Remove current cities
+      Array.from(citiesSelect.options).forEach(option => {
+        if (option.value !== "all") {
+          formData.append("cities[]", option.value); // Re-add each city
+          tempCities.push(option.text); // Use option.text or option.value as needed
+        }
+      });
+    } else {
+      tempCities = Array.from(citiesSelect.selectedOptions).map(option => option.text); // Use option.text or option.value as needed
+    }
+  
+    // Handle 'all' for commuterModes
+    const modesSelect = document.getElementById("commuterModes");
+    if (Array.from(modesSelect.selectedOptions).some(option => option.value === "all")) {
+      formData.delete("commuterModes"); // Remove current modes
+      Array.from(modesSelect.options).forEach(option => {
+        if (option.value !== "all") {
+          formData.append("commuterModes[]", option.value); // Re-add each mode
+          tempModes.push(option.text); // Use option.text or option.value as needed
+        }
+      });
+    } else {
+      tempModes = Array.from(modesSelect.selectedOptions).map(option => option.text); // Use option.text or option.value as needed
+    }
+  
+    let response;
+    let actionVerb;
+  
+    try {
+      if (!isFormSubmitted) {
+        // Add the new event
+        response = await addEvent(formData);
+        actionVerb = 'Created';
+        if (!response.error) {
+          newEventId = response.id;
+          document.querySelector('#eventForm button[type="submit"]').textContent = 'UPDATE EVENT';
+          isFormSubmitted = true; // Set the flag to true since the event is now created
+        }
+      } else {
+        // Update the existing event
+        response = await updateEvent(newEventId, formData);
+        actionVerb = 'Updated';
       }
-    } else {
-      returnedData = await updateEvent(newEventId, formData);
-    }
   
-    if (returnedData.error) {
-      confirmationMessage.textContent = returnedData.message;
-      confirmationMessage.style.color = "red";
-    } else {
-      const actionVerb = isFormSubmitted ? 'Updated' : 'Created'; 
-      isFormSubmitted = true;
-      confirmationMessage.innerHTML = `
-        <strong>📅 Event ${actionVerb} Successfully!</strong><br>
-        <strong>Event Name:</strong> ${returnedData.name}<br>
-        <strong>Start Date:</strong> ${startDateInput.value}<br>
-        <strong>End Date:</strong> ${endDateInput.value}<br>
-        <strong>Total Days:</strong> ${returnedData.eventDays}<br>
-        <strong>Cities:</strong> ${selectedCities.join(', ')}<br> <!-- Ensure arrays are joined into a string -->
-        <strong>Modes:</strong> ${selectedModes.join(', ')}<br> <!-- Ensure arrays are joined into a string -->
-        <strong>Image Link:</strong> <a href="${returnedData.eventLogoUrl}" target="_blank">Click to View Image</a>
-      `;
-      confirmationMessage.style.color = "green";
+      if (response.error) {
+        showModal(response.message);
+      } else {
+        let successMessage = `
+          <strong>📅 Event ${actionVerb} Successfully!</strong><br>
+          <strong>Event Name:</strong> ${response.name}<br>
+          <strong>Start Date:</strong> ${startDateInput.value}<br>
+          <strong>End Date:</strong> ${endDateInput.value}<br>
+          <strong>Total Days:</strong> ${response.eventDays}<br>
+          <strong>Cities:</strong> ${tempCities.join(', ')}<br>
+          <strong>Modes:</strong> ${tempModes.join(', ')}<br>
+          <strong>Image Link:</strong> <a href="${response.eventLogoUrl}" target="_blank">Click to View Image</a>
+        `;
+        showModal(successMessage);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      showModal("An error occurred during form submission.");
+    } finally {
+      document.getElementById("loadingIndicator").style.display = "none";
     }
-    document.getElementById('loadingIndicator').style.display = 'none';
-    //clearForm(); // Uncomment if you want to clear the form after submission
   });
   
 
-  // Function to clear all inputs and checkboxes in the form
+  // Validate start and end dates
+  function validateDates() {
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+
+    // Check if end date is before start date
+    return endDate >= startDate;
+  }
+
+  // Example clearForm function to reset form after submission
   function clearForm() {
-    eventNameInput.value = "";
-    startDateInput.value = "";
-    endDateInput.value = "";
-    document
-      .querySelectorAll('#eventForm input[type="checkbox"]')
-      .forEach((checkbox) => {
-        checkbox.checked = false;
-      });
-    filterCitiesBySelectedProvinces(); // Reset city filter
+    eventForm.reset(); // Reset form fields to their default values
   }
-
-  function populateCommuterModes(modes) {
-    const modeDropdown = document.getElementById("modeDropdown"); // Ensure you have this element in your HTML
-
-    modes.forEach((mode) => {
-      const div = document.createElement("div");
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.value = mode;
-      const label = document.createElement("label");
-      label.textContent = mode;
-      div.appendChild(checkbox);
-      div.appendChild(label);
-      modeDropdown.appendChild(div);
-    });
-  }
-  
-
 });
+
+function showModal(message) {
+  const modal = document.getElementById("modal");
+  const text = document.getElementById("modal-text");
+  const closeButton = document.querySelector(".close-button");
+
+  // Use innerHTML instead of textContent to render HTML tags properly
+  text.innerHTML = message;
+  modal.style.display = "block";
+
+  closeButton.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}

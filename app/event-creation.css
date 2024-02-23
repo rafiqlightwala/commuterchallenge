@@ -8,15 +8,15 @@ html, body {
   
   body {
     display: flex;
-    flex-direction: column; /* stack children vertically */
-    background-image: url('./img/background-pic.jpg');
+    flex-direction: column;
+    background-image: url('./img/nataliia-kvitovska-XQFQIutdIq8-unsplash.jpg');
     background-size: cover; 
     background-position: cover;
+    background-repeat: no-repeat;
   }
   
   main {
-    flex: 1; /* allows the main content to expand and fill available space */
-    /* Your existing styles for main */
+    flex: 1;
   }
 
 /* Header and Navigation Bar */
@@ -74,6 +74,13 @@ main {
 }
 
 /* Style for the form container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .form-section {
     display: flex;
     flex-direction: column;
@@ -82,28 +89,50 @@ main {
     padding: 40px;
     border-radius: 25px;
     background-color: #f0f0f0;
-    max-width: 400px;
     margin: 50 auto;
     margin-top: 50px;
     margin-bottom: 50px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.6);
     color: #ffffff;
+    width: 38%;
+    height: 80%;
 }
+
+.form-title {
+  font-size: 26px;
+  font-weight: 600;
+  border-bottom: 1px solid #ffffff; /* Adjust color and thickness as needed */
+  padding-bottom: 10px; /* Optional: Adjust spacing between text and border */
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+
 
 /* Style for form labels */
 label {
     margin-bottom: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
 }
 
 /* Style for text and date input fields */
 input[type="text"],
 input[type="date"] {
-    padding: 8px;
-    margin-bottom: 15px;
-    width: 100%; /* Make the input fields expand to the container width */
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  padding: 8px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  width: 100%; /* Make the input fields expand to the container width */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#eventLogo {
+  font-size: 18px;
+  margin-top: 8px; /* Adjust the value as needed */
+  cursor: pointer; 
 }
 
 /* Style for the submit button */
@@ -158,6 +187,7 @@ button[type="submit"]:hover {
 select {
     padding: 8px;
     width: 100%;
+    margin-top: 6px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -295,3 +325,53 @@ footer {
   100% { transform: rotate(360deg); }
 }
   
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top, ensure higher than other elements */
+  left: 0.5;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.6); /* Slightly darker background w/ opacity for better focus on modal */
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 10% auto; /* Adjusted for slightly higher placement */
+  padding: 40px; /* More padding for a spacious look */
+  padding-left: 80px;
+  padding-right: 80px;
+  border: 1px solid #888;
+  width: 50%; /* Adjust width for a wider modal on larger screens */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Added shadow for depth */
+  border-radius: 25px; /* Rounded corners for consistency with form styling */
+  font-family: Tahoma, sans-serif; /* Consistent font family */
+  color: #747578; /* Consistent font color */
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px; /* Slightly larger for easier interaction */
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #ff7900; /* Hover effect color changed to match site theme */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal-text {
+  margin-top: 20px; /* Spacing adjustment for text inside modal */
+  font-size: 20px; /* Larger font size for readability */
+  text-align: left; /* Centered text for better presentation */
+}
