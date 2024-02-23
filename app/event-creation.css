@@ -94,29 +94,44 @@ main {
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.6);
     color: #ffffff;
-    width: 25%;
+    width: 38%;
     height: 80%;
 }
 
 .form-title {
+  font-size: 26px;
+  font-weight: 600;
   border-bottom: 1px solid #ffffff; /* Adjust color and thickness as needed */
   padding-bottom: 10px; /* Optional: Adjust spacing between text and border */
+  color: white;
+  text-shadow: 2px 2px 2px black;
 }
 
 
 /* Style for form labels */
 label {
     margin-bottom: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
 }
 
 /* Style for text and date input fields */
 input[type="text"],
 input[type="date"] {
-    padding: 8px;
-    margin-bottom: 15px;
-    width: 100%; /* Make the input fields expand to the container width */
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  padding: 8px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  width: 100%; /* Make the input fields expand to the container width */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#eventLogo {
+  font-size: 18px;
+  margin-top: 8px; /* Adjust the value as needed */
+  cursor: pointer; 
 }
 
 /* Style for the submit button */
@@ -171,6 +186,7 @@ button[type="submit"]:hover {
 select {
     padding: 8px;
     width: 100%;
+    margin-top: 6px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -308,3 +324,4 @@ footer {
   100% { transform: rotate(360deg); }
 }
   
+
