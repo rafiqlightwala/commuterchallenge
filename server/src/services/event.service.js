@@ -180,95 +180,58 @@ const getEventDetailsById = async (eventId) => {
 };
 
 
-function formatDateRange(startDate, endDate) {
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  const start = new Date(startDate).toLocaleDateString('en-GB', options);
-  const end = new Date(endDate).toLocaleDateString('en-GB', options);
-
-  // Extract day and month for start and end, assuming they are in "dd MMM yyyy" format
-  const [startDay, startMonth, startYear] = start.split(' ');
-  const [endDay, endMonth, endYear] = end.split(' ');
-
-  // Format range based on whether the start and end dates are in the same year and month
-  if (startYear === endYear) {
-    if (startMonth === endMonth) {
-      return `${parseInt(startDay)}th - ${parseInt(endDay)}th ${startMonth} ${startYear}`;
-    } else {
-      return `${parseInt(startDay)}th ${startMonth} - ${parseInt(endDay)}th ${endMonth} ${startYear}`;
-    }
-  } else {
-    // If start and end dates are in different years, unlikely for an event but included for completeness
-    return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${endYear}`;
+function getDaySuffix(day) {
+  if (day > 3 && day < 21) return 'th'; // for numbers like 11th, 12th, 13th
+  switch (day % 10) {
+    case 1:  return 'st';
+    case 2:  return 'nd';
+    case 3:  return 'rd';
+    default: return 'th';
   }
 }
+
+function formatDateRange(startDate, endDate) {
+  // Parse the dates as UTC
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  // Ensure the date is treated as UTC by setting the UTC hours to zero.
+  start.setUTCHours(0, 0, 0, 0);
+  end.setUTCHours(0, 0, 0, 0);
+
+  // Convert to UTC time string and then to Date object to avoid timezone issues
+  const startUTC = new Date(start.toUTCString());
+  const endUTC = new Date(end.toUTCString());
+
+  // Format the dates
+  const options = { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' };
+  const startFormatted = startUTC.toLocaleDateString('en-CA', options);
+  const endFormatted = endUTC.toLocaleDateString('en-CA', options);
+
+  // Extract the day, month, and year
+  const [startMonth, startDayNum, startYear] = startFormatted.replace(',', '').split(' ');
+  const [endMonth, endDayNum, endYear] = endFormatted.replace(',', '').split(' ');
+
+  // Add the day suffix
+  const startDayWithSuffix = `${parseInt(startDayNum)}${getDaySuffix(parseInt(startDayNum))}`;
+  const endDayWithSuffix = `${parseInt(endDayNum)}${getDaySuffix(parseInt(endDayNum))}`;
+
+  // Construct the date range string
+  if (startYear === endYear) {
+    if (startMonth === endMonth) {
+      return `${startMonth} ${startDayWithSuffix} - ${endDayWithSuffix}, ${startYear}`;
+    } else {
+      return `${startMonth} ${startDayWithSuffix} - ${endMonth} ${endDayWithSuffix}, ${startYear}`;
+    }
+  } else {
+    return `${startMonth} ${startDayWithSuffix}, ${startYear} - ${endMonth} ${endDayWithSuffix}, ${endYear}`;
+  }
+}
+
+
 
 module.exports = {
   createEvent,
   updateEvent,
   getEventDetailsById,
 };
-
-// /**
-//  * Query for users
-//  * @param {Object} filter - Mongo filter
-//  * @param {Object} options - Query options
-//  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
-//  * @param {number} [options.limit] - Maximum number of results per page (default = 10)
-//  * @param {number} [options.page] - Current page (default = 1)
-//  * @returns {Promise<QueryResult>}
-//  */
-// const queryUsers = async (filter, options) => {
-//   const users = await User.paginate(filter, options);
-//   return users;
-// };
-
-// /**
-//  * Get user by id
-//  * @param {ObjectId} id
-//  * @returns {Promise<User>}
-//  */
-// const getUserById = async (id) => {
-//   return User.findById(id);
-// };
-
-// /**
-//  * Get user by email
-//  * @param {string} email
-//  * @returns {Promise<User>}
-//  */
-// const getUserByEmail = async (email) => {
-//   return User.findOne({ email });
-// };
-
-// /**
-//  * Update user by id
-//  * @param {ObjectId} userId
-//  * @param {Object} updateBody
-//  * @returns {Promise<User>}
-//  */
-// const updateUserById = async (userId, updateBody) => {
-//   const user = await getUserById(userId);
-//   if (!user) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-//   }
-//   if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
-//     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-//   }
-//   Object.assign(user, updateBody);
-//   await user.save();
-//   return user;
-// };
-
-// /**
-//  * Delete user by id
-//  * @param {ObjectId} userId
-//  * @returns {Promise<User>}
-//  */
-// const deleteUserById = async (userId) => {
-//   const user = await getUserById(userId);
-//   if (!user) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-//   }
-//   await user.remove();
-//   return user;
-// };
