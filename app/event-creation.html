@@ -40,8 +40,8 @@
         </div>
         <form id="eventForm" method="POST" enctype="multipart/form-data">
           <!-- Event Name Input -->
-          <label for="eventName">Event Name</label>
-            <input type="text" id="eventName" name="eventName" required>
+          <label for="name">Event Name</label>
+            <input type="text" id="name" name="name" required>
 
             <label for="startDate">Start Date</label>
             <input type="date" id="startDate" name="startDate" required>
@@ -61,8 +61,8 @@
                 <!-- Options will be populated by script.js -->
             </select>
 
-            <label for="modes">Modes</label>
-            <select id="modes" name="modes" multiple required>
+            <label for="commuterModes">Modes</label>
+            <select id="commuterModes" name="commuterModes" multiple required>
                 <!-- Options will be populated by script.js -->
             </select>
           <br />
@@ -112,6 +112,16 @@
         </div>
       </div>
     </footer>
+
+        <!-- Modal Structure -->
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modal-text"></p>
+    
+          </div>
+        </div>
+
     <script type="module" src="js/event-creation.js"></script>
   </body>
 </html>
