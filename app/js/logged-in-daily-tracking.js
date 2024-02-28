@@ -180,8 +180,8 @@ function populateEventData(eventData) {
   modeDropdown.innerHTML = "";
 
   // Populate the day dropdown
-  const startDate = new Date(eventData.startDate);
-  const endDate = new Date(eventData.endDate);
+  const startDate = new Date(new Date(eventData.startDate).getTime() + (1000 * 3600 * 24));
+  const endDate = new Date(new Date(eventData.endDate).getTime() + (1000 * 3600 * 24));
   const totalDays = (endDate - startDate) / (1000 * 3600 * 24) + 1; // Calculate total days including both start and end
 
   for (let i = 0; i < totalDays; i++) {
